@@ -1,0 +1,2679 @@
+DEBUG:clangparser:ARCH sizes: long:c_int64 longdouble:c_long_double_t
+DEBUG:codegen:Parsing input file _ida64_win/idasdk.cpp
+DEBUG:clangparser:skipping include '/mnt/d/Workspaces/UtilWorkspace/Reverse/IDAPlugins/ida_kern/definitions/_structs/common.h'
+DEBUG:clangparser:_ida64_win/idasdk.cpp:9: Found a STRUCT_DECL|std__exception_vtbl|std__exception_vtbl
+DEBUG:handler:get_unique_name: name "struct_std__exception_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__exception_vtbl'
+DEBUG:handler:get_unique_name: name "struct_std__exception_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_std__exception_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_std__exception_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:10: Found a STRUCT_DECL|std__nested_exception_vtbl|std__nested_exception_vtbl
+DEBUG:handler:get_unique_name: name "struct_std__nested_exception_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__nested_exception_vtbl'
+DEBUG:handler:get_unique_name: name "struct_std__nested_exception_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_std__nested_exception_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_std__nested_exception_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:11: Found a STRUCT_DECL|std___Iterator_base12|std___Iterator_base12
+DEBUG:handler:get_unique_name: name "struct_std___Iterator_base12"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Iterator_base12'
+DEBUG:handler:get_unique_name: name "struct_std___Iterator_base12"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Iterator_base12 size:16
+DEBUG:cursorhandler:cursor struct_std___Iterator_base12 is not on a definition
+DEBUG:clangparser:register: struct_std___Iterator_base12 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:12: Found a STRUCT_DECL|std___Container_base12|std___Container_base12
+DEBUG:handler:get_unique_name: name "struct_std___Container_base12"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Container_base12'
+DEBUG:handler:get_unique_name: name "struct_std___Container_base12"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Container_base12 size:8
+DEBUG:cursorhandler:cursor struct_std___Container_base12 is not on a definition
+DEBUG:clangparser:register: struct_std___Container_base12 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:13: Found a STRUCT_DECL|qrefcnt_obj_t_vtbl|qrefcnt_obj_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_qrefcnt_obj_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_qrefcnt_obj_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_qrefcnt_obj_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_qrefcnt_obj_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_qrefcnt_obj_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:14: Found a STRUCT_DECL|plugmod_t|plugmod_t
+DEBUG:handler:get_unique_name: name "struct_plugmod_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_plugmod_t'
+DEBUG:handler:get_unique_name: name "struct_plugmod_t"
+DEBUG:cursorhandler:_record_decl: name: struct_plugmod_t size:24
+DEBUG:cursorhandler:cursor struct_plugmod_t is not on a definition
+DEBUG:clangparser:register: struct_plugmod_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:15: Found a STRUCT_DECL|post_event_visitor_t_vtbl|post_event_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_post_event_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_post_event_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_post_event_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_post_event_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_post_event_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:16: Found a STRUCT_DECL|altadjust_visitor_t_vtbl|altadjust_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_altadjust_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_altadjust_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_altadjust_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_altadjust_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_altadjust_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:17: Found a STRUCT_DECL|stkpnt_t|stkpnt_t
+DEBUG:handler:get_unique_name: name "struct_stkpnt_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_stkpnt_t'
+DEBUG:handler:get_unique_name: name "struct_stkpnt_t"
+DEBUG:cursorhandler:_record_decl: name: struct_stkpnt_t size:16
+DEBUG:cursorhandler:cursor struct_stkpnt_t is not on a definition
+DEBUG:clangparser:register: struct_stkpnt_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:18: Found a STRUCT_DECL|regvar_t|regvar_t
+DEBUG:handler:get_unique_name: name "struct_regvar_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_regvar_t'
+DEBUG:handler:get_unique_name: name "struct_regvar_t"
+DEBUG:cursorhandler:_record_decl: name: struct_regvar_t size:40
+DEBUG:cursorhandler:cursor struct_regvar_t is not on a definition
+DEBUG:clangparser:register: struct_regvar_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:19: Found a STRUCT_DECL|regarg_t|regarg_t
+DEBUG:handler:get_unique_name: name "struct_regarg_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_regarg_t'
+DEBUG:handler:get_unique_name: name "struct_regarg_t"
+DEBUG:cursorhandler:_record_decl: name: struct_regarg_t size:24
+DEBUG:cursorhandler:cursor struct_regarg_t is not on a definition
+DEBUG:clangparser:register: struct_regarg_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:20: Found a STRUCT_DECL|outctx_base_t_vtbl|outctx_base_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_outctx_base_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_outctx_base_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_outctx_base_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_outctx_base_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_outctx_base_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:21: Found a STRUCT_DECL|procmod_t|procmod_t
+DEBUG:handler:get_unique_name: name "struct_procmod_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_procmod_t'
+DEBUG:handler:get_unique_name: name "struct_procmod_t"
+DEBUG:cursorhandler:_record_decl: name: struct_procmod_t CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_procmod_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:22: Found a STRUCT_DECL|event_listener_t_vtbl|event_listener_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_event_listener_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_event_listener_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_event_listener_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_event_listener_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_event_listener_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:23: Found a STRUCT_DECL|asm_t|asm_t
+DEBUG:handler:get_unique_name: name "struct_asm_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_asm_t'
+DEBUG:handler:get_unique_name: name "struct_asm_t"
+DEBUG:cursorhandler:_record_decl: name: struct_asm_t size:416
+DEBUG:cursorhandler:cursor struct_asm_t is not on a definition
+DEBUG:clangparser:register: struct_asm_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:24: Found a STRUCT_DECL|reg_access_t|reg_access_t
+DEBUG:handler:get_unique_name: name "struct_reg_access_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_reg_access_t'
+DEBUG:handler:get_unique_name: name "struct_reg_access_t"
+DEBUG:cursorhandler:_record_decl: name: struct_reg_access_t size:12
+DEBUG:cursorhandler:cursor struct_reg_access_t is not on a definition
+DEBUG:clangparser:register: struct_reg_access_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:25: Found a STRUCT_DECL|call_stack_info_t|call_stack_info_t
+DEBUG:handler:get_unique_name: name "struct_call_stack_info_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_call_stack_info_t'
+DEBUG:handler:get_unique_name: name "struct_call_stack_info_t"
+DEBUG:cursorhandler:_record_decl: name: struct_call_stack_info_t size:32
+DEBUG:cursorhandler:cursor struct_call_stack_info_t is not on a definition
+DEBUG:clangparser:register: struct_call_stack_info_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:26: Found a STRUCT_DECL|scattered_aloc_t|scattered_aloc_t
+DEBUG:handler:get_unique_name: name "struct_scattered_aloc_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_scattered_aloc_t'
+DEBUG:handler:get_unique_name: name "struct_scattered_aloc_t"
+DEBUG:cursorhandler:_record_decl: name: struct_scattered_aloc_t size:24
+DEBUG:cursorhandler:cursor struct_scattered_aloc_t is not on a definition
+DEBUG:clangparser:register: struct_scattered_aloc_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:27: Found a STRUCT_DECL|argpart_t|argpart_t
+DEBUG:handler:get_unique_name: name "struct_argpart_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_argpart_t'
+DEBUG:handler:get_unique_name: name "struct_argpart_t"
+DEBUG:cursorhandler:_record_decl: name: struct_argpart_t size:24
+DEBUG:cursorhandler:cursor struct_argpart_t is not on a definition
+DEBUG:clangparser:register: struct_argpart_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:28: Found a STRUCT_DECL|rrel_t|rrel_t
+DEBUG:handler:get_unique_name: name "struct_rrel_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_rrel_t'
+DEBUG:handler:get_unique_name: name "struct_rrel_t"
+DEBUG:cursorhandler:_record_decl: name: struct_rrel_t size:16
+DEBUG:cursorhandler:cursor struct_rrel_t is not on a definition
+DEBUG:clangparser:register: struct_rrel_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:29: Found a STRUCT_DECL|funcarg_t|funcarg_t
+DEBUG:handler:get_unique_name: name "struct_funcarg_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_funcarg_t'
+DEBUG:handler:get_unique_name: name "struct_funcarg_t"
+DEBUG:cursorhandler:_record_decl: name: struct_funcarg_t size:72
+DEBUG:cursorhandler:cursor struct_funcarg_t is not on a definition
+DEBUG:clangparser:register: struct_funcarg_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:30: Found a STRUCT_DECL|reg_info_t|reg_info_t
+DEBUG:handler:get_unique_name: name "struct_reg_info_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_reg_info_t'
+DEBUG:handler:get_unique_name: name "struct_reg_info_t"
+DEBUG:cursorhandler:_record_decl: name: struct_reg_info_t size:8
+DEBUG:cursorhandler:cursor struct_reg_info_t is not on a definition
+DEBUG:clangparser:register: struct_reg_info_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:31: Found a STRUCT_DECL|regobj_t|regobj_t
+DEBUG:handler:get_unique_name: name "struct_regobj_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_regobj_t'
+DEBUG:handler:get_unique_name: name "struct_regobj_t"
+DEBUG:cursorhandler:_record_decl: name: struct_regobj_t size:32
+DEBUG:cursorhandler:cursor struct_regobj_t is not on a definition
+DEBUG:clangparser:register: struct_regobj_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:32: Found a STRUCT_DECL|bytes_t|bytes_t
+DEBUG:handler:get_unique_name: name "struct_bytes_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_bytes_t'
+DEBUG:handler:get_unique_name: name "struct_bytes_t"
+DEBUG:cursorhandler:_record_decl: name: struct_bytes_t size:16
+DEBUG:cursorhandler:cursor struct_bytes_t is not on a definition
+DEBUG:clangparser:register: struct_bytes_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:33: Found a STRUCT_DECL|instruc_t|instruc_t
+DEBUG:handler:get_unique_name: name "struct_instruc_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_instruc_t'
+DEBUG:handler:get_unique_name: name "struct_instruc_t"
+DEBUG:cursorhandler:_record_decl: name: struct_instruc_t size:16
+DEBUG:cursorhandler:cursor struct_instruc_t is not on a definition
+DEBUG:clangparser:register: struct_instruc_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:34: Found a STRUCT_DECL|user_defined_prefix_t_vtbl|user_defined_prefix_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_user_defined_prefix_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_user_defined_prefix_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_user_defined_prefix_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_user_defined_prefix_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_user_defined_prefix_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:35: Found a STRUCT_DECL|encoder_t_vtbl|encoder_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_encoder_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_encoder_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_encoder_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_encoder_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_encoder_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:36: Found a STRUCT_DECL|file_enumerator_t_vtbl|file_enumerator_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_file_enumerator_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_file_enumerator_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_file_enumerator_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_file_enumerator_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_file_enumerator_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:37: Found a STRUCT_DECL|ioports_fallback_t_vtbl|ioports_fallback_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_ioports_fallback_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_ioports_fallback_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_ioports_fallback_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_ioports_fallback_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_ioports_fallback_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:38: Found a STRUCT_DECL|choose_ioport_parser_t_vtbl|choose_ioport_parser_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_choose_ioport_parser_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_choose_ioport_parser_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_choose_ioport_parser_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_choose_ioport_parser_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_choose_ioport_parser_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:39: Found a STRUCT_DECL|generic_linput_t_vtbl|generic_linput_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_generic_linput_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_generic_linput_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_generic_linput_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_generic_linput_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_generic_linput_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:40: Found a STRUCT_DECL|snapshot_t|snapshot_t
+DEBUG:handler:get_unique_name: name "struct_snapshot_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_snapshot_t'
+DEBUG:handler:get_unique_name: name "struct_snapshot_t"
+DEBUG:cursorhandler:_record_decl: name: struct_snapshot_t size:424
+DEBUG:cursorhandler:cursor struct_snapshot_t is not on a definition
+DEBUG:clangparser:register: struct_snapshot_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:41: Found a STRUCT_DECL|place_t|place_t
+DEBUG:handler:get_unique_name: name "struct_place_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_place_t'
+DEBUG:handler:get_unique_name: name "struct_place_t"
+DEBUG:cursorhandler:_record_decl: name: struct_place_t size:16
+DEBUG:cursorhandler:cursor struct_place_t is not on a definition
+DEBUG:clangparser:register: struct_place_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:42: Found a STRUCT_DECL|place_t_vtbl|place_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_place_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_place_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_place_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_place_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_place_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:43: Found a STRUCT_DECL|hexplace_gen_t_vtbl|hexplace_gen_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_hexplace_gen_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_hexplace_gen_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_hexplace_gen_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_hexplace_gen_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_hexplace_gen_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:44: Found a STRUCT_DECL|chooser_base_t_vtbl|chooser_base_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_chooser_base_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_chooser_base_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_chooser_base_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_chooser_base_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_chooser_base_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:45: Found a STRUCT_DECL|exec_request_t_vtbl|exec_request_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_exec_request_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_exec_request_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_exec_request_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_exec_request_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_exec_request_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:46: Found a STRUCT_DECL|ui_request_t_vtbl|ui_request_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_ui_request_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_ui_request_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_ui_request_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_ui_request_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_ui_request_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:47: Found a STRUCT_DECL|action_handler_t_vtbl|action_handler_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_action_handler_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_action_handler_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_action_handler_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_action_handler_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_action_handler_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:48: Found a STRUCT_DECL|form_actions_t_vtbl|form_actions_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_form_actions_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_form_actions_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_form_actions_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_form_actions_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_form_actions_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:49: Found a STRUCT_DECL|macro_constructor_t_vtbl|macro_constructor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_macro_constructor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_macro_constructor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_macro_constructor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_macro_constructor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_macro_constructor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:50: Found a STRUCT_DECL|plugmod_t_vtbl|plugmod_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_plugmod_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_plugmod_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_plugmod_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_plugmod_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_plugmod_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:51: Found a STRUCT_DECL|bpt_visitor_t_vtbl|bpt_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_bpt_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_bpt_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_bpt_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_bpt_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_bpt_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:52: Found a STRUCT_DECL|srcinfo_provider_t_vtbl|srcinfo_provider_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_srcinfo_provider_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_srcinfo_provider_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_srcinfo_provider_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_srcinfo_provider_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_srcinfo_provider_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:53: Found a STRUCT_DECL|dirspec_t_vtbl|dirspec_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_dirspec_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_dirspec_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_dirspec_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_dirspec_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_dirspec_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:54: Found a STRUCT_DECL|dirtree_cursor_t|dirtree_cursor_t
+DEBUG:handler:get_unique_name: name "struct_dirtree_cursor_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_dirtree_cursor_t'
+DEBUG:handler:get_unique_name: name "struct_dirtree_cursor_t"
+DEBUG:cursorhandler:_record_decl: name: struct_dirtree_cursor_t size:16
+DEBUG:cursorhandler:cursor struct_dirtree_cursor_t is not on a definition
+DEBUG:clangparser:register: struct_dirtree_cursor_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:55: Found a STRUCT_DECL|dirtree_visitor_t_vtbl|dirtree_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_dirtree_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_dirtree_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_dirtree_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_dirtree_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_dirtree_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:56: Found a STRUCT_DECL|enum_member_visitor_t_vtbl|enum_member_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_enum_member_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_enum_member_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_enum_member_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_enum_member_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_enum_member_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:57: Found a STRUCT_DECL|highlighter_cbs_t_vtbl|highlighter_cbs_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_highlighter_cbs_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_highlighter_cbs_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_highlighter_cbs_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_highlighter_cbs_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_highlighter_cbs_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:58: Found a STRUCT_DECL|syntax_highlighter_t|syntax_highlighter_t
+DEBUG:handler:get_unique_name: name "struct_syntax_highlighter_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_syntax_highlighter_t'
+DEBUG:handler:get_unique_name: name "struct_syntax_highlighter_t"
+DEBUG:cursorhandler:_record_decl: name: struct_syntax_highlighter_t size:16
+DEBUG:cursorhandler:cursor struct_syntax_highlighter_t is not on a definition
+DEBUG:clangparser:register: struct_syntax_highlighter_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:59: Found a STRUCT_DECL|syntax_highlighter_t_vtbl|syntax_highlighter_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_syntax_highlighter_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_syntax_highlighter_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_syntax_highlighter_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_syntax_highlighter_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_syntax_highlighter_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:60: Found a STRUCT_DECL|extlang_visitor_t_vtbl|extlang_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_extlang_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_extlang_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_extlang_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_extlang_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_extlang_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:61: Found a STRUCT_DECL|idc_resolver_t_vtbl|idc_resolver_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_idc_resolver_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_idc_resolver_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_idc_resolver_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_idc_resolver_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_idc_resolver_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:62: Found a STRUCT_DECL|std___Tree_node_int__void__P_|std___Tree_node_int__void__P_
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_int__void__P_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Tree_node_int__void__P_'
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_int__void__P_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Tree_node_int__void__P_ size:32
+DEBUG:cursorhandler:cursor struct_std___Tree_node_int__void__P_ is not on a definition
+DEBUG:clangparser:register: struct_std___Tree_node_int__void__P_ 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:63: Found a STRUCT_DECL|std___Tree_node_std__pair_const_int__int___void__P_|std___Tree_node_std__pair_const_int__int___void__P_
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_std__pair_const_int__int___void__P_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Tree_node_std__pair_const_int__int___void__P_'
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_std__pair_const_int__int___void__P_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Tree_node_std__pair_const_int__int___void__P_ size:40
+DEBUG:cursorhandler:cursor struct_std___Tree_node_std__pair_const_int__int___void__P_ is not on a definition
+DEBUG:clangparser:register: struct_std___Tree_node_std__pair_const_int__int___void__P_ 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:64: Found a STRUCT_DECL|gdl_graph_t_vtbl|gdl_graph_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_gdl_graph_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_gdl_graph_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_gdl_graph_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_gdl_graph_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_gdl_graph_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:65: Found a STRUCT_DECL|qbasic_block_t|qbasic_block_t
+DEBUG:handler:get_unique_name: name "struct_qbasic_block_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_qbasic_block_t'
+DEBUG:handler:get_unique_name: name "struct_qbasic_block_t"
+DEBUG:cursorhandler:_record_decl: name: struct_qbasic_block_t size:64
+DEBUG:cursorhandler:cursor struct_qbasic_block_t is not on a definition
+DEBUG:clangparser:register: struct_qbasic_block_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:66: Found a STRUCT_DECL|graph_node_visitor_t_vtbl|graph_node_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_graph_node_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_graph_node_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_graph_node_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_graph_node_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_graph_node_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:67: Found a STRUCT_DECL|graph_path_visitor_t_vtbl|graph_path_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_graph_path_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_graph_path_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_graph_path_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_graph_path_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_graph_path_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:68: Found a STRUCT_DECL|graph_visitor_t_vtbl|graph_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_graph_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_graph_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_graph_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_graph_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_graph_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:69: Found a STRUCT_DECL|ida_syntax_highlighter_t__keywords_style_t|ida_syntax_highlighter_t__keywords_style_t
+DEBUG:handler:get_unique_name: name "struct_ida_syntax_highlighter_t__keywords_style_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_ida_syntax_highlighter_t__keywords_style_t'
+DEBUG:handler:get_unique_name: name "struct_ida_syntax_highlighter_t__keywords_style_t"
+DEBUG:cursorhandler:_record_decl: name: struct_ida_syntax_highlighter_t__keywords_style_t size:32
+DEBUG:cursorhandler:cursor struct_ida_syntax_highlighter_t__keywords_style_t is not on a definition
+DEBUG:clangparser:register: struct_ida_syntax_highlighter_t__keywords_style_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:70: Found a STRUCT_DECL|ida_syntax_highlighter_t__plain_char_ptr_t|ida_syntax_highlighter_t__plain_char_ptr_t
+DEBUG:handler:get_unique_name: name "struct_ida_syntax_highlighter_t__plain_char_ptr_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_ida_syntax_highlighter_t__plain_char_ptr_t'
+DEBUG:handler:get_unique_name: name "struct_ida_syntax_highlighter_t__plain_char_ptr_t"
+DEBUG:cursorhandler:_record_decl: name: struct_ida_syntax_highlighter_t__plain_char_ptr_t size:8
+DEBUG:cursorhandler:cursor struct_ida_syntax_highlighter_t__plain_char_ptr_t is not on a definition
+DEBUG:clangparser:register: struct_ida_syntax_highlighter_t__plain_char_ptr_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:71: Found a STRUCT_DECL|ida_syntax_highlighter_t__multicmt_t|ida_syntax_highlighter_t__multicmt_t
+DEBUG:handler:get_unique_name: name "struct_ida_syntax_highlighter_t__multicmt_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_ida_syntax_highlighter_t__multicmt_t'
+DEBUG:handler:get_unique_name: name "struct_ida_syntax_highlighter_t__multicmt_t"
+DEBUG:cursorhandler:_record_decl: name: struct_ida_syntax_highlighter_t__multicmt_t size:48
+DEBUG:cursorhandler:cursor struct_ida_syntax_highlighter_t__multicmt_t is not on a definition
+DEBUG:clangparser:register: struct_ida_syntax_highlighter_t__multicmt_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:72: Found a STRUCT_DECL|aloc_visitor_t_vtbl|aloc_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_aloc_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_aloc_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_aloc_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_aloc_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_aloc_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:73: Found a STRUCT_DECL|const_aloc_visitor_t_vtbl|const_aloc_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_const_aloc_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_const_aloc_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_const_aloc_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_const_aloc_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_const_aloc_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:74: Found a STRUCT_DECL|udt_member_t|udt_member_t
+DEBUG:handler:get_unique_name: name "struct_udt_member_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_udt_member_t'
+DEBUG:handler:get_unique_name: name "struct_udt_member_t"
+DEBUG:cursorhandler:_record_decl: name: struct_udt_member_t size:80
+DEBUG:cursorhandler:cursor struct_udt_member_t is not on a definition
+DEBUG:clangparser:register: struct_udt_member_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:75: Found a STRUCT_DECL|enum_member_t|enum_member_t
+DEBUG:handler:get_unique_name: name "struct_enum_member_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_enum_member_t'
+DEBUG:handler:get_unique_name: name "struct_enum_member_t"
+DEBUG:cursorhandler:_record_decl: name: struct_enum_member_t size:56
+DEBUG:cursorhandler:cursor struct_enum_member_t is not on a definition
+DEBUG:clangparser:register: struct_enum_member_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:76: Found a STRUCT_DECL|tinfo_visitor_t_vtbl|tinfo_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_tinfo_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_tinfo_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_tinfo_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_tinfo_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_tinfo_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:77: Found a STRUCT_DECL|argtinfo_helper_t_vtbl|argtinfo_helper_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_argtinfo_helper_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_argtinfo_helper_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_argtinfo_helper_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_argtinfo_helper_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_argtinfo_helper_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:78: Found a STRUCT_DECL|lowertype_helper_t_vtbl|lowertype_helper_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_lowertype_helper_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_lowertype_helper_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_lowertype_helper_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_lowertype_helper_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_lowertype_helper_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:79: Found a STRUCT_DECL|valstrs_t|valstrs_t
+DEBUG:handler:get_unique_name: name "struct_valstrs_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_valstrs_t'
+DEBUG:handler:get_unique_name: name "struct_valstrs_t"
+DEBUG:cursorhandler:_record_decl: name: struct_valstrs_t size:24
+DEBUG:cursorhandler:cursor struct_valstrs_t is not on a definition
+DEBUG:clangparser:register: struct_valstrs_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:80: Found a STRUCT_DECL|text_sink_t_vtbl|text_sink_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_text_sink_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_text_sink_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_text_sink_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_text_sink_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_text_sink_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:81: Found a STRUCT_DECL|predicate_t_vtbl|predicate_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_predicate_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_predicate_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_predicate_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_predicate_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_predicate_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:82: Found a STRUCT_DECL|jump_pattern_t_vtbl|jump_pattern_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_jump_pattern_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_jump_pattern_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_jump_pattern_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_jump_pattern_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_jump_pattern_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:83: Found a STRUCT_DECL|simple_bfi_t|simple_bfi_t
+DEBUG:handler:get_unique_name: name "struct_simple_bfi_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_simple_bfi_t'
+DEBUG:handler:get_unique_name: name "struct_simple_bfi_t"
+DEBUG:cursorhandler:_record_decl: name: struct_simple_bfi_t size:112
+DEBUG:cursorhandler:cursor struct_simple_bfi_t is not on a definition
+DEBUG:clangparser:register: struct_simple_bfi_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:84: Found a STRUCT_DECL|std___Tree_node_std__pair_const_unsigned_long_long__unsigned_long_long___void__P_|std___Tree_node_std__pair_const_unsigned_long_long__unsigned_long_long___void__P_
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_std__pair_const_unsigned_long_long__unsigned_long_long___void__P_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Tree_node_std__pair_const_unsigned_long_long__unsigned_long_long___void__P_'
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_std__pair_const_unsigned_long_long__unsigned_long_long___void__P_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Tree_node_std__pair_const_unsigned_long_long__unsigned_long_long___void__P_ size:48
+DEBUG:cursorhandler:cursor struct_std___Tree_node_std__pair_const_unsigned_long_long__unsigned_long_long___void__P_ is not on a definition
+DEBUG:clangparser:register: struct_std___Tree_node_std__pair_const_unsigned_long_long__unsigned_long_long___void__P_ 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:85: Found a STRUCT_DECL|std___Tree_node_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t___void__P_|std___Tree_node_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t___void__P_
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t___void__P_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Tree_node_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t___void__P_'
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t___void__P_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Tree_node_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t___void__P_ size:48
+DEBUG:cursorhandler:cursor struct_std___Tree_node_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t___void__P_ is not on a definition
+DEBUG:clangparser:register: struct_std___Tree_node_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t___void__P_ 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:86: Found a STRUCT_DECL|segm_move_info_t|segm_move_info_t
+DEBUG:handler:get_unique_name: name "struct_segm_move_info_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_segm_move_info_t'
+DEBUG:handler:get_unique_name: name "struct_segm_move_info_t"
+DEBUG:cursorhandler:_record_decl: name: struct_segm_move_info_t size:24
+DEBUG:cursorhandler:cursor struct_segm_move_info_t is not on a definition
+DEBUG:clangparser:register: struct_segm_move_info_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:87: Found a STRUCT_DECL|_EXCEPTION_RECORD|_EXCEPTION_RECORD
+DEBUG:handler:get_unique_name: name "struct__EXCEPTION_RECORD"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__EXCEPTION_RECORD'
+DEBUG:handler:get_unique_name: name "struct__EXCEPTION_RECORD"
+DEBUG:cursorhandler:_record_decl: name: struct__EXCEPTION_RECORD size:152
+DEBUG:cursorhandler:cursor struct__EXCEPTION_RECORD is not on a definition
+DEBUG:clangparser:register: struct__EXCEPTION_RECORD 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:88: Found a STRUCT_DECL|_CONTEXT|_CONTEXT
+DEBUG:handler:get_unique_name: name "struct__CONTEXT"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__CONTEXT'
+DEBUG:handler:get_unique_name: name "struct__CONTEXT"
+DEBUG:cursorhandler:_record_decl: name: struct__CONTEXT size:1232
+DEBUG:cursorhandler:cursor struct__CONTEXT is not on a definition
+DEBUG:clangparser:register: struct__CONTEXT 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:89: Found a STRUCT_DECL|_IMAGE_RUNTIME_FUNCTION_ENTRY|_IMAGE_RUNTIME_FUNCTION_ENTRY
+DEBUG:handler:get_unique_name: name "struct__IMAGE_RUNTIME_FUNCTION_ENTRY"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__IMAGE_RUNTIME_FUNCTION_ENTRY'
+DEBUG:handler:get_unique_name: name "struct__IMAGE_RUNTIME_FUNCTION_ENTRY"
+DEBUG:cursorhandler:_record_decl: name: struct__IMAGE_RUNTIME_FUNCTION_ENTRY size:12
+DEBUG:cursorhandler:cursor struct__IMAGE_RUNTIME_FUNCTION_ENTRY is not on a definition
+DEBUG:clangparser:register: struct__IMAGE_RUNTIME_FUNCTION_ENTRY 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:90: Found a STRUCT_DECL|_UNWIND_HISTORY_TABLE|_UNWIND_HISTORY_TABLE
+DEBUG:handler:get_unique_name: name "struct__UNWIND_HISTORY_TABLE"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__UNWIND_HISTORY_TABLE'
+DEBUG:handler:get_unique_name: name "struct__UNWIND_HISTORY_TABLE"
+DEBUG:cursorhandler:_record_decl: name: struct__UNWIND_HISTORY_TABLE size:216
+DEBUG:cursorhandler:cursor struct__UNWIND_HISTORY_TABLE is not on a definition
+DEBUG:clangparser:register: struct__UNWIND_HISTORY_TABLE 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:91: Found a STRUCT_DECL|_RTL_CRITICAL_SECTION|_RTL_CRITICAL_SECTION
+DEBUG:handler:get_unique_name: name "struct__RTL_CRITICAL_SECTION"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__RTL_CRITICAL_SECTION'
+DEBUG:handler:get_unique_name: name "struct__RTL_CRITICAL_SECTION"
+DEBUG:cursorhandler:_record_decl: name: struct__RTL_CRITICAL_SECTION size:40
+DEBUG:cursorhandler:cursor struct__RTL_CRITICAL_SECTION is not on a definition
+DEBUG:clangparser:register: struct__RTL_CRITICAL_SECTION 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:92: Found a STRUCT_DECL|tagCREATESTRUCTA|tagCREATESTRUCTA
+DEBUG:handler:get_unique_name: name "struct_tagCREATESTRUCTA"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_tagCREATESTRUCTA'
+DEBUG:handler:get_unique_name: name "struct_tagCREATESTRUCTA"
+DEBUG:cursorhandler:_record_decl: name: struct_tagCREATESTRUCTA size:80
+DEBUG:cursorhandler:cursor struct_tagCREATESTRUCTA is not on a definition
+DEBUG:clangparser:register: struct_tagCREATESTRUCTA 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:93: Found a STRUCT_DECL|tagCREATESTRUCTW|tagCREATESTRUCTW
+DEBUG:handler:get_unique_name: name "struct_tagCREATESTRUCTW"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_tagCREATESTRUCTW'
+DEBUG:handler:get_unique_name: name "struct_tagCREATESTRUCTW"
+DEBUG:cursorhandler:_record_decl: name: struct_tagCREATESTRUCTW size:80
+DEBUG:cursorhandler:cursor struct_tagCREATESTRUCTW is not on a definition
+DEBUG:clangparser:register: struct_tagCREATESTRUCTW 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:94: Found a STRUCT_DECL|rpc_engine_t|rpc_engine_t
+DEBUG:handler:get_unique_name: name "struct_rpc_engine_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_rpc_engine_t'
+DEBUG:handler:get_unique_name: name "struct_rpc_engine_t"
+DEBUG:cursorhandler:_record_decl: name: struct_rpc_engine_t size:56
+DEBUG:cursorhandler:cursor struct_rpc_engine_t is not on a definition
+DEBUG:clangparser:register: struct_rpc_engine_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:95: Found a STRUCT_DECL|network_client_handler_t_vtbl|network_client_handler_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_network_client_handler_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_network_client_handler_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_network_client_handler_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_network_client_handler_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_network_client_handler_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:96: Found a STRUCT_DECL|client_handlers_list_t_vtbl|client_handlers_list_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_client_handlers_list_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_client_handlers_list_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_client_handlers_list_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_client_handlers_list_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_client_handlers_list_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:97: Found a STRUCT_DECL|std___Tree_node_std__pair_network_client_handler_t__Pconst____qthread_t__P___void__P_|std___Tree_node_std__pair_network_client_handler_t__Pconst____qthread_t__P___void__P_
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_std__pair_network_client_handler_t__Pconst____qthread_t__P___void__P_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Tree_node_std__pair_network_client_handler_t__Pconst____qthread_t__P___void__P_'
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_std__pair_network_client_handler_t__Pconst____qthread_t__P___void__P_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Tree_node_std__pair_network_client_handler_t__Pconst____qthread_t__P___void__P_ size:48
+DEBUG:cursorhandler:cursor struct_std___Tree_node_std__pair_network_client_handler_t__Pconst____qthread_t__P___void__P_ is not on a definition
+DEBUG:clangparser:register: struct_std___Tree_node_std__pair_network_client_handler_t__Pconst____qthread_t__P___void__P_ 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:98: Found a STRUCT_DECL|base_dispatcher_t_vtbl|base_dispatcher_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_base_dispatcher_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_base_dispatcher_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_base_dispatcher_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_base_dispatcher_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_base_dispatcher_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:99: Found a STRUCT_DECL|rpc_packet_data_t_vtbl|rpc_packet_data_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_rpc_packet_data_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_rpc_packet_data_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_rpc_packet_data_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_rpc_packet_data_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_rpc_packet_data_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:100: Found a STRUCT_DECL|rpc_packet_type_desc_t|rpc_packet_type_desc_t
+DEBUG:handler:get_unique_name: name "struct_rpc_packet_type_desc_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_rpc_packet_type_desc_t'
+DEBUG:handler:get_unique_name: name "struct_rpc_packet_type_desc_t"
+DEBUG:cursorhandler:_record_decl: name: struct_rpc_packet_type_desc_t size:24
+DEBUG:cursorhandler:cursor struct_rpc_packet_type_desc_t is not on a definition
+DEBUG:clangparser:register: struct_rpc_packet_type_desc_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:101: Found a STRUCT_DECL|rpc_engine_t_vtbl|rpc_engine_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_rpc_engine_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_rpc_engine_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_rpc_engine_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_rpc_engine_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_rpc_engine_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:102: Found a STRUCT_DECL|generic_client_t_vtbl|generic_client_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_generic_client_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_generic_client_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_generic_client_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_generic_client_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_generic_client_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:103: Found a STRUCT_DECL|jvalue_t|jvalue_t
+DEBUG:handler:get_unique_name: name "struct_jvalue_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_jvalue_t'
+DEBUG:handler:get_unique_name: name "struct_jvalue_t"
+DEBUG:cursorhandler:_record_decl: name: struct_jvalue_t size:16
+DEBUG:cursorhandler:cursor struct_jvalue_t is not on a definition
+DEBUG:clangparser:register: struct_jvalue_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:104: Found a STRUCT_DECL|kvp_t|kvp_t
+DEBUG:handler:get_unique_name: name "struct_kvp_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_kvp_t'
+DEBUG:handler:get_unique_name: name "struct_kvp_t"
+DEBUG:cursorhandler:_record_decl: name: struct_kvp_t size:40
+DEBUG:cursorhandler:cursor struct_kvp_t is not on a definition
+DEBUG:clangparser:register: struct_kvp_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:105: Found a STRUCT_DECL|std___Tree_node_std__pair_const__qstring_char___qrefcnt_t_refcnted_regex_t____void__P_|std___Tree_node_std__pair_const__qstring_char___qrefcnt_t_refcnted_regex_t____void__P_
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_std__pair_const__qstring_char___qrefcnt_t_refcnted_regex_t____void__P_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Tree_node_std__pair_const__qstring_char___qrefcnt_t_refcnted_regex_t____void__P_'
+DEBUG:handler:get_unique_name: name "struct_std___Tree_node_std__pair_const__qstring_char___qrefcnt_t_refcnted_regex_t____void__P_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Tree_node_std__pair_const__qstring_char___qrefcnt_t_refcnted_regex_t____void__P_ size:64
+DEBUG:cursorhandler:cursor struct_std___Tree_node_std__pair_const__qstring_char___qrefcnt_t_refcnted_regex_t____void__P_ is not on a definition
+DEBUG:clangparser:register: struct_std___Tree_node_std__pair_const__qstring_char___qrefcnt_t_refcnted_regex_t____void__P_ 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:106: Found a STRUCT_DECL|struct_field_visitor_t_vtbl|struct_field_visitor_t_vtbl
+DEBUG:handler:get_unique_name: name "struct_struct_field_visitor_t_vtbl"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_struct_field_visitor_t_vtbl'
+DEBUG:handler:get_unique_name: name "struct_struct_field_visitor_t_vtbl"
+DEBUG:cursorhandler:_record_decl: name: struct_struct_field_visitor_t_vtbl CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_struct_field_visitor_t_vtbl 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:109: Found a TYPEDEF_DECL|uintptr_t|uintptr_t
+DEBUG:handler:get_unique_name: name "uintptr_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uintptr_t'
+DEBUG:handler:get_unique_name: name "uintptr_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uintptr_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.ULONGLONG
+DEBUG:clangparser:register: uintptr_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:112: Found a TYPEDEF_DECL|va_list|va_list
+DEBUG:handler:get_unique_name: name "va_list"
+DEBUG:utils:TYPEDEF_DECL: displayname:'va_list'
+DEBUG:handler:get_unique_name: name "va_list"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:va_list
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "char *"
+DEBUG:utils:POINTER: displayname:'char *'
+DEBUG:handler:get_unique_name: name "char"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.CHAR_S
+DEBUG:typehandler:POINTER: pointee type_name:'char'
+DEBUG:clangparser:register: va_list 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:115: Found a TYPEDEF_DECL|size_t|size_t
+DEBUG:handler:get_unique_name: name "size_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'size_t'
+DEBUG:handler:get_unique_name: name "size_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:size_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.ULONGLONG
+DEBUG:clangparser:register: size_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:118: Found a TYPEDEF_DECL|ptrdiff_t|ptrdiff_t
+DEBUG:handler:get_unique_name: name "ptrdiff_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'ptrdiff_t'
+DEBUG:handler:get_unique_name: name "ptrdiff_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:ptrdiff_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.LONGLONG
+DEBUG:clangparser:register: ptrdiff_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:121: Found a TYPEDEF_DECL|intptr_t|intptr_t
+DEBUG:handler:get_unique_name: name "intptr_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'intptr_t'
+DEBUG:handler:get_unique_name: name "intptr_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:intptr_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.LONGLONG
+DEBUG:clangparser:register: intptr_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:124: Found a TYPEDEF_DECL|__vcrt_bool|__vcrt_bool
+DEBUG:handler:get_unique_name: name "__vcrt_bool"
+DEBUG:utils:TYPEDEF_DECL: displayname:'__vcrt_bool'
+DEBUG:handler:get_unique_name: name "__vcrt_bool"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:__vcrt_bool
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.CHAR_S
+DEBUG:clangparser:register: __vcrt_bool 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:127: Found a TYPEDEF_DECL|__crt_bool|__crt_bool
+DEBUG:handler:get_unique_name: name "__crt_bool"
+DEBUG:utils:TYPEDEF_DECL: displayname:'__crt_bool'
+DEBUG:handler:get_unique_name: name "__crt_bool"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:__crt_bool
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.CHAR_S
+DEBUG:clangparser:register: __crt_bool 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:130: Found a TYPEDEF_DECL|errno_t|errno_t
+DEBUG:handler:get_unique_name: name "errno_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'errno_t'
+DEBUG:handler:get_unique_name: name "errno_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:errno_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.INT
+DEBUG:clangparser:register: errno_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:133: Found a TYPEDEF_DECL|wint_t|wint_t
+DEBUG:handler:get_unique_name: name "wint_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'wint_t'
+DEBUG:handler:get_unique_name: name "wint_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:wint_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.USHORT
+DEBUG:clangparser:register: wint_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:136: Found a TYPEDEF_DECL|wctype_t|wctype_t
+DEBUG:handler:get_unique_name: name "wctype_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'wctype_t'
+DEBUG:handler:get_unique_name: name "wctype_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:wctype_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.USHORT
+DEBUG:clangparser:register: wctype_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:139: Found a TYPEDEF_DECL|__time32_t|__time32_t
+DEBUG:handler:get_unique_name: name "__time32_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'__time32_t'
+DEBUG:handler:get_unique_name: name "__time32_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:__time32_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.INT
+DEBUG:clangparser:register: __time32_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:142: Found a TYPEDEF_DECL|__time64_t|__time64_t
+DEBUG:handler:get_unique_name: name "__time64_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'__time64_t'
+DEBUG:handler:get_unique_name: name "__time64_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:__time64_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.LONGLONG
+DEBUG:clangparser:register: __time64_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:146: Found a STRUCT_DECL|__crt_locale_data_public|__crt_locale_data_public
+DEBUG:handler:get_unique_name: name "struct___crt_locale_data_public"
+DEBUG:utils:STRUCT_DECL: displayname:'struct___crt_locale_data_public'
+DEBUG:handler:get_unique_name: name "struct___crt_locale_data_public"
+DEBUG:cursorhandler:_record_decl: name: struct___crt_locale_data_public size:16
+DEBUG:cursorhandler:cursor struct___crt_locale_data_public is a definition
+DEBUG:clangparser:register: struct___crt_locale_data_public 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/_locale_pctype', 'FIELD_DECL/_locale_mb_cur_max', 'FIELD_DECL/_locale_lc_codepage']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_locale_pctype
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "unsigned short *"
+DEBUG:utils:POINTER: displayname:'unsigned short *'
+DEBUG:handler:get_unique_name: name "unsigned short"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.USHORT
+DEBUG:typehandler:POINTER: pointee type_name:'unsigned short'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_locale_mb_cur_max
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_locale_lc_codepage
+DEBUG:cursorhandler:FIELD_DECL: field offset is 96
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 3 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct___crt_locale_data_public 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:_locale_pctype offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:_locale_mb_cur_max offsetbits:64->96 expecting offset:64
+DEBUG:cursorhandler:Fixup_struct: Member:_locale_lc_codepage offsetbits:96->128 expecting offset:96
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:155: Found a STRUCT_DECL|__crt_locale_data|__crt_locale_data
+DEBUG:handler:get_unique_name: name "struct___crt_locale_data"
+DEBUG:utils:STRUCT_DECL: displayname:'struct___crt_locale_data'
+DEBUG:handler:get_unique_name: name "struct___crt_locale_data"
+DEBUG:cursorhandler:_record_decl: name: struct___crt_locale_data CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct___crt_locale_data 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:158: Found a STRUCT_DECL|__crt_multibyte_data|__crt_multibyte_data
+DEBUG:handler:get_unique_name: name "struct___crt_multibyte_data"
+DEBUG:utils:STRUCT_DECL: displayname:'struct___crt_multibyte_data'
+DEBUG:handler:get_unique_name: name "struct___crt_multibyte_data"
+DEBUG:cursorhandler:_record_decl: name: struct___crt_multibyte_data CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct___crt_multibyte_data 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:162: Found a STRUCT_DECL|__crt_locale_pointers|__crt_locale_pointers
+DEBUG:handler:get_unique_name: name "struct___crt_locale_pointers"
+DEBUG:utils:STRUCT_DECL: displayname:'struct___crt_locale_pointers'
+DEBUG:handler:get_unique_name: name "struct___crt_locale_pointers"
+DEBUG:cursorhandler:_record_decl: name: struct___crt_locale_pointers size:16
+DEBUG:cursorhandler:cursor struct___crt_locale_pointers is a definition
+DEBUG:clangparser:register: struct___crt_locale_pointers 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/locinfo', 'FIELD_DECL/mbcinfo']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/locinfo
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "__crt_locale_data *"
+DEBUG:utils:POINTER: displayname:'__crt_locale_data *'
+DEBUG:handler:get_unique_name: name "__crt_locale_data"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "struct___crt_locale_data"
+DEBUG:typehandler:POINTER: pointee type_name:'__crt_locale_data'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/mbcinfo
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "__crt_multibyte_data *"
+DEBUG:utils:POINTER: displayname:'__crt_multibyte_data *'
+DEBUG:handler:get_unique_name: name "__crt_multibyte_data"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "struct___crt_multibyte_data"
+DEBUG:typehandler:POINTER: pointee type_name:'__crt_multibyte_data'
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct___crt_locale_pointers 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:locinfo offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:mbcinfo offsetbits:64->128 expecting offset:64
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:170: Found a TYPEDEF_DECL|_locale_t|_locale_t
+DEBUG:handler:get_unique_name: name "_locale_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_locale_t'
+DEBUG:handler:get_unique_name: name "_locale_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_locale_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "__crt_locale_pointers *"
+DEBUG:utils:POINTER: displayname:'__crt_locale_pointers *'
+DEBUG:handler:get_unique_name: name "__crt_locale_pointers"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "struct___crt_locale_pointers"
+DEBUG:typehandler:POINTER: pointee type_name:'__crt_locale_pointers'
+DEBUG:clangparser:register: _locale_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:173: Found a TYPEDEF_DECL|mbstate_t|mbstate_t
+DEBUG:handler:get_unique_name: name "mbstate_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'mbstate_t'
+DEBUG:handler:get_unique_name: name "mbstate_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:mbstate_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.CHAR_S
+DEBUG:clangparser:register: mbstate_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:179: Found a TYPEDEF_DECL|time_t|time_t
+DEBUG:handler:get_unique_name: name "time_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'time_t'
+DEBUG:handler:get_unique_name: name "time_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:time_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.LONGLONG
+DEBUG:clangparser:register: time_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:182: Found a TYPEDEF_DECL|rsize_t|rsize_t
+DEBUG:handler:get_unique_name: name "rsize_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'rsize_t'
+DEBUG:handler:get_unique_name: name "rsize_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:rsize_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.ULONGLONG
+DEBUG:clangparser:register: rsize_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:185: Found a TYPEDEF_DECL|std__nullptr_t|std__nullptr_t
+DEBUG:handler:get_unique_name: name "std__nullptr_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'std__nullptr_t'
+DEBUG:handler:get_unique_name: name "std__nullptr_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:std__nullptr_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.LONGLONG
+DEBUG:clangparser:register: std__nullptr_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:188: Found a TYPEDEF_DECL|_CoreCrtSecureSearchSortCompareFunction|_CoreCrtSecureSearchSortCompareFunction
+DEBUG:handler:get_unique_name: name "_CoreCrtSecureSearchSortCompareFunction"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_CoreCrtSecureSearchSortCompareFunction'
+DEBUG:handler:get_unique_name: name "_CoreCrtSecureSearchSortCompareFunction"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_CoreCrtSecureSearchSortCompareFunction
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "int (*)(void *, void *, void *)"
+DEBUG:utils:POINTER: displayname:'int (*)(void *, void *, void *)'
+DEBUG:handler:get_unique_name: name "int (void *, void *, void *)"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "int (void *, void *, void *)"
+DEBUG:utils:FUNCTIONPROTO: displayname:'int (void *, void *, void *)'
+DEBUG:handler:get_unique_name: name "void *"
+DEBUG:utils:POINTER: displayname:'void *'
+DEBUG:handler:get_unique_name: name "void"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.VOID
+DEBUG:typehandler:POINTER: pointee type_name:'void'
+DEBUG:handler:get_unique_name: name "void *"
+DEBUG:utils:POINTER: displayname:'void *'
+DEBUG:handler:get_unique_name: name "void"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.VOID
+DEBUG:typehandler:POINTER: pointee type_name:'void'
+DEBUG:handler:get_unique_name: name "void *"
+DEBUG:utils:POINTER: displayname:'void *'
+DEBUG:handler:get_unique_name: name "void"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.VOID
+DEBUG:typehandler:POINTER: pointee type_name:'void'
+DEBUG:typehandler:POINTER: pointee type_name:'int (void *, void *, void *)'
+DEBUG:clangparser:register: _CoreCrtSecureSearchSortCompareFunction 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:191: Found a TYPEDEF_DECL|_CoreCrtNonSecureSearchSortCompareFunction|_CoreCrtNonSecureSearchSortCompareFunction
+DEBUG:handler:get_unique_name: name "_CoreCrtNonSecureSearchSortCompareFunction"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_CoreCrtNonSecureSearchSortCompareFunction'
+DEBUG:handler:get_unique_name: name "_CoreCrtNonSecureSearchSortCompareFunction"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_CoreCrtNonSecureSearchSortCompareFunction
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "int (*)(void *, void *)"
+DEBUG:utils:POINTER: displayname:'int (*)(void *, void *)'
+DEBUG:handler:get_unique_name: name "int (void *, void *)"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "int (void *, void *)"
+DEBUG:utils:FUNCTIONPROTO: displayname:'int (void *, void *)'
+DEBUG:handler:get_unique_name: name "void *"
+DEBUG:utils:POINTER: displayname:'void *'
+DEBUG:handler:get_unique_name: name "void"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.VOID
+DEBUG:typehandler:POINTER: pointee type_name:'void'
+DEBUG:handler:get_unique_name: name "void *"
+DEBUG:utils:POINTER: displayname:'void *'
+DEBUG:handler:get_unique_name: name "void"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.VOID
+DEBUG:typehandler:POINTER: pointee type_name:'void'
+DEBUG:typehandler:POINTER: pointee type_name:'int (void *, void *)'
+DEBUG:clangparser:register: _CoreCrtNonSecureSearchSortCompareFunction 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:194: Found a TYPEDEF_DECL|_onexit_t|_onexit_t
+DEBUG:handler:get_unique_name: name "_onexit_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_onexit_t'
+DEBUG:handler:get_unique_name: name "_onexit_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_onexit_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "int (*)()"
+DEBUG:utils:POINTER: displayname:'int (*)()'
+DEBUG:handler:get_unique_name: name "int ()"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "int ()"
+DEBUG:utils:FUNCTIONPROTO: displayname:'int ()'
+DEBUG:typehandler:POINTER: pointee type_name:'int ()'
+DEBUG:clangparser:register: _onexit_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:197: Found a TYPEDEF_DECL|_purecall_handler|_purecall_handler
+DEBUG:handler:get_unique_name: name "_purecall_handler"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_purecall_handler'
+DEBUG:handler:get_unique_name: name "_purecall_handler"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_purecall_handler
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "void (*)()"
+DEBUG:utils:POINTER: displayname:'void (*)()'
+DEBUG:handler:get_unique_name: name "void ()"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "void ()"
+DEBUG:utils:FUNCTIONPROTO: displayname:'void ()'
+DEBUG:typehandler:POINTER: pointee type_name:'void ()'
+DEBUG:clangparser:register: _purecall_handler 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:200: Found a TYPEDEF_DECL|_invalid_parameter_handler|_invalid_parameter_handler
+DEBUG:handler:get_unique_name: name "_invalid_parameter_handler"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_invalid_parameter_handler'
+DEBUG:handler:get_unique_name: name "_invalid_parameter_handler"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_invalid_parameter_handler
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "void (*)(short *, short *, short *, unsigned int, unsigned long long)"
+DEBUG:utils:POINTER: displayname:'void (*)(short *, short *, short *, unsigned int, unsigned long long)'
+DEBUG:handler:get_unique_name: name "void (short *, short *, short *, unsigned int, unsigned long long)"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "void (short *, short *, short *, unsigned int, unsigned long long)"
+DEBUG:utils:FUNCTIONPROTO: displayname:'void (short *, short *, short *, unsigned int, unsigned long long)'
+DEBUG:handler:get_unique_name: name "short *"
+DEBUG:utils:POINTER: displayname:'short *'
+DEBUG:handler:get_unique_name: name "short"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.SHORT
+DEBUG:typehandler:POINTER: pointee type_name:'short'
+DEBUG:handler:get_unique_name: name "short *"
+DEBUG:utils:POINTER: displayname:'short *'
+DEBUG:handler:get_unique_name: name "short"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.SHORT
+DEBUG:typehandler:POINTER: pointee type_name:'short'
+DEBUG:handler:get_unique_name: name "short *"
+DEBUG:utils:POINTER: displayname:'short *'
+DEBUG:handler:get_unique_name: name "short"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.SHORT
+DEBUG:typehandler:POINTER: pointee type_name:'short'
+DEBUG:typehandler:POINTER: pointee type_name:'void (short *, short *, short *, unsigned int, unsigned long long)'
+DEBUG:clangparser:register: _invalid_parameter_handler 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:204: Found a STRUCT_DECL|_div_t|_div_t
+DEBUG:handler:get_unique_name: name "struct__div_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__div_t'
+DEBUG:handler:get_unique_name: name "struct__div_t"
+DEBUG:cursorhandler:_record_decl: name: struct__div_t size:8
+DEBUG:cursorhandler:cursor struct__div_t is a definition
+DEBUG:clangparser:register: struct__div_t 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/quot', 'FIELD_DECL/rem']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/quot
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/rem
+DEBUG:cursorhandler:FIELD_DECL: field offset is 32
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__div_t 64 bits
+DEBUG:cursorhandler:Fixup_struct: Member:quot offsetbits:0->32 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:rem offsetbits:32->64 expecting offset:32
+DEBUG:cursorhandler:FIXUP_STRUCT: size:64 offset:64
+DEBUG:clangparser:_ida64_win/idasdk.cpp:212: Found a TYPEDEF_DECL|div_t|div_t
+DEBUG:handler:get_unique_name: name "div_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'div_t'
+DEBUG:handler:get_unique_name: name "div_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:div_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "_div_t"
+DEBUG:utils:RECORD: displayname:'_div_t'
+DEBUG:handler:get_unique_name: name "struct__div_t"
+DEBUG:clangparser:register: div_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:216: Found a STRUCT_DECL|_ldiv_t|_ldiv_t
+DEBUG:handler:get_unique_name: name "struct__ldiv_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__ldiv_t'
+DEBUG:handler:get_unique_name: name "struct__ldiv_t"
+DEBUG:cursorhandler:_record_decl: name: struct__ldiv_t size:8
+DEBUG:cursorhandler:cursor struct__ldiv_t is a definition
+DEBUG:clangparser:register: struct__ldiv_t 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/quot', 'FIELD_DECL/rem']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/quot
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/rem
+DEBUG:cursorhandler:FIELD_DECL: field offset is 32
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__ldiv_t 64 bits
+DEBUG:cursorhandler:Fixup_struct: Member:quot offsetbits:0->32 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:rem offsetbits:32->64 expecting offset:32
+DEBUG:cursorhandler:FIXUP_STRUCT: size:64 offset:64
+DEBUG:clangparser:_ida64_win/idasdk.cpp:224: Found a TYPEDEF_DECL|ldiv_t|ldiv_t
+DEBUG:handler:get_unique_name: name "ldiv_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'ldiv_t'
+DEBUG:handler:get_unique_name: name "ldiv_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:ldiv_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "_ldiv_t"
+DEBUG:utils:RECORD: displayname:'_ldiv_t'
+DEBUG:handler:get_unique_name: name "struct__ldiv_t"
+DEBUG:clangparser:register: ldiv_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:228: Found a STRUCT_DECL|_lldiv_t|_lldiv_t
+DEBUG:handler:get_unique_name: name "struct__lldiv_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__lldiv_t'
+DEBUG:handler:get_unique_name: name "struct__lldiv_t"
+DEBUG:cursorhandler:_record_decl: name: struct__lldiv_t size:16
+DEBUG:cursorhandler:cursor struct__lldiv_t is a definition
+DEBUG:clangparser:register: struct__lldiv_t 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/quot', 'FIELD_DECL/rem']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/quot
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/rem
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__lldiv_t 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:quot offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:rem offsetbits:64->128 expecting offset:64
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:236: Found a TYPEDEF_DECL|lldiv_t|lldiv_t
+DEBUG:handler:get_unique_name: name "lldiv_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'lldiv_t'
+DEBUG:handler:get_unique_name: name "lldiv_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:lldiv_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "_lldiv_t"
+DEBUG:utils:RECORD: displayname:'_lldiv_t'
+DEBUG:handler:get_unique_name: name "struct__lldiv_t"
+DEBUG:clangparser:register: lldiv_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:240: Found a STRUCT_DECL|_LDOUBLE|_LDOUBLE
+DEBUG:handler:get_unique_name: name "struct__LDOUBLE"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__LDOUBLE'
+DEBUG:handler:get_unique_name: name "struct__LDOUBLE"
+DEBUG:cursorhandler:_record_decl: name: struct__LDOUBLE size:10
+DEBUG:cursorhandler:cursor struct__LDOUBLE is a definition
+DEBUG:clangparser:register: struct__LDOUBLE 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/ld']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/ld
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 80 bits
+DEBUG:handler:get_unique_name: name "unsigned char [10]"
+DEBUG:utils:_array_handler: displayname:'unsigned char [10]'
+DEBUG:cursorhandler:_record_decl: 1 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__LDOUBLE 80 bits
+DEBUG:cursorhandler:Fixup_struct: Member:ld offsetbits:0->80 expecting offset:0
+DEBUG:cursorhandler:FIXUP_STRUCT: size:80 offset:80
+DEBUG:clangparser:_ida64_win/idasdk.cpp:248: Found a STRUCT_DECL|_CRT_DOUBLE|_CRT_DOUBLE
+DEBUG:handler:get_unique_name: name "struct__CRT_DOUBLE"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__CRT_DOUBLE'
+DEBUG:handler:get_unique_name: name "struct__CRT_DOUBLE"
+DEBUG:cursorhandler:_record_decl: name: struct__CRT_DOUBLE size:8
+DEBUG:cursorhandler:cursor struct__CRT_DOUBLE is a definition
+DEBUG:clangparser:register: struct__CRT_DOUBLE 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/x']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/x
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:_record_decl: 1 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__CRT_DOUBLE 64 bits
+DEBUG:cursorhandler:Fixup_struct: Member:x offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:FIXUP_STRUCT: size:64 offset:64
+DEBUG:clangparser:_ida64_win/idasdk.cpp:256: Found a STRUCT_DECL|_CRT_FLOAT|_CRT_FLOAT
+DEBUG:handler:get_unique_name: name "struct__CRT_FLOAT"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__CRT_FLOAT'
+DEBUG:handler:get_unique_name: name "struct__CRT_FLOAT"
+DEBUG:cursorhandler:_record_decl: name: struct__CRT_FLOAT size:4
+DEBUG:cursorhandler:cursor struct__CRT_FLOAT is a definition
+DEBUG:clangparser:register: struct__CRT_FLOAT 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/f']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/f
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 1 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__CRT_FLOAT 32 bits
+DEBUG:cursorhandler:Fixup_struct: Member:f offsetbits:0->32 expecting offset:0
+DEBUG:cursorhandler:FIXUP_STRUCT: size:32 offset:32
+DEBUG:clangparser:_ida64_win/idasdk.cpp:264: Found a STRUCT_DECL|_LONGDOUBLE|_LONGDOUBLE
+DEBUG:handler:get_unique_name: name "struct__LONGDOUBLE"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__LONGDOUBLE'
+DEBUG:handler:get_unique_name: name "struct__LONGDOUBLE"
+DEBUG:cursorhandler:_record_decl: name: struct__LONGDOUBLE size:16
+DEBUG:cursorhandler:cursor struct__LONGDOUBLE is a definition
+DEBUG:clangparser:register: struct__LONGDOUBLE 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/x']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/x
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 128 bits
+DEBUG:cursorhandler:_record_decl: 1 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__LONGDOUBLE 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:x offsetbits:0->128 expecting offset:0
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:272: Found a STRUCT_DECL|_LDBL12|_LDBL12
+DEBUG:handler:get_unique_name: name "struct__LDBL12"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__LDBL12'
+DEBUG:handler:get_unique_name: name "struct__LDBL12"
+DEBUG:cursorhandler:_record_decl: name: struct__LDBL12 size:12
+DEBUG:cursorhandler:cursor struct__LDBL12 is a definition
+DEBUG:clangparser:register: struct__LDBL12 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/ld12']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/ld12
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 96 bits
+DEBUG:handler:get_unique_name: name "unsigned char [12]"
+DEBUG:utils:_array_handler: displayname:'unsigned char [12]'
+DEBUG:cursorhandler:_record_decl: 1 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__LDBL12 96 bits
+DEBUG:cursorhandler:Fixup_struct: Member:ld12 offsetbits:0->96 expecting offset:0
+DEBUG:cursorhandler:FIXUP_STRUCT: size:96 offset:96
+DEBUG:clangparser:_ida64_win/idasdk.cpp:280: Found a STRUCT_DECL|_iobuf|_iobuf
+DEBUG:handler:get_unique_name: name "struct__iobuf"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__iobuf'
+DEBUG:handler:get_unique_name: name "struct__iobuf"
+DEBUG:cursorhandler:_record_decl: name: struct__iobuf size:8
+DEBUG:cursorhandler:cursor struct__iobuf is a definition
+DEBUG:clangparser:register: struct__iobuf 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/_Placeholder']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Placeholder
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "void *"
+DEBUG:utils:POINTER: displayname:'void *'
+DEBUG:handler:get_unique_name: name "void"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.VOID
+DEBUG:typehandler:POINTER: pointee type_name:'void'
+DEBUG:cursorhandler:_record_decl: 1 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__iobuf 64 bits
+DEBUG:cursorhandler:Fixup_struct: Member:_Placeholder offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:FIXUP_STRUCT: size:64 offset:64
+DEBUG:clangparser:_ida64_win/idasdk.cpp:287: Found a TYPEDEF_DECL|FILE|FILE
+DEBUG:handler:get_unique_name: name "FILE"
+DEBUG:utils:TYPEDEF_DECL: displayname:'FILE'
+DEBUG:handler:get_unique_name: name "FILE"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:FILE
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "_iobuf"
+DEBUG:utils:RECORD: displayname:'_iobuf'
+DEBUG:handler:get_unique_name: name "struct__iobuf"
+DEBUG:clangparser:register: FILE 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:290: Found a TYPEDEF_DECL|fpos_t|fpos_t
+DEBUG:handler:get_unique_name: name "fpos_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'fpos_t'
+DEBUG:handler:get_unique_name: name "fpos_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:fpos_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.LONGLONG
+DEBUG:clangparser:register: fpos_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:294: Found a STRUCT_DECL|tm|tm
+DEBUG:handler:get_unique_name: name "struct_tm"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_tm'
+DEBUG:handler:get_unique_name: name "struct_tm"
+DEBUG:cursorhandler:_record_decl: name: struct_tm size:36
+DEBUG:cursorhandler:cursor struct_tm is a definition
+DEBUG:clangparser:register: struct_tm 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/tm_sec', 'FIELD_DECL/tm_min', 'FIELD_DECL/tm_hour', 'FIELD_DECL/tm_mday', 'FIELD_DECL/tm_mon', 'FIELD_DECL/tm_year', 'FIELD_DECL/tm_wday', 'FIELD_DECL/tm_yday', 'FIELD_DECL/tm_isdst']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tm_sec
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tm_min
+DEBUG:cursorhandler:FIELD_DECL: field offset is 32
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tm_hour
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tm_mday
+DEBUG:cursorhandler:FIELD_DECL: field offset is 96
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tm_mon
+DEBUG:cursorhandler:FIELD_DECL: field offset is 128
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tm_year
+DEBUG:cursorhandler:FIELD_DECL: field offset is 160
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tm_wday
+DEBUG:cursorhandler:FIELD_DECL: field offset is 192
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tm_yday
+DEBUG:cursorhandler:FIELD_DECL: field offset is 224
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tm_isdst
+DEBUG:cursorhandler:FIELD_DECL: field offset is 256
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 9 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_tm 288 bits
+DEBUG:cursorhandler:Fixup_struct: Member:tm_sec offsetbits:0->32 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:tm_min offsetbits:32->64 expecting offset:32
+DEBUG:cursorhandler:Fixup_struct: Member:tm_hour offsetbits:64->96 expecting offset:64
+DEBUG:cursorhandler:Fixup_struct: Member:tm_mday offsetbits:96->128 expecting offset:96
+DEBUG:cursorhandler:Fixup_struct: Member:tm_mon offsetbits:128->160 expecting offset:128
+DEBUG:cursorhandler:Fixup_struct: Member:tm_year offsetbits:160->192 expecting offset:160
+DEBUG:cursorhandler:Fixup_struct: Member:tm_wday offsetbits:192->224 expecting offset:192
+DEBUG:cursorhandler:Fixup_struct: Member:tm_yday offsetbits:224->256 expecting offset:224
+DEBUG:cursorhandler:Fixup_struct: Member:tm_isdst offsetbits:256->288 expecting offset:256
+DEBUG:cursorhandler:FIXUP_STRUCT: size:288 offset:288
+DEBUG:clangparser:_ida64_win/idasdk.cpp:309: Found a TYPEDEF_DECL|clock_t|clock_t
+DEBUG:handler:get_unique_name: name "clock_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'clock_t'
+DEBUG:handler:get_unique_name: name "clock_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:clock_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.INT
+DEBUG:clangparser:register: clock_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:313: Found a STRUCT_DECL|_timespec32|_timespec32
+DEBUG:handler:get_unique_name: name "struct__timespec32"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__timespec32'
+DEBUG:handler:get_unique_name: name "struct__timespec32"
+DEBUG:cursorhandler:_record_decl: name: struct__timespec32 size:8
+DEBUG:cursorhandler:cursor struct__timespec32 is a definition
+DEBUG:clangparser:register: struct__timespec32 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/tv_sec', 'FIELD_DECL/tv_nsec']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tv_sec
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tv_nsec
+DEBUG:cursorhandler:FIELD_DECL: field offset is 32
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__timespec32 64 bits
+DEBUG:cursorhandler:Fixup_struct: Member:tv_sec offsetbits:0->32 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:tv_nsec offsetbits:32->64 expecting offset:32
+DEBUG:cursorhandler:FIXUP_STRUCT: size:64 offset:64
+DEBUG:clangparser:_ida64_win/idasdk.cpp:322: Found a STRUCT_DECL|_timespec64|_timespec64
+DEBUG:handler:get_unique_name: name "struct__timespec64"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__timespec64'
+DEBUG:handler:get_unique_name: name "struct__timespec64"
+DEBUG:cursorhandler:_record_decl: name: struct__timespec64 size:16
+DEBUG:cursorhandler:cursor struct__timespec64 is a definition
+DEBUG:clangparser:register: struct__timespec64 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/tv_sec', 'FIELD_DECL/tv_nsec']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tv_sec
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tv_nsec
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__timespec64 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:tv_sec offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:tv_nsec offsetbits:64->96 expecting offset:64
+DEBUG:cursorhandler:Fixup_struct: s:16 create tail padding for 32 bits 4 bytes
+DEBUG:cursorhandler:_make_padding: for 32 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:331: Found a STRUCT_DECL|timespec|timespec
+DEBUG:handler:get_unique_name: name "struct_timespec"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_timespec'
+DEBUG:handler:get_unique_name: name "struct_timespec"
+DEBUG:cursorhandler:_record_decl: name: struct_timespec size:16
+DEBUG:cursorhandler:cursor struct_timespec is a definition
+DEBUG:clangparser:register: struct_timespec 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/tv_sec', 'FIELD_DECL/tv_nsec']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tv_sec
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/tv_nsec
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_timespec 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:tv_sec offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:tv_nsec offsetbits:64->96 expecting offset:64
+DEBUG:cursorhandler:Fixup_struct: s:16 create tail padding for 32 bits 4 bytes
+DEBUG:cursorhandler:_make_padding: for 32 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:340: Found a STRUCT_DECL|std__nothrow_t|std__nothrow_t
+DEBUG:handler:get_unique_name: name "struct_std__nothrow_t"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__nothrow_t'
+DEBUG:handler:get_unique_name: name "struct_std__nothrow_t"
+DEBUG:cursorhandler:_record_decl: name: struct_std__nothrow_t size:1
+DEBUG:cursorhandler:cursor struct_std__nothrow_t is a definition
+DEBUG:clangparser:register: struct_std__nothrow_t 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__nothrow_t 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:346: Found a TYPEDEF_DECL|_HFILE|_HFILE
+DEBUG:handler:get_unique_name: name "_HFILE"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_HFILE'
+DEBUG:handler:get_unique_name: name "_HFILE"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_HFILE
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "void *"
+DEBUG:utils:POINTER: displayname:'void *'
+DEBUG:handler:get_unique_name: name "void"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.VOID
+DEBUG:typehandler:POINTER: pointee type_name:'void'
+DEBUG:clangparser:register: _HFILE 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:349: Found a TYPEDEF_DECL|_CRT_REPORT_HOOK|_CRT_REPORT_HOOK
+DEBUG:handler:get_unique_name: name "_CRT_REPORT_HOOK"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_CRT_REPORT_HOOK'
+DEBUG:handler:get_unique_name: name "_CRT_REPORT_HOOK"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_CRT_REPORT_HOOK
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "int (*)(int, char *, int *)"
+DEBUG:utils:POINTER: displayname:'int (*)(int, char *, int *)'
+DEBUG:handler:get_unique_name: name "int (int, char *, int *)"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "int (int, char *, int *)"
+DEBUG:utils:FUNCTIONPROTO: displayname:'int (int, char *, int *)'
+DEBUG:handler:get_unique_name: name "char *"
+DEBUG:utils:POINTER: displayname:'char *'
+DEBUG:handler:get_unique_name: name "char"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.CHAR_S
+DEBUG:typehandler:POINTER: pointee type_name:'char'
+DEBUG:handler:get_unique_name: name "int *"
+DEBUG:utils:POINTER: displayname:'int *'
+DEBUG:handler:get_unique_name: name "int"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.INT
+DEBUG:typehandler:POINTER: pointee type_name:'int'
+DEBUG:typehandler:POINTER: pointee type_name:'int (int, char *, int *)'
+DEBUG:clangparser:register: _CRT_REPORT_HOOK 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:352: Found a TYPEDEF_DECL|_CRT_REPORT_HOOKW|_CRT_REPORT_HOOKW
+DEBUG:handler:get_unique_name: name "_CRT_REPORT_HOOKW"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_CRT_REPORT_HOOKW'
+DEBUG:handler:get_unique_name: name "_CRT_REPORT_HOOKW"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_CRT_REPORT_HOOKW
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "int (*)(int, short *, int *)"
+DEBUG:utils:POINTER: displayname:'int (*)(int, short *, int *)'
+DEBUG:handler:get_unique_name: name "int (int, short *, int *)"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "int (int, short *, int *)"
+DEBUG:utils:FUNCTIONPROTO: displayname:'int (int, short *, int *)'
+DEBUG:handler:get_unique_name: name "short *"
+DEBUG:utils:POINTER: displayname:'short *'
+DEBUG:handler:get_unique_name: name "short"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.SHORT
+DEBUG:typehandler:POINTER: pointee type_name:'short'
+DEBUG:handler:get_unique_name: name "int *"
+DEBUG:utils:POINTER: displayname:'int *'
+DEBUG:handler:get_unique_name: name "int"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.INT
+DEBUG:typehandler:POINTER: pointee type_name:'int'
+DEBUG:typehandler:POINTER: pointee type_name:'int (int, short *, int *)'
+DEBUG:clangparser:register: _CRT_REPORT_HOOKW 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:355: Found a TYPEDEF_DECL|_CRT_ALLOC_HOOK|_CRT_ALLOC_HOOK
+DEBUG:handler:get_unique_name: name "_CRT_ALLOC_HOOK"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_CRT_ALLOC_HOOK'
+DEBUG:handler:get_unique_name: name "_CRT_ALLOC_HOOK"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_CRT_ALLOC_HOOK
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "int (*)(int, void *, unsigned long long, int, int, unsigned char *, int)"
+DEBUG:utils:POINTER: displayname:'int (*)(int, void *, unsigned long long, int, int, unsigned char *, int)'
+DEBUG:handler:get_unique_name: name "int (int, void *, unsigned long long, int, int, unsigned char *, int)"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "int (int, void *, unsigned long long, int, int, unsigned char *, int)"
+DEBUG:utils:FUNCTIONPROTO: displayname:'int (int, void *, unsigned long long, int, int, unsigned char *, int)'
+DEBUG:handler:get_unique_name: name "void *"
+DEBUG:utils:POINTER: displayname:'void *'
+DEBUG:handler:get_unique_name: name "void"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.VOID
+DEBUG:typehandler:POINTER: pointee type_name:'void'
+DEBUG:handler:get_unique_name: name "unsigned char *"
+DEBUG:utils:POINTER: displayname:'unsigned char *'
+DEBUG:handler:get_unique_name: name "unsigned char"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.UCHAR
+DEBUG:typehandler:POINTER: pointee type_name:'unsigned char'
+DEBUG:typehandler:POINTER: pointee type_name:'int (int, void *, unsigned long long, int, int, unsigned char *, int)'
+DEBUG:clangparser:register: _CRT_ALLOC_HOOK 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:358: Found a TYPEDEF_DECL|_CRT_DUMP_CLIENT|_CRT_DUMP_CLIENT
+DEBUG:handler:get_unique_name: name "_CRT_DUMP_CLIENT"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_CRT_DUMP_CLIENT'
+DEBUG:handler:get_unique_name: name "_CRT_DUMP_CLIENT"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_CRT_DUMP_CLIENT
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "void (*)(void *, unsigned long long)"
+DEBUG:utils:POINTER: displayname:'void (*)(void *, unsigned long long)'
+DEBUG:handler:get_unique_name: name "void (void *, unsigned long long)"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "void (void *, unsigned long long)"
+DEBUG:utils:FUNCTIONPROTO: displayname:'void (void *, unsigned long long)'
+DEBUG:handler:get_unique_name: name "void *"
+DEBUG:utils:POINTER: displayname:'void *'
+DEBUG:handler:get_unique_name: name "void"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.VOID
+DEBUG:typehandler:POINTER: pointee type_name:'void'
+DEBUG:typehandler:POINTER: pointee type_name:'void (void *, unsigned long long)'
+DEBUG:clangparser:register: _CRT_DUMP_CLIENT 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:361: Found a STRUCT_DECL|_CrtMemBlockHeader|_CrtMemBlockHeader
+DEBUG:handler:get_unique_name: name "struct__CrtMemBlockHeader"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__CrtMemBlockHeader'
+DEBUG:handler:get_unique_name: name "struct__CrtMemBlockHeader"
+DEBUG:cursorhandler:_record_decl: name: struct__CrtMemBlockHeader CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct__CrtMemBlockHeader 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:365: Found a STRUCT_DECL|_CrtMemState|_CrtMemState
+DEBUG:handler:get_unique_name: name "struct__CrtMemState"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__CrtMemState'
+DEBUG:handler:get_unique_name: name "struct__CrtMemState"
+DEBUG:cursorhandler:_record_decl: name: struct__CrtMemState size:104
+DEBUG:cursorhandler:cursor struct__CrtMemState is a definition
+DEBUG:clangparser:register: struct__CrtMemState 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/pBlockHeader', 'FIELD_DECL/lCounts', 'FIELD_DECL/lSizes', 'FIELD_DECL/lHighWaterCount', 'FIELD_DECL/lTotalCount']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/pBlockHeader
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "_CrtMemBlockHeader *"
+DEBUG:utils:POINTER: displayname:'_CrtMemBlockHeader *'
+DEBUG:handler:get_unique_name: name "_CrtMemBlockHeader"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "struct__CrtMemBlockHeader"
+DEBUG:typehandler:POINTER: pointee type_name:'_CrtMemBlockHeader'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/lCounts
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 320 bits
+DEBUG:handler:get_unique_name: name "unsigned long long [5]"
+DEBUG:utils:_array_handler: displayname:'unsigned long long [5]'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/lSizes
+DEBUG:cursorhandler:FIELD_DECL: field offset is 384
+DEBUG:cursorhandler:FIELD_DECL: field is 320 bits
+DEBUG:handler:get_unique_name: name "unsigned long long [5]"
+DEBUG:utils:_array_handler: displayname:'unsigned long long [5]'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/lHighWaterCount
+DEBUG:cursorhandler:FIELD_DECL: field offset is 704
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/lTotalCount
+DEBUG:cursorhandler:FIELD_DECL: field offset is 768
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:_record_decl: 5 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__CrtMemState 832 bits
+DEBUG:cursorhandler:Fixup_struct: Member:pBlockHeader offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:lCounts offsetbits:64->384 expecting offset:64
+DEBUG:cursorhandler:Fixup_struct: Member:lSizes offsetbits:384->704 expecting offset:384
+DEBUG:cursorhandler:Fixup_struct: Member:lHighWaterCount offsetbits:704->768 expecting offset:704
+DEBUG:cursorhandler:Fixup_struct: Member:lTotalCount offsetbits:768->832 expecting offset:768
+DEBUG:cursorhandler:FIXUP_STRUCT: size:832 offset:832
+DEBUG:clangparser:_ida64_win/idasdk.cpp:376: Found a ENUM_DECL|std___Uninitialized|std___Uninitialized
+DEBUG:handler:get_unique_name: name "std___Uninitialized"
+DEBUG:utils:ENUM_DECL: displayname:'std___Uninitialized'
+DEBUG:handler:get_unique_name: name "std___Uninitialized"
+DEBUG:clangparser:register: std___Uninitialized 
+DEBUG:handler:get_unique_name: name "_Noinit"
+DEBUG:utils:ENUM_CONSTANT_DECL: displayname:'_Noinit'
+DEBUG:handler:get_unique_name: name "std___Uninitialized"
+DEBUG:clangparser:_ida64_win/idasdk.cpp:383: Found a STRUCT_DECL|std___Lockit|std___Lockit
+DEBUG:handler:get_unique_name: name "struct_std___Lockit"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Lockit'
+DEBUG:handler:get_unique_name: name "struct_std___Lockit"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Lockit size:4
+DEBUG:cursorhandler:cursor struct_std___Lockit is a definition
+DEBUG:clangparser:register: struct_std___Lockit 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/_Locktype']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Locktype
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 1 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Lockit 32 bits
+DEBUG:cursorhandler:Fixup_struct: Member:_Locktype offsetbits:0->32 expecting offset:0
+DEBUG:cursorhandler:FIXUP_STRUCT: size:32 offset:32
+DEBUG:clangparser:_ida64_win/idasdk.cpp:391: Found a STRUCT_DECL|std___Init_locks|std___Init_locks
+DEBUG:handler:get_unique_name: name "struct_std___Init_locks"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Init_locks'
+DEBUG:handler:get_unique_name: name "struct_std___Init_locks"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Init_locks size:1
+DEBUG:cursorhandler:cursor struct_std___Init_locks is a definition
+DEBUG:clangparser:register: struct_std___Init_locks 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Init_locks 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:397: Found a TYPEDEF_DECL|int8_t|int8_t
+DEBUG:handler:get_unique_name: name "int8_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int8_t'
+DEBUG:handler:get_unique_name: name "int8_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int8_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.CHAR_S
+DEBUG:clangparser:register: int8_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:400: Found a TYPEDEF_DECL|int16_t|int16_t
+DEBUG:handler:get_unique_name: name "int16_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int16_t'
+DEBUG:handler:get_unique_name: name "int16_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int16_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.SHORT
+DEBUG:clangparser:register: int16_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:403: Found a TYPEDEF_DECL|int32_t|int32_t
+DEBUG:handler:get_unique_name: name "int32_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int32_t'
+DEBUG:handler:get_unique_name: name "int32_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int32_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.INT
+DEBUG:clangparser:register: int32_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:406: Found a TYPEDEF_DECL|int64_t|int64_t
+DEBUG:handler:get_unique_name: name "int64_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int64_t'
+DEBUG:handler:get_unique_name: name "int64_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int64_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.LONGLONG
+DEBUG:clangparser:register: int64_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:409: Found a TYPEDEF_DECL|uint8_t|uint8_t
+DEBUG:handler:get_unique_name: name "uint8_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint8_t'
+DEBUG:handler:get_unique_name: name "uint8_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint8_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.UCHAR
+DEBUG:clangparser:register: uint8_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:412: Found a TYPEDEF_DECL|uint16_t|uint16_t
+DEBUG:handler:get_unique_name: name "uint16_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint16_t'
+DEBUG:handler:get_unique_name: name "uint16_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint16_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.USHORT
+DEBUG:clangparser:register: uint16_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:415: Found a TYPEDEF_DECL|uint32_t|uint32_t
+DEBUG:handler:get_unique_name: name "uint32_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint32_t'
+DEBUG:handler:get_unique_name: name "uint32_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint32_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.UINT
+DEBUG:clangparser:register: uint32_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:418: Found a TYPEDEF_DECL|uint64_t|uint64_t
+DEBUG:handler:get_unique_name: name "uint64_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint64_t'
+DEBUG:handler:get_unique_name: name "uint64_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint64_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.ULONGLONG
+DEBUG:clangparser:register: uint64_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:421: Found a TYPEDEF_DECL|int_least8_t|int_least8_t
+DEBUG:handler:get_unique_name: name "int_least8_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int_least8_t'
+DEBUG:handler:get_unique_name: name "int_least8_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int_least8_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.CHAR_S
+DEBUG:clangparser:register: int_least8_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:424: Found a TYPEDEF_DECL|int_least16_t|int_least16_t
+DEBUG:handler:get_unique_name: name "int_least16_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int_least16_t'
+DEBUG:handler:get_unique_name: name "int_least16_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int_least16_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.SHORT
+DEBUG:clangparser:register: int_least16_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:427: Found a TYPEDEF_DECL|int_least32_t|int_least32_t
+DEBUG:handler:get_unique_name: name "int_least32_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int_least32_t'
+DEBUG:handler:get_unique_name: name "int_least32_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int_least32_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.INT
+DEBUG:clangparser:register: int_least32_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:430: Found a TYPEDEF_DECL|int_least64_t|int_least64_t
+DEBUG:handler:get_unique_name: name "int_least64_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int_least64_t'
+DEBUG:handler:get_unique_name: name "int_least64_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int_least64_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.LONGLONG
+DEBUG:clangparser:register: int_least64_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:433: Found a TYPEDEF_DECL|uint_least8_t|uint_least8_t
+DEBUG:handler:get_unique_name: name "uint_least8_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint_least8_t'
+DEBUG:handler:get_unique_name: name "uint_least8_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint_least8_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.UCHAR
+DEBUG:clangparser:register: uint_least8_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:436: Found a TYPEDEF_DECL|uint_least16_t|uint_least16_t
+DEBUG:handler:get_unique_name: name "uint_least16_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint_least16_t'
+DEBUG:handler:get_unique_name: name "uint_least16_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint_least16_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.USHORT
+DEBUG:clangparser:register: uint_least16_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:439: Found a TYPEDEF_DECL|uint_least32_t|uint_least32_t
+DEBUG:handler:get_unique_name: name "uint_least32_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint_least32_t'
+DEBUG:handler:get_unique_name: name "uint_least32_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint_least32_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.UINT
+DEBUG:clangparser:register: uint_least32_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:442: Found a TYPEDEF_DECL|uint_least64_t|uint_least64_t
+DEBUG:handler:get_unique_name: name "uint_least64_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint_least64_t'
+DEBUG:handler:get_unique_name: name "uint_least64_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint_least64_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.ULONGLONG
+DEBUG:clangparser:register: uint_least64_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:445: Found a TYPEDEF_DECL|int_fast8_t|int_fast8_t
+DEBUG:handler:get_unique_name: name "int_fast8_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int_fast8_t'
+DEBUG:handler:get_unique_name: name "int_fast8_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int_fast8_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.CHAR_S
+DEBUG:clangparser:register: int_fast8_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:448: Found a TYPEDEF_DECL|int_fast16_t|int_fast16_t
+DEBUG:handler:get_unique_name: name "int_fast16_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int_fast16_t'
+DEBUG:handler:get_unique_name: name "int_fast16_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int_fast16_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.INT
+DEBUG:clangparser:register: int_fast16_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:451: Found a TYPEDEF_DECL|int_fast32_t|int_fast32_t
+DEBUG:handler:get_unique_name: name "int_fast32_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int_fast32_t'
+DEBUG:handler:get_unique_name: name "int_fast32_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int_fast32_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.INT
+DEBUG:clangparser:register: int_fast32_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:454: Found a TYPEDEF_DECL|int_fast64_t|int_fast64_t
+DEBUG:handler:get_unique_name: name "int_fast64_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'int_fast64_t'
+DEBUG:handler:get_unique_name: name "int_fast64_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:int_fast64_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.LONGLONG
+DEBUG:clangparser:register: int_fast64_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:457: Found a TYPEDEF_DECL|uint_fast8_t|uint_fast8_t
+DEBUG:handler:get_unique_name: name "uint_fast8_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint_fast8_t'
+DEBUG:handler:get_unique_name: name "uint_fast8_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint_fast8_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.UCHAR
+DEBUG:clangparser:register: uint_fast8_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:460: Found a TYPEDEF_DECL|uint_fast16_t|uint_fast16_t
+DEBUG:handler:get_unique_name: name "uint_fast16_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint_fast16_t'
+DEBUG:handler:get_unique_name: name "uint_fast16_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint_fast16_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.UINT
+DEBUG:clangparser:register: uint_fast16_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:463: Found a TYPEDEF_DECL|uint_fast32_t|uint_fast32_t
+DEBUG:handler:get_unique_name: name "uint_fast32_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint_fast32_t'
+DEBUG:handler:get_unique_name: name "uint_fast32_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint_fast32_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.UINT
+DEBUG:clangparser:register: uint_fast32_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:466: Found a TYPEDEF_DECL|uint_fast64_t|uint_fast64_t
+DEBUG:handler:get_unique_name: name "uint_fast64_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uint_fast64_t'
+DEBUG:handler:get_unique_name: name "uint_fast64_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uint_fast64_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.ULONGLONG
+DEBUG:clangparser:register: uint_fast64_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:469: Found a TYPEDEF_DECL|intmax_t|intmax_t
+DEBUG:handler:get_unique_name: name "intmax_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'intmax_t'
+DEBUG:handler:get_unique_name: name "intmax_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:intmax_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.LONGLONG
+DEBUG:clangparser:register: intmax_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:472: Found a TYPEDEF_DECL|uintmax_t|uintmax_t
+DEBUG:handler:get_unique_name: name "uintmax_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'uintmax_t'
+DEBUG:handler:get_unique_name: name "uintmax_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:uintmax_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.ULONGLONG
+DEBUG:clangparser:register: uintmax_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:476: Found a STRUCT_DECL|std__integral_constant_bool__true_|std__integral_constant_bool__true_
+DEBUG:handler:get_unique_name: name "struct_std__integral_constant_bool__true_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__integral_constant_bool__true_'
+DEBUG:handler:get_unique_name: name "struct_std__integral_constant_bool__true_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__integral_constant_bool__true_ size:1
+DEBUG:cursorhandler:cursor struct_std__integral_constant_bool__true_ is a definition
+DEBUG:clangparser:register: struct_std__integral_constant_bool__true_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__integral_constant_bool__true_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:482: Found a TYPEDEF_DECL|std__integral_constant_bool__true___value_type|std__integral_constant_bool__true___value_type
+DEBUG:handler:get_unique_name: name "std__integral_constant_bool__true___value_type"
+DEBUG:utils:TYPEDEF_DECL: displayname:'std__integral_constant_bool__true___value_type'
+DEBUG:handler:get_unique_name: name "std__integral_constant_bool__true___value_type"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:std__integral_constant_bool__true___value_type
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.CHAR_S
+DEBUG:clangparser:register: std__integral_constant_bool__true___value_type 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:485: Found a TYPEDEF_DECL|std__true_type|std__true_type
+DEBUG:handler:get_unique_name: name "std__true_type"
+DEBUG:utils:TYPEDEF_DECL: displayname:'std__true_type'
+DEBUG:handler:get_unique_name: name "std__true_type"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:std__true_type
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "std__integral_constant_bool__true_"
+DEBUG:utils:RECORD: displayname:'std__integral_constant_bool__true_'
+DEBUG:handler:get_unique_name: name "struct_std__integral_constant_bool__true_"
+DEBUG:clangparser:register: std__true_type 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:489: Found a STRUCT_DECL|std__integral_constant_bool__false_|std__integral_constant_bool__false_
+DEBUG:handler:get_unique_name: name "struct_std__integral_constant_bool__false_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__integral_constant_bool__false_'
+DEBUG:handler:get_unique_name: name "struct_std__integral_constant_bool__false_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__integral_constant_bool__false_ size:1
+DEBUG:cursorhandler:cursor struct_std__integral_constant_bool__false_ is a definition
+DEBUG:clangparser:register: struct_std__integral_constant_bool__false_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__integral_constant_bool__false_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:495: Found a TYPEDEF_DECL|std__integral_constant_bool__false___value_type|std__integral_constant_bool__false___value_type
+DEBUG:handler:get_unique_name: name "std__integral_constant_bool__false___value_type"
+DEBUG:utils:TYPEDEF_DECL: displayname:'std__integral_constant_bool__false___value_type'
+DEBUG:handler:get_unique_name: name "std__integral_constant_bool__false___value_type"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:std__integral_constant_bool__false___value_type
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.CHAR_S
+DEBUG:clangparser:register: std__integral_constant_bool__false___value_type 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:498: Found a TYPEDEF_DECL|std__false_type|std__false_type
+DEBUG:handler:get_unique_name: name "std__false_type"
+DEBUG:utils:TYPEDEF_DECL: displayname:'std__false_type'
+DEBUG:handler:get_unique_name: name "std__false_type"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:std__false_type
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "std__integral_constant_bool__false_"
+DEBUG:utils:RECORD: displayname:'std__integral_constant_bool__false_'
+DEBUG:handler:get_unique_name: name "struct_std__integral_constant_bool__false_"
+DEBUG:clangparser:register: std__false_type 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:501: Found a TYPEDEF_DECL|std__max_align_t|std__max_align_t
+DEBUG:handler:get_unique_name: name "std__max_align_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'std__max_align_t'
+DEBUG:handler:get_unique_name: name "std__max_align_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:std__max_align_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.DOUBLE
+DEBUG:clangparser:register: std__max_align_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:505: Found a STRUCT_DECL|_exception|_exception
+DEBUG:handler:get_unique_name: name "struct__exception"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__exception'
+DEBUG:handler:get_unique_name: name "struct__exception"
+DEBUG:cursorhandler:_record_decl: name: struct__exception size:40
+DEBUG:cursorhandler:cursor struct__exception is a definition
+DEBUG:clangparser:register: struct__exception 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/type', 'FIELD_DECL/name', 'FIELD_DECL/arg1', 'FIELD_DECL/arg2', 'FIELD_DECL/retval']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/type
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/name
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "char *"
+DEBUG:utils:POINTER: displayname:'char *'
+DEBUG:handler:get_unique_name: name "char"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.CHAR_S
+DEBUG:typehandler:POINTER: pointee type_name:'char'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/arg1
+DEBUG:cursorhandler:FIELD_DECL: field offset is 128
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/arg2
+DEBUG:cursorhandler:FIELD_DECL: field offset is 192
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/retval
+DEBUG:cursorhandler:FIELD_DECL: field offset is 256
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:_record_decl: 5 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__exception 320 bits
+DEBUG:cursorhandler:Fixup_struct: Member:type offsetbits:0->32 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:name offsetbits:64->128 expecting offset:32
+DEBUG:cursorhandler:Fixup_struct: create padding for 32 bits 4 bytes
+DEBUG:cursorhandler:_make_padding: for 32 bits
+DEBUG:cursorhandler:Fixup_struct: Member:arg1 offsetbits:128->192 expecting offset:128
+DEBUG:cursorhandler:Fixup_struct: Member:arg2 offsetbits:192->256 expecting offset:192
+DEBUG:cursorhandler:Fixup_struct: Member:retval offsetbits:256->320 expecting offset:256
+DEBUG:cursorhandler:FIXUP_STRUCT: size:320 offset:320
+DEBUG:clangparser:_ida64_win/idasdk.cpp:517: Found a STRUCT_DECL|_complex|_complex
+DEBUG:handler:get_unique_name: name "struct__complex"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__complex'
+DEBUG:handler:get_unique_name: name "struct__complex"
+DEBUG:cursorhandler:_record_decl: name: struct__complex size:16
+DEBUG:cursorhandler:cursor struct__complex is a definition
+DEBUG:clangparser:register: struct__complex 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/x', 'FIELD_DECL/y']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/x
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/y
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__complex 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:x offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:y offsetbits:64->128 expecting offset:64
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:525: Found a TYPEDEF_DECL|float_t|float_t
+DEBUG:handler:get_unique_name: name "float_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'float_t'
+DEBUG:handler:get_unique_name: name "float_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:float_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.FLOAT
+DEBUG:clangparser:register: float_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:528: Found a TYPEDEF_DECL|double_t|double_t
+DEBUG:handler:get_unique_name: name "double_t"
+DEBUG:utils:TYPEDEF_DECL: displayname:'double_t'
+DEBUG:handler:get_unique_name: name "double_t"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:double_t
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.DOUBLE
+DEBUG:clangparser:register: double_t 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:532: Found a UNION_DECL|_double_val|_double_val
+DEBUG:handler:get_unique_name: name "union__double_val"
+DEBUG:utils:UNION_DECL: displayname:'union__double_val'
+DEBUG:handler:get_unique_name: name "union__double_val"
+DEBUG:cursorhandler:_record_decl: name: union__double_val size:8
+DEBUG:cursorhandler:cursor union__double_val is a definition
+DEBUG:clangparser:register: union__double_val 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/_Sh', 'FIELD_DECL/_Val']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Sh
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "unsigned short [4]"
+DEBUG:utils:_array_handler: displayname:'unsigned short [4]'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Val
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: union__double_val 64 bits
+DEBUG:cursorhandler:Fixup_struct: Member:_Sh offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:_Val offsetbits:0->64 expecting offset:64
+DEBUG:cursorhandler:FIXUP_STRUCT: size:64 offset:64
+DEBUG:clangparser:_ida64_win/idasdk.cpp:541: Found a UNION_DECL|_float_val|_float_val
+DEBUG:handler:get_unique_name: name "union__float_val"
+DEBUG:utils:UNION_DECL: displayname:'union__float_val'
+DEBUG:handler:get_unique_name: name "union__float_val"
+DEBUG:cursorhandler:_record_decl: name: union__float_val size:4
+DEBUG:cursorhandler:cursor union__float_val is a definition
+DEBUG:clangparser:register: union__float_val 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/_Sh', 'FIELD_DECL/_Val']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Sh
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:handler:get_unique_name: name "unsigned short [2]"
+DEBUG:utils:_array_handler: displayname:'unsigned short [2]'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Val
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: union__float_val 32 bits
+DEBUG:cursorhandler:Fixup_struct: Member:_Sh offsetbits:0->32 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:_Val offsetbits:0->32 expecting offset:32
+DEBUG:cursorhandler:FIXUP_STRUCT: size:32 offset:32
+DEBUG:clangparser:_ida64_win/idasdk.cpp:550: Found a UNION_DECL|_ldouble_val|_ldouble_val
+DEBUG:handler:get_unique_name: name "union__ldouble_val"
+DEBUG:utils:UNION_DECL: displayname:'union__ldouble_val'
+DEBUG:handler:get_unique_name: name "union__ldouble_val"
+DEBUG:cursorhandler:_record_decl: name: union__ldouble_val size:16
+DEBUG:cursorhandler:cursor union__ldouble_val is a definition
+DEBUG:clangparser:register: union__ldouble_val 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/_Sh', 'FIELD_DECL/_Val']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Sh
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "unsigned short [4]"
+DEBUG:utils:_array_handler: displayname:'unsigned short [4]'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Val
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 128 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: union__ldouble_val 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:_Sh offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:_Val offsetbits:0->128 expecting offset:64
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:559: Found a UNION_DECL|_float_const|_float_const
+DEBUG:handler:get_unique_name: name "union__float_const"
+DEBUG:utils:UNION_DECL: displayname:'union__float_const'
+DEBUG:handler:get_unique_name: name "union__float_const"
+DEBUG:cursorhandler:_record_decl: name: union__float_const size:16
+DEBUG:cursorhandler:cursor union__float_const is a definition
+DEBUG:clangparser:register: union__float_const 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/_Word', 'FIELD_DECL/_Float', 'FIELD_DECL/_Double', 'FIELD_DECL/_Long_double']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Word
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "unsigned short [4]"
+DEBUG:utils:_array_handler: displayname:'unsigned short [4]'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Float
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Double
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Long_double
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 128 bits
+DEBUG:cursorhandler:_record_decl: 4 members
+DEBUG:cursorhandler:FIXUP_STRUCT: union__float_const 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:_Word offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:_Float offsetbits:0->32 expecting offset:64
+DEBUG:cursorhandler:Fixup_struct: Member:_Double offsetbits:0->64 expecting offset:32
+DEBUG:cursorhandler:Fixup_struct: Member:_Long_double offsetbits:0->128 expecting offset:64
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:570: Found a STRUCT_DECL|_Combined_type_float__double_|_Combined_type_float__double_
+DEBUG:handler:get_unique_name: name "struct__Combined_type_float__double_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__Combined_type_float__double_'
+DEBUG:handler:get_unique_name: name "struct__Combined_type_float__double_"
+DEBUG:cursorhandler:_record_decl: name: struct__Combined_type_float__double_ size:1
+DEBUG:cursorhandler:cursor struct__Combined_type_float__double_ is a definition
+DEBUG:clangparser:register: struct__Combined_type_float__double_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__Combined_type_float__double_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:577: Found a STRUCT_DECL|_Combined_type_float__long_double_|_Combined_type_float__long_double_
+DEBUG:handler:get_unique_name: name "struct__Combined_type_float__long_double_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__Combined_type_float__long_double_'
+DEBUG:handler:get_unique_name: name "struct__Combined_type_float__long_double_"
+DEBUG:cursorhandler:_record_decl: name: struct__Combined_type_float__long_double_ size:1
+DEBUG:cursorhandler:cursor struct__Combined_type_float__long_double_ is a definition
+DEBUG:clangparser:register: struct__Combined_type_float__long_double_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__Combined_type_float__long_double_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:584: Found a STRUCT_DECL|_Real_widened_float__float_|_Real_widened_float__float_
+DEBUG:handler:get_unique_name: name "struct__Real_widened_float__float_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__Real_widened_float__float_'
+DEBUG:handler:get_unique_name: name "struct__Real_widened_float__float_"
+DEBUG:cursorhandler:_record_decl: name: struct__Real_widened_float__float_ size:1
+DEBUG:cursorhandler:cursor struct__Real_widened_float__float_ is a definition
+DEBUG:clangparser:register: struct__Real_widened_float__float_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__Real_widened_float__float_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:591: Found a STRUCT_DECL|_Real_widened_float__double_|_Real_widened_float__double_
+DEBUG:handler:get_unique_name: name "struct__Real_widened_float__double_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__Real_widened_float__double_'
+DEBUG:handler:get_unique_name: name "struct__Real_widened_float__double_"
+DEBUG:cursorhandler:_record_decl: name: struct__Real_widened_float__double_ size:1
+DEBUG:cursorhandler:cursor struct__Real_widened_float__double_ is a definition
+DEBUG:clangparser:register: struct__Real_widened_float__double_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__Real_widened_float__double_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:598: Found a STRUCT_DECL|_Real_widened_double__float_|_Real_widened_double__float_
+DEBUG:handler:get_unique_name: name "struct__Real_widened_double__float_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__Real_widened_double__float_'
+DEBUG:handler:get_unique_name: name "struct__Real_widened_double__float_"
+DEBUG:cursorhandler:_record_decl: name: struct__Real_widened_double__float_ size:1
+DEBUG:cursorhandler:cursor struct__Real_widened_double__float_ is a definition
+DEBUG:clangparser:register: struct__Real_widened_double__float_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__Real_widened_double__float_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:605: Found a STRUCT_DECL|_Real_widened_double__double_|_Real_widened_double__double_
+DEBUG:handler:get_unique_name: name "struct__Real_widened_double__double_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__Real_widened_double__double_'
+DEBUG:handler:get_unique_name: name "struct__Real_widened_double__double_"
+DEBUG:cursorhandler:_record_decl: name: struct__Real_widened_double__double_ size:1
+DEBUG:cursorhandler:cursor struct__Real_widened_double__double_ is a definition
+DEBUG:clangparser:register: struct__Real_widened_double__double_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__Real_widened_double__double_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:612: Found a STRUCT_DECL|_Real_type_float_|_Real_type_float_
+DEBUG:handler:get_unique_name: name "struct__Real_type_float_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__Real_type_float_'
+DEBUG:handler:get_unique_name: name "struct__Real_type_float_"
+DEBUG:cursorhandler:_record_decl: name: struct__Real_type_float_ size:1
+DEBUG:cursorhandler:cursor struct__Real_type_float_ is a definition
+DEBUG:clangparser:register: struct__Real_type_float_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__Real_type_float_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:619: Found a STRUCT_DECL|_Real_type_long_double_|_Real_type_long_double_
+DEBUG:handler:get_unique_name: name "struct__Real_type_long_double_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__Real_type_long_double_'
+DEBUG:handler:get_unique_name: name "struct__Real_type_long_double_"
+DEBUG:cursorhandler:_record_decl: name: struct__Real_type_long_double_ size:1
+DEBUG:cursorhandler:cursor struct__Real_type_long_double_ is a definition
+DEBUG:clangparser:register: struct__Real_type_long_double_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__Real_type_long_double_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:626: Found a STRUCT_DECL|std__plus_void_|std__plus_void_
+DEBUG:handler:get_unique_name: name "struct_std__plus_void_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__plus_void_'
+DEBUG:handler:get_unique_name: name "struct_std__plus_void_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__plus_void_ size:1
+DEBUG:cursorhandler:cursor struct_std__plus_void_ is a definition
+DEBUG:clangparser:register: struct_std__plus_void_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__plus_void_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:633: Found a STRUCT_DECL|std__minus_void_|std__minus_void_
+DEBUG:handler:get_unique_name: name "struct_std__minus_void_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__minus_void_'
+DEBUG:handler:get_unique_name: name "struct_std__minus_void_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__minus_void_ size:1
+DEBUG:cursorhandler:cursor struct_std__minus_void_ is a definition
+DEBUG:clangparser:register: struct_std__minus_void_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__minus_void_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:640: Found a STRUCT_DECL|std__multiplies_void_|std__multiplies_void_
+DEBUG:handler:get_unique_name: name "struct_std__multiplies_void_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__multiplies_void_'
+DEBUG:handler:get_unique_name: name "struct_std__multiplies_void_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__multiplies_void_ size:1
+DEBUG:cursorhandler:cursor struct_std__multiplies_void_ is a definition
+DEBUG:clangparser:register: struct_std__multiplies_void_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__multiplies_void_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:647: Found a STRUCT_DECL|std__equal_to_void_|std__equal_to_void_
+DEBUG:handler:get_unique_name: name "struct_std__equal_to_void_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__equal_to_void_'
+DEBUG:handler:get_unique_name: name "struct_std__equal_to_void_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__equal_to_void_ size:1
+DEBUG:cursorhandler:cursor struct_std__equal_to_void_ is a definition
+DEBUG:clangparser:register: struct_std__equal_to_void_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__equal_to_void_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:654: Found a STRUCT_DECL|std__not_equal_to_void_|std__not_equal_to_void_
+DEBUG:handler:get_unique_name: name "struct_std__not_equal_to_void_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__not_equal_to_void_'
+DEBUG:handler:get_unique_name: name "struct_std__not_equal_to_void_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__not_equal_to_void_ size:1
+DEBUG:cursorhandler:cursor struct_std__not_equal_to_void_ is a definition
+DEBUG:clangparser:register: struct_std__not_equal_to_void_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__not_equal_to_void_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:661: Found a STRUCT_DECL|std__greater_void_|std__greater_void_
+DEBUG:handler:get_unique_name: name "struct_std__greater_void_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__greater_void_'
+DEBUG:handler:get_unique_name: name "struct_std__greater_void_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__greater_void_ size:1
+DEBUG:cursorhandler:cursor struct_std__greater_void_ is a definition
+DEBUG:clangparser:register: struct_std__greater_void_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__greater_void_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:668: Found a STRUCT_DECL|std__less_void_|std__less_void_
+DEBUG:handler:get_unique_name: name "struct_std__less_void_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__less_void_'
+DEBUG:handler:get_unique_name: name "struct_std__less_void_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__less_void_ size:1
+DEBUG:cursorhandler:cursor struct_std__less_void_ is a definition
+DEBUG:clangparser:register: struct_std__less_void_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__less_void_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:675: Found a STRUCT_DECL|std__greater_equal_void_|std__greater_equal_void_
+DEBUG:handler:get_unique_name: name "struct_std__greater_equal_void_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__greater_equal_void_'
+DEBUG:handler:get_unique_name: name "struct_std__greater_equal_void_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__greater_equal_void_ size:1
+DEBUG:cursorhandler:cursor struct_std__greater_equal_void_ is a definition
+DEBUG:clangparser:register: struct_std__greater_equal_void_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__greater_equal_void_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:682: Found a STRUCT_DECL|std__less_equal_void_|std__less_equal_void_
+DEBUG:handler:get_unique_name: name "struct_std__less_equal_void_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__less_equal_void_'
+DEBUG:handler:get_unique_name: name "struct_std__less_equal_void_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__less_equal_void_ size:1
+DEBUG:cursorhandler:cursor struct_std__less_equal_void_ is a definition
+DEBUG:clangparser:register: struct_std__less_equal_void_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__less_equal_void_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:689: Found a STRUCT_DECL|std___Select_false_|std___Select_false_
+DEBUG:handler:get_unique_name: name "struct_std___Select_false_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Select_false_'
+DEBUG:handler:get_unique_name: name "struct_std___Select_false_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Select_false_ size:1
+DEBUG:cursorhandler:cursor struct_std___Select_false_ is a definition
+DEBUG:clangparser:register: struct_std___Select_false_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Select_false_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:696: Found a STRUCT_DECL|std___Make_signed2_1_|std___Make_signed2_1_
+DEBUG:handler:get_unique_name: name "struct_std___Make_signed2_1_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Make_signed2_1_'
+DEBUG:handler:get_unique_name: name "struct_std___Make_signed2_1_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Make_signed2_1_ size:1
+DEBUG:cursorhandler:cursor struct_std___Make_signed2_1_ is a definition
+DEBUG:clangparser:register: struct_std___Make_signed2_1_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Make_signed2_1_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:703: Found a STRUCT_DECL|std___Make_signed2_2_|std___Make_signed2_2_
+DEBUG:handler:get_unique_name: name "struct_std___Make_signed2_2_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Make_signed2_2_'
+DEBUG:handler:get_unique_name: name "struct_std___Make_signed2_2_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Make_signed2_2_ size:1
+DEBUG:cursorhandler:cursor struct_std___Make_signed2_2_ is a definition
+DEBUG:clangparser:register: struct_std___Make_signed2_2_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Make_signed2_2_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:710: Found a STRUCT_DECL|std___Make_signed2_4_|std___Make_signed2_4_
+DEBUG:handler:get_unique_name: name "struct_std___Make_signed2_4_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Make_signed2_4_'
+DEBUG:handler:get_unique_name: name "struct_std___Make_signed2_4_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Make_signed2_4_ size:1
+DEBUG:cursorhandler:cursor struct_std___Make_signed2_4_ is a definition
+DEBUG:clangparser:register: struct_std___Make_signed2_4_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Make_signed2_4_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:717: Found a STRUCT_DECL|std___Make_signed2_8_|std___Make_signed2_8_
+DEBUG:handler:get_unique_name: name "struct_std___Make_signed2_8_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Make_signed2_8_'
+DEBUG:handler:get_unique_name: name "struct_std___Make_signed2_8_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Make_signed2_8_ size:1
+DEBUG:cursorhandler:cursor struct_std___Make_signed2_8_ is a definition
+DEBUG:clangparser:register: struct_std___Make_signed2_8_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Make_signed2_8_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:724: Found a STRUCT_DECL|std___Make_unsigned2_1_|std___Make_unsigned2_1_
+DEBUG:handler:get_unique_name: name "struct_std___Make_unsigned2_1_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Make_unsigned2_1_'
+DEBUG:handler:get_unique_name: name "struct_std___Make_unsigned2_1_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Make_unsigned2_1_ size:1
+DEBUG:cursorhandler:cursor struct_std___Make_unsigned2_1_ is a definition
+DEBUG:clangparser:register: struct_std___Make_unsigned2_1_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Make_unsigned2_1_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:731: Found a STRUCT_DECL|std___Make_unsigned2_2_|std___Make_unsigned2_2_
+DEBUG:handler:get_unique_name: name "struct_std___Make_unsigned2_2_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Make_unsigned2_2_'
+DEBUG:handler:get_unique_name: name "struct_std___Make_unsigned2_2_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Make_unsigned2_2_ size:1
+DEBUG:cursorhandler:cursor struct_std___Make_unsigned2_2_ is a definition
+DEBUG:clangparser:register: struct_std___Make_unsigned2_2_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Make_unsigned2_2_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:738: Found a STRUCT_DECL|std___Make_unsigned2_4_|std___Make_unsigned2_4_
+DEBUG:handler:get_unique_name: name "struct_std___Make_unsigned2_4_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Make_unsigned2_4_'
+DEBUG:handler:get_unique_name: name "struct_std___Make_unsigned2_4_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Make_unsigned2_4_ size:1
+DEBUG:cursorhandler:cursor struct_std___Make_unsigned2_4_ is a definition
+DEBUG:clangparser:register: struct_std___Make_unsigned2_4_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Make_unsigned2_4_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:745: Found a STRUCT_DECL|std___Make_unsigned2_8_|std___Make_unsigned2_8_
+DEBUG:handler:get_unique_name: name "struct_std___Make_unsigned2_8_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Make_unsigned2_8_'
+DEBUG:handler:get_unique_name: name "struct_std___Make_unsigned2_8_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Make_unsigned2_8_ size:1
+DEBUG:cursorhandler:cursor struct_std___Make_unsigned2_8_ is a definition
+DEBUG:clangparser:register: struct_std___Make_unsigned2_8_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Make_unsigned2_8_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:752: Found a STRUCT_DECL|std__integral_constant_unsigned_long_long__0_|std__integral_constant_unsigned_long_long__0_
+DEBUG:handler:get_unique_name: name "struct_std__integral_constant_unsigned_long_long__0_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__integral_constant_unsigned_long_long__0_'
+DEBUG:handler:get_unique_name: name "struct_std__integral_constant_unsigned_long_long__0_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__integral_constant_unsigned_long_long__0_ size:1
+DEBUG:cursorhandler:cursor struct_std__integral_constant_unsigned_long_long__0_ is a definition
+DEBUG:clangparser:register: struct_std__integral_constant_unsigned_long_long__0_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__integral_constant_unsigned_long_long__0_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:759: Found a STRUCT_DECL|std___Maximum__|std___Maximum__
+DEBUG:handler:get_unique_name: name "struct_std___Maximum__"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Maximum__'
+DEBUG:handler:get_unique_name: name "struct_std___Maximum__"
+DEBUG:cursorhandler:got base class struct std__integral_constant_unsigned_long_long__0_
+DEBUG:cursorhandler:_record_decl: name: std__integral_constant_unsigned_long_long__0_ size:1
+DEBUG:cursorhandler:cursor std__integral_constant_unsigned_long_long__0_ is a definition
+DEBUG:clangparser:register: std__integral_constant_unsigned_long_long__0_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:Unhandled field CursorKind.CXX_BASE_SPECIFIER in record std__integral_constant_unsigned_long_long__0_
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: std__integral_constant_unsigned_long_long__0_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:765: Found a TYPEDEF_DECL|std__integral_constant_unsigned_long_long__0___value_type|std__integral_constant_unsigned_long_long__0___value_type
+DEBUG:handler:get_unique_name: name "std__integral_constant_unsigned_long_long__0___value_type"
+DEBUG:utils:TYPEDEF_DECL: displayname:'std__integral_constant_unsigned_long_long__0___value_type'
+DEBUG:handler:get_unique_name: name "std__integral_constant_unsigned_long_long__0___value_type"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:std__integral_constant_unsigned_long_long__0___value_type
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.ULONGLONG
+DEBUG:clangparser:register: std__integral_constant_unsigned_long_long__0___value_type 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:769: Found a STRUCT_DECL|std__common_type__|std__common_type__
+DEBUG:handler:get_unique_name: name "struct_std__common_type__"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__common_type__'
+DEBUG:handler:get_unique_name: name "struct_std__common_type__"
+DEBUG:cursorhandler:_record_decl: name: struct_std__common_type__ size:1
+DEBUG:cursorhandler:cursor struct_std__common_type__ is a definition
+DEBUG:clangparser:register: struct_std__common_type__ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__common_type__ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:775: Found a ENUM_DECL|std___Invoker_strategy|std___Invoker_strategy
+DEBUG:handler:get_unique_name: name "std___Invoker_strategy"
+DEBUG:utils:ENUM_DECL: displayname:'std___Invoker_strategy'
+DEBUG:handler:get_unique_name: name "std___Invoker_strategy"
+DEBUG:clangparser:register: std___Invoker_strategy 
+DEBUG:handler:get_unique_name: name "_Functor"
+DEBUG:utils:ENUM_CONSTANT_DECL: displayname:'_Functor'
+DEBUG:handler:get_unique_name: name "std___Invoker_strategy"
+DEBUG:handler:get_unique_name: name "_Pmf_object"
+DEBUG:utils:ENUM_CONSTANT_DECL: displayname:'_Pmf_object'
+DEBUG:handler:get_unique_name: name "std___Invoker_strategy"
+DEBUG:handler:get_unique_name: name "_Pmf_refwrap"
+DEBUG:utils:ENUM_CONSTANT_DECL: displayname:'_Pmf_refwrap'
+DEBUG:handler:get_unique_name: name "std___Invoker_strategy"
+DEBUG:handler:get_unique_name: name "_Pmf_pointer"
+DEBUG:utils:ENUM_CONSTANT_DECL: displayname:'_Pmf_pointer'
+DEBUG:handler:get_unique_name: name "std___Invoker_strategy"
+DEBUG:handler:get_unique_name: name "_Pmd_object"
+DEBUG:utils:ENUM_CONSTANT_DECL: displayname:'_Pmd_object'
+DEBUG:handler:get_unique_name: name "std___Invoker_strategy"
+DEBUG:handler:get_unique_name: name "_Pmd_refwrap"
+DEBUG:utils:ENUM_CONSTANT_DECL: displayname:'_Pmd_refwrap'
+DEBUG:handler:get_unique_name: name "std___Invoker_strategy"
+DEBUG:handler:get_unique_name: name "_Pmd_pointer"
+DEBUG:utils:ENUM_CONSTANT_DECL: displayname:'_Pmd_pointer'
+DEBUG:handler:get_unique_name: name "std___Invoker_strategy"
+DEBUG:clangparser:_ida64_win/idasdk.cpp:788: Found a STRUCT_DECL|std___Invoker_functor|std___Invoker_functor
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_functor"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Invoker_functor'
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_functor"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Invoker_functor size:1
+DEBUG:cursorhandler:cursor struct_std___Invoker_functor is a definition
+DEBUG:clangparser:register: struct_std___Invoker_functor 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Invoker_functor 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:795: Found a STRUCT_DECL|std___Invoker_pmf_object|std___Invoker_pmf_object
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmf_object"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Invoker_pmf_object'
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmf_object"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Invoker_pmf_object size:1
+DEBUG:cursorhandler:cursor struct_std___Invoker_pmf_object is a definition
+DEBUG:clangparser:register: struct_std___Invoker_pmf_object 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Invoker_pmf_object 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:802: Found a STRUCT_DECL|std___Invoker_pmf_refwrap|std___Invoker_pmf_refwrap
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmf_refwrap"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Invoker_pmf_refwrap'
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmf_refwrap"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Invoker_pmf_refwrap size:1
+DEBUG:cursorhandler:cursor struct_std___Invoker_pmf_refwrap is a definition
+DEBUG:clangparser:register: struct_std___Invoker_pmf_refwrap 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Invoker_pmf_refwrap 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:809: Found a STRUCT_DECL|std___Invoker_pmf_pointer|std___Invoker_pmf_pointer
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmf_pointer"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Invoker_pmf_pointer'
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmf_pointer"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Invoker_pmf_pointer size:1
+DEBUG:cursorhandler:cursor struct_std___Invoker_pmf_pointer is a definition
+DEBUG:clangparser:register: struct_std___Invoker_pmf_pointer 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Invoker_pmf_pointer 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:816: Found a STRUCT_DECL|std___Invoker_pmd_object|std___Invoker_pmd_object
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmd_object"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Invoker_pmd_object'
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmd_object"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Invoker_pmd_object size:1
+DEBUG:cursorhandler:cursor struct_std___Invoker_pmd_object is a definition
+DEBUG:clangparser:register: struct_std___Invoker_pmd_object 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Invoker_pmd_object 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:823: Found a STRUCT_DECL|std___Invoker_pmd_refwrap|std___Invoker_pmd_refwrap
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmd_refwrap"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Invoker_pmd_refwrap'
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmd_refwrap"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Invoker_pmd_refwrap size:1
+DEBUG:cursorhandler:cursor struct_std___Invoker_pmd_refwrap is a definition
+DEBUG:clangparser:register: struct_std___Invoker_pmd_refwrap 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Invoker_pmd_refwrap 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:830: Found a STRUCT_DECL|std___Invoker_pmd_pointer|std___Invoker_pmd_pointer
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmd_pointer"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Invoker_pmd_pointer'
+DEBUG:handler:get_unique_name: name "struct_std___Invoker_pmd_pointer"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Invoker_pmd_pointer size:1
+DEBUG:cursorhandler:cursor struct_std___Invoker_pmd_pointer is a definition
+DEBUG:clangparser:register: struct_std___Invoker_pmd_pointer 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Invoker_pmd_pointer 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:837: Found a STRUCT_DECL|std__hash_float_|std__hash_float_
+DEBUG:handler:get_unique_name: name "struct_std__hash_float_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__hash_float_'
+DEBUG:handler:get_unique_name: name "struct_std__hash_float_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__hash_float_ size:1
+DEBUG:cursorhandler:cursor struct_std__hash_float_ is a definition
+DEBUG:clangparser:register: struct_std__hash_float_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__hash_float_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:844: Found a STRUCT_DECL|std__hash_double_|std__hash_double_
+DEBUG:handler:get_unique_name: name "struct_std__hash_double_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__hash_double_'
+DEBUG:handler:get_unique_name: name "struct_std__hash_double_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__hash_double_ size:1
+DEBUG:cursorhandler:cursor struct_std__hash_double_ is a definition
+DEBUG:clangparser:register: struct_std__hash_double_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__hash_double_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:851: Found a STRUCT_DECL|std__hash_long_double_|std__hash_long_double_
+DEBUG:handler:get_unique_name: name "struct_std__hash_long_double_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__hash_long_double_'
+DEBUG:handler:get_unique_name: name "struct_std__hash_long_double_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__hash_long_double_ size:1
+DEBUG:cursorhandler:cursor struct_std__hash_long_double_ is a definition
+DEBUG:clangparser:register: struct_std__hash_long_double_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__hash_long_double_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:858: Found a STRUCT_DECL|std__hash_std__nullptr_t_|std__hash_std__nullptr_t_
+DEBUG:handler:get_unique_name: name "struct_std__hash_std__nullptr_t_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__hash_std__nullptr_t_'
+DEBUG:handler:get_unique_name: name "struct_std__hash_std__nullptr_t_"
+DEBUG:cursorhandler:_record_decl: name: struct_std__hash_std__nullptr_t_ size:1
+DEBUG:cursorhandler:cursor struct_std__hash_std__nullptr_t_ is a definition
+DEBUG:clangparser:register: struct_std__hash_std__nullptr_t_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__hash_std__nullptr_t_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:865: Found a STRUCT_DECL|std___Floating_type_traits_float_|std___Floating_type_traits_float_
+DEBUG:handler:get_unique_name: name "struct_std___Floating_type_traits_float_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Floating_type_traits_float_'
+DEBUG:handler:get_unique_name: name "struct_std___Floating_type_traits_float_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Floating_type_traits_float_ size:1
+DEBUG:cursorhandler:cursor struct_std___Floating_type_traits_float_ is a definition
+DEBUG:clangparser:register: struct_std___Floating_type_traits_float_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Floating_type_traits_float_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:872: Found a STRUCT_DECL|std___Floating_type_traits_double_|std___Floating_type_traits_double_
+DEBUG:handler:get_unique_name: name "struct_std___Floating_type_traits_double_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Floating_type_traits_double_'
+DEBUG:handler:get_unique_name: name "struct_std___Floating_type_traits_double_"
+DEBUG:cursorhandler:_record_decl: name: struct_std___Floating_type_traits_double_ size:1
+DEBUG:cursorhandler:cursor struct_std___Floating_type_traits_double_ is a definition
+DEBUG:clangparser:register: struct_std___Floating_type_traits_double_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std___Floating_type_traits_double_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:879: Found a STRUCT_DECL|std___Floating_type_traits_long_double_|std___Floating_type_traits_long_double_
+DEBUG:handler:get_unique_name: name "struct_std___Floating_type_traits_long_double_"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std___Floating_type_traits_long_double_'
+DEBUG:handler:get_unique_name: name "struct_std___Floating_type_traits_long_double_"
+DEBUG:cursorhandler:got base class struct std___Floating_type_traits_double_
+DEBUG:cursorhandler:_record_decl: name: std___Floating_type_traits_double_ size:1
+DEBUG:cursorhandler:cursor std___Floating_type_traits_double_ is a definition
+DEBUG:clangparser:register: std___Floating_type_traits_double_ 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:Unhandled field CursorKind.CXX_BASE_SPECIFIER in record std___Floating_type_traits_double_
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: std___Floating_type_traits_double_ 8 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: struct has size 1
+DEBUG:clangparser:_ida64_win/idasdk.cpp:886: Found a STRUCT_DECL|_heapinfo|_heapinfo
+DEBUG:handler:get_unique_name: name "struct__heapinfo"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__heapinfo'
+DEBUG:handler:get_unique_name: name "struct__heapinfo"
+DEBUG:cursorhandler:_record_decl: name: struct__heapinfo size:24
+DEBUG:cursorhandler:cursor struct__heapinfo is a definition
+DEBUG:clangparser:register: struct__heapinfo 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/_pentry', 'FIELD_DECL/_size', 'FIELD_DECL/_useflag']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_pentry
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "int *"
+DEBUG:utils:POINTER: displayname:'int *'
+DEBUG:handler:get_unique_name: name "int"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.INT
+DEBUG:typehandler:POINTER: pointee type_name:'int'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_size
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_useflag
+DEBUG:cursorhandler:FIELD_DECL: field offset is 128
+DEBUG:cursorhandler:FIELD_DECL: field is 32 bits
+DEBUG:cursorhandler:_record_decl: 3 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__heapinfo 192 bits
+DEBUG:cursorhandler:Fixup_struct: Member:_pentry offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:_size offsetbits:64->128 expecting offset:64
+DEBUG:cursorhandler:Fixup_struct: Member:_useflag offsetbits:128->160 expecting offset:128
+DEBUG:cursorhandler:Fixup_struct: s:24 create tail padding for 32 bits 4 bytes
+DEBUG:cursorhandler:_make_padding: for 32 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: size:192 offset:192
+DEBUG:clangparser:_ida64_win/idasdk.cpp:895: Found a TYPEDEF_DECL|_HEAPINFO|_HEAPINFO
+DEBUG:handler:get_unique_name: name "_HEAPINFO"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_HEAPINFO'
+DEBUG:handler:get_unique_name: name "_HEAPINFO"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_HEAPINFO
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "_heapinfo"
+DEBUG:utils:RECORD: displayname:'_heapinfo'
+DEBUG:handler:get_unique_name: name "struct__heapinfo"
+DEBUG:clangparser:register: _HEAPINFO 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:898: Found a TYPEDEF_DECL|terminate_handler|terminate_handler
+DEBUG:handler:get_unique_name: name "terminate_handler"
+DEBUG:utils:TYPEDEF_DECL: displayname:'terminate_handler'
+DEBUG:handler:get_unique_name: name "terminate_handler"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:terminate_handler
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "void (*)()"
+DEBUG:utils:POINTER: displayname:'void (*)()'
+DEBUG:handler:get_unique_name: name "void ()"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "void ()"
+DEBUG:utils:FUNCTIONPROTO: displayname:'void ()'
+DEBUG:typehandler:POINTER: pointee type_name:'void ()'
+DEBUG:clangparser:register: terminate_handler 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:901: Found a TYPEDEF_DECL|terminate_function|terminate_function
+DEBUG:handler:get_unique_name: name "terminate_function"
+DEBUG:utils:TYPEDEF_DECL: displayname:'terminate_function'
+DEBUG:handler:get_unique_name: name "terminate_function"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:terminate_function
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "void (*)()"
+DEBUG:utils:POINTER: displayname:'void (*)()'
+DEBUG:handler:get_unique_name: name "void ()"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "void ()"
+DEBUG:utils:FUNCTIONPROTO: displayname:'void ()'
+DEBUG:typehandler:POINTER: pointee type_name:'void ()'
+DEBUG:clangparser:register: terminate_function 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:904: Found a TYPEDEF_DECL|unexpected_handler|unexpected_handler
+DEBUG:handler:get_unique_name: name "unexpected_handler"
+DEBUG:utils:TYPEDEF_DECL: displayname:'unexpected_handler'
+DEBUG:handler:get_unique_name: name "unexpected_handler"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:unexpected_handler
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "void (*)()"
+DEBUG:utils:POINTER: displayname:'void (*)()'
+DEBUG:handler:get_unique_name: name "void ()"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "void ()"
+DEBUG:utils:FUNCTIONPROTO: displayname:'void ()'
+DEBUG:typehandler:POINTER: pointee type_name:'void ()'
+DEBUG:clangparser:register: unexpected_handler 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:907: Found a TYPEDEF_DECL|unexpected_function|unexpected_function
+DEBUG:handler:get_unique_name: name "unexpected_function"
+DEBUG:utils:TYPEDEF_DECL: displayname:'unexpected_function'
+DEBUG:handler:get_unique_name: name "unexpected_function"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:unexpected_function
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "void (*)()"
+DEBUG:utils:POINTER: displayname:'void (*)()'
+DEBUG:handler:get_unique_name: name "void ()"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "void ()"
+DEBUG:utils:FUNCTIONPROTO: displayname:'void ()'
+DEBUG:typehandler:POINTER: pointee type_name:'void ()'
+DEBUG:clangparser:register: unexpected_function 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:910: Found a TYPEDEF_DECL|EXCEPTION_RECORD|EXCEPTION_RECORD
+DEBUG:handler:get_unique_name: name "EXCEPTION_RECORD"
+DEBUG:utils:TYPEDEF_DECL: displayname:'EXCEPTION_RECORD'
+DEBUG:handler:get_unique_name: name "EXCEPTION_RECORD"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:EXCEPTION_RECORD
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "_EXCEPTION_RECORD"
+DEBUG:utils:RECORD: displayname:'_EXCEPTION_RECORD'
+DEBUG:handler:get_unique_name: name "struct__EXCEPTION_RECORD"
+DEBUG:clangparser:register: EXCEPTION_RECORD 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:913: Found a TYPEDEF_DECL|PEXCEPTION_RECORD|PEXCEPTION_RECORD
+DEBUG:handler:get_unique_name: name "PEXCEPTION_RECORD"
+DEBUG:utils:TYPEDEF_DECL: displayname:'PEXCEPTION_RECORD'
+DEBUG:handler:get_unique_name: name "PEXCEPTION_RECORD"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:PEXCEPTION_RECORD
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "_EXCEPTION_RECORD *"
+DEBUG:utils:POINTER: displayname:'_EXCEPTION_RECORD *'
+DEBUG:handler:get_unique_name: name "_EXCEPTION_RECORD"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "struct__EXCEPTION_RECORD"
+DEBUG:typehandler:POINTER: pointee type_name:'_EXCEPTION_RECORD'
+DEBUG:clangparser:register: PEXCEPTION_RECORD 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:916: Found a TYPEDEF_DECL|PCONTEXT|PCONTEXT
+DEBUG:handler:get_unique_name: name "PCONTEXT"
+DEBUG:utils:TYPEDEF_DECL: displayname:'PCONTEXT'
+DEBUG:handler:get_unique_name: name "PCONTEXT"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:PCONTEXT
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "_CONTEXT *"
+DEBUG:utils:POINTER: displayname:'_CONTEXT *'
+DEBUG:handler:get_unique_name: name "_CONTEXT"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "struct__CONTEXT"
+DEBUG:typehandler:POINTER: pointee type_name:'_CONTEXT'
+DEBUG:clangparser:register: PCONTEXT 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:919: Found a STRUCT_DECL|_EXCEPTION_POINTERS|_EXCEPTION_POINTERS
+DEBUG:handler:get_unique_name: name "struct__EXCEPTION_POINTERS"
+DEBUG:utils:STRUCT_DECL: displayname:'struct__EXCEPTION_POINTERS'
+DEBUG:handler:get_unique_name: name "struct__EXCEPTION_POINTERS"
+DEBUG:cursorhandler:_record_decl: name: struct__EXCEPTION_POINTERS size:16
+DEBUG:cursorhandler:cursor struct__EXCEPTION_POINTERS is a definition
+DEBUG:clangparser:register: struct__EXCEPTION_POINTERS 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/ExceptionRecord', 'FIELD_DECL/ContextRecord']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/ExceptionRecord
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "_EXCEPTION_RECORD *"
+DEBUG:utils:POINTER: displayname:'_EXCEPTION_RECORD *'
+DEBUG:handler:get_unique_name: name "_EXCEPTION_RECORD"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "struct__EXCEPTION_RECORD"
+DEBUG:typehandler:POINTER: pointee type_name:'_EXCEPTION_RECORD'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/ContextRecord
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "_CONTEXT *"
+DEBUG:utils:POINTER: displayname:'_CONTEXT *'
+DEBUG:handler:get_unique_name: name "_CONTEXT"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "struct__CONTEXT"
+DEBUG:typehandler:POINTER: pointee type_name:'_CONTEXT'
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct__EXCEPTION_POINTERS 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:ExceptionRecord offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:ContextRecord offsetbits:64->128 expecting offset:64
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:926: Found a TYPEDEF_DECL|_se_translator_function|_se_translator_function
+DEBUG:handler:get_unique_name: name "_se_translator_function"
+DEBUG:utils:TYPEDEF_DECL: displayname:'_se_translator_function'
+DEBUG:handler:get_unique_name: name "_se_translator_function"
+DEBUG:cursorhandler:TYPEDEF_DECL: name:_se_translator_function
+DEBUG:cursorhandler:TYPEDEF_DECL: typ.kind.displayname:TypeKind.POINTER
+DEBUG:handler:get_unique_name: name "void (*)(unsigned int, _EXCEPTION_POINTERS *)"
+DEBUG:utils:POINTER: displayname:'void (*)(unsigned int, _EXCEPTION_POINTERS *)'
+DEBUG:handler:get_unique_name: name "void (unsigned int, _EXCEPTION_POINTERS *)"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.FUNCTIONPROTO
+DEBUG:handler:get_unique_name: name "void (unsigned int, _EXCEPTION_POINTERS *)"
+DEBUG:utils:FUNCTIONPROTO: displayname:'void (unsigned int, _EXCEPTION_POINTERS *)'
+DEBUG:handler:get_unique_name: name "_EXCEPTION_POINTERS *"
+DEBUG:utils:POINTER: displayname:'_EXCEPTION_POINTERS *'
+DEBUG:handler:get_unique_name: name "_EXCEPTION_POINTERS"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "struct__EXCEPTION_POINTERS"
+DEBUG:typehandler:POINTER: pointee type_name:'_EXCEPTION_POINTERS'
+DEBUG:typehandler:POINTER: pointee type_name:'void (unsigned int, _EXCEPTION_POINTERS *)'
+DEBUG:clangparser:register: _se_translator_function 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:929: Found a STRUCT_DECL|type_info|type_info
+DEBUG:handler:get_unique_name: name "struct_type_info"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_type_info'
+DEBUG:handler:get_unique_name: name "struct_type_info"
+DEBUG:cursorhandler:_record_decl: name: struct_type_info CXTypeLayoutError_Incomplete
+DEBUG:clangparser:register: struct_type_info 
+DEBUG:clangparser:_ida64_win/idasdk.cpp:933: Found a STRUCT_DECL|__std_exception_data|__std_exception_data
+DEBUG:handler:get_unique_name: name "struct___std_exception_data"
+DEBUG:utils:STRUCT_DECL: displayname:'struct___std_exception_data'
+DEBUG:handler:get_unique_name: name "struct___std_exception_data"
+DEBUG:cursorhandler:_record_decl: name: struct___std_exception_data size:16
+DEBUG:cursorhandler:cursor struct___std_exception_data is a definition
+DEBUG:clangparser:register: struct___std_exception_data 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/_What', 'FIELD_DECL/_DoFree']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_What
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "char *"
+DEBUG:utils:POINTER: displayname:'char *'
+DEBUG:handler:get_unique_name: name "char"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.CHAR_S
+DEBUG:typehandler:POINTER: pointee type_name:'char'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_DoFree
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 8 bits
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct___std_exception_data 128 bits
+DEBUG:cursorhandler:Fixup_struct: Member:_What offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:_DoFree offsetbits:64->72 expecting offset:64
+DEBUG:cursorhandler:Fixup_struct: s:16 create tail padding for 56 bits 7 bytes
+DEBUG:cursorhandler:_make_padding: for 56 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: size:128 offset:128
+DEBUG:clangparser:_ida64_win/idasdk.cpp:942: Found a STRUCT_DECL|std__exception|std__exception
+DEBUG:handler:get_unique_name: name "struct_std__exception"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__exception'
+DEBUG:handler:get_unique_name: name "struct_std__exception"
+DEBUG:cursorhandler:_record_decl: name: struct_std__exception size:24
+DEBUG:cursorhandler:cursor struct_std__exception is a definition
+DEBUG:clangparser:register: struct_std__exception 
+DEBUG:cursorhandler:Fields: ['FIELD_DECL/__vftable', 'FIELD_DECL/_Data']
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/__vftable
+DEBUG:cursorhandler:FIELD_DECL: field offset is 0
+DEBUG:cursorhandler:FIELD_DECL: field is 64 bits
+DEBUG:handler:get_unique_name: name "std__exception_vtbl *"
+DEBUG:utils:POINTER: displayname:'std__exception_vtbl *'
+DEBUG:handler:get_unique_name: name "std__exception_vtbl"
+DEBUG:typehandler:POINTER: size:8 align:8 typ:TypeKind.RECORD
+DEBUG:handler:get_unique_name: name "struct_std__exception_vtbl"
+DEBUG:typehandler:POINTER: pointee type_name:'std__exception_vtbl'
+DEBUG:cursorhandler:creating FIELD_DECL for FIELD_DECL/_Data
+DEBUG:cursorhandler:FIELD_DECL: field offset is 64
+DEBUG:cursorhandler:FIELD_DECL: field is 128 bits
+DEBUG:cursorhandler:FIELD_DECL: we now look for the declaration name.kind CursorKind.STRUCT_DECL
+DEBUG:handler:get_unique_name: name "struct___std_exception_data"
+DEBUG:cursorhandler:FIELD_DECL: the declaration name struct___std_exception_data
+DEBUG:cursorhandler:FIELD_DECL: used type from cache: struct___std_exception_data
+DEBUG:cursorhandler:_record_decl: 2 members
+DEBUG:cursorhandler:FIXUP_STRUCT: struct_std__exception 192 bits
+DEBUG:cursorhandler:Fixup_struct: Member:__vftable offsetbits:0->64 expecting offset:0
+DEBUG:cursorhandler:Fixup_struct: Member:_Data offsetbits:64->192 expecting offset:64
+DEBUG:cursorhandler:FIXUP_STRUCT: size:192 offset:192
+DEBUG:clangparser:_ida64_win/idasdk.cpp:959: Found a STRUCT_DECL|std__bad_exception|std__bad_exception
+DEBUG:handler:get_unique_name: name "struct_std__bad_exception"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__bad_exception'
+DEBUG:handler:get_unique_name: name "struct_std__bad_exception"
+DEBUG:cursorhandler:got base class struct std__exception
+DEBUG:cursorhandler:_record_decl: name: std__exception size:24
+DEBUG:cursorhandler:cursor std__exception is a definition
+DEBUG:clangparser:register: std__exception 
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:Unhandled field CursorKind.CXX_BASE_SPECIFIER in record std__exception
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:FIXUP_STRUCT: std__exception 192 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: derived struct without new member
+DEBUG:clangparser:_ida64_win/idasdk.cpp:974: Found a STRUCT_DECL|std__bad_alloc|std__bad_alloc
+DEBUG:handler:get_unique_name: name "struct_std__bad_alloc"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__bad_alloc'
+DEBUG:handler:get_unique_name: name "struct_std__bad_alloc"
+DEBUG:cursorhandler:got base class struct std__exception
+DEBUG:cursorhandler:_record_decl: name: std__exception size:24
+DEBUG:cursorhandler:Fields: []
+DEBUG:cursorhandler:Unhandled field CursorKind.CXX_BASE_SPECIFIER in record std__exception
+DEBUG:cursorhandler:_record_decl: 0 members
+DEBUG:cursorhandler:_record_decl: std__exception was previously registered
+DEBUG:cursorhandler:FIXUP_STRUCT: std__exception 192 bits
+DEBUG:cursorhandler:FIXUP_STRUCT: derived struct without new member
+DEBUG:clangparser:_ida64_win/idasdk.cpp:989: Found a STRUCT_DECL|std__bad_array_new_length|std__bad_array_new_length
+DEBUG:handler:get_unique_name: name "struct_std__bad_array_new_length"
+DEBUG:utils:STRUCT_DECL: displayname:'struct_std__bad_array_new_length'
+DEBUG:handler:get_unique_name: name "struct_std__bad_array_new_length"
+Traceback (most recent call last):
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/clang2py.py", line 299, in main
+    translate_files(inputs.files, outputs.stream, cfg)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/codegenerator.py", line 1150, in translate_files
+    translator.parse_input_files(source_files)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/codegenerator.py", line 1054, in parse_input_files
+    self.parser.parse(srcfile)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/clangparser.py", line 123, in parse
+    self.startElement(node)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/clangparser.py", line 178, in startElement
+    stop_recurse = self.parse_cursor(node)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/clangparser.py", line 309, in parse_cursor
+    return self.cursorkind_handler.parse_cursor(cursor)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/cursorhandler.py", line 38, in parse_cursor
+    return mth(cursor)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/util.py", line 122, in fn
+    return func(*args, **kwargs)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/cursorhandler.py", line 603, in STRUCT_DECL
+    return self._record_decl(cursor, typedesc.Structure, num)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/cursorhandler.py", line 641, in _record_decl
+    typedef_typ: typedesc.Typedef = self.get_registered(name)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/handler.py", line 54, in get_registered
+    return self.parser.get_registered(name)
+  File "/mnt/d/Workspaces/ProjWorkspace/ida_collab/ctypeslib/ctypeslib/codegen/clangparser.py", line 222, in get_registered
+    return self.all[name]
+KeyError: 'std__bad_alloc'
