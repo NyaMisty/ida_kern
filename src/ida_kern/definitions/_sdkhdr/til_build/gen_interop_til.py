@@ -173,6 +173,10 @@ def rewrite_ida_header(hdrLoc, outLoc):
     #for strucName in BLACKLIST:
     #    content = re.sub(r'(\n(struct|enum|union) .*?' + strucName + '.*?\n{\n[\s\S]+?\n};\n)', '/*\\1*/\n', content)
 
+    types, _, symbols = content.partition('\n\n')
+    symbols = '\n'.join([c for c in symbols.splitlines() if '?' not in c])
+    content = types + '\n\n' + symbols
+
     TYPEDEF_BLACKLIST = ['_Mbstatet']
     for typeName in TYPEDEF_BLACKLIST:
         content = re.sub(r'\n(typedef .*? ' + typeName + ';)\n', '\n/*\\1*/\n', content)
