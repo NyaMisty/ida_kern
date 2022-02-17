@@ -10,14 +10,17 @@ Although those API are documented and exported in SDK, IDAPython still cannot ea
 
 ## Usage
 
-```
-import sys
-sys.path.append(r'C:\ida_kern\src')
+- Install (You can also do `import sys; sys.path.append(r'C:\ida_kern\src')` if you don't want to install)
+    ```
+    pip install git+https://github.com/NyaMisty/ida_kern
+    ```
 
-import ida_kern
-k = ida_kern.IDAKern()
-print(k.idadir(None))
-```
+- Profit!
+    ```
+    import ida_kern
+    k = ida_kern.IDAKern()
+    print(k.idadir(None))
+    ```
 
 ~Loading takes 3-5 seconds currently, be patient ;)~
 
