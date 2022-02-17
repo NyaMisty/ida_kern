@@ -263,7 +263,7 @@
   #define __fastcall
   #define ida_local
 #elif defined(__NT__)                   // MS Windows
-  #define idaapi            __stdcall
+  #define idaapi            // [mod-misty]: disable this to allow idaclang to export all types
   #define ida_export        idaapi
   #ifdef __CODE_CHECKER__
     // tell lint that this function will be exported
