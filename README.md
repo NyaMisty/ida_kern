@@ -19,10 +19,15 @@ k = ida_kern.IDAKern()
 print(k.idadir(None))
 ```
 
-~Loading takes 3~5 seconds currently, be patient ;)~
+~Loading takes 3-5 seconds currently, be patient ;)~
 
 Now only takes 0.5 seconds to load!
 
+Examples can be found in `examples/` folder:
+- hook_to_notification_point example usage (HT_UI hook as example)
+- qstring manipulation
+- tinfo_t manipulation
+- (more!)
 
 ## How does it work?
 
