@@ -59,6 +59,18 @@ class Structure(ctypes.Structure, AsDictMixin):
         args.update(kwds)
         super(Structure, self).__init__(**args)
 
+    def get_cfield(self, field):
+        fieldType = None
+        for fn, ftype in self._fields_:
+            if fn == field:
+                fieldType = ftype
+                break
+        else:
+            raise AttributeError('Field %s not found' % field)
+
+        fieldAttr = getattr(self.__class__, field)
+        return fieldType.from_buffer(self, fieldAttr.offset)
+
     @classmethod
     def _field_names_(cls):
         if hasattr(cls, '_fields_'):
@@ -1089,7 +1101,7 @@ def ctypeslib_define():
     syntax_highlight_style = ctypes.c_uint32 # enum
     struct_qvector_bool___P__syntax_highlight_style__P__const__qstring_char___R__._pack_ = 1 # source:False
     struct_qvector_bool___P__syntax_highlight_style__P__const__qstring_char___R__._fields_ = [
-        ('array', ctypes.POINTER(ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(syntax_highlight_style), ctypes.POINTER(struct__qstring_char_)))),
+        ('array', ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(syntax_highlight_style), ctypes.POINTER(struct__qstring_char_))),
         ('n', ctypes.c_uint64),
         ('alloc', ctypes.c_uint64),
     ]
@@ -1112,7 +1124,7 @@ def ctypeslib_define():
     
     struct_qvector_long_long___P__syntax_highlight_style__P__const_char__P__._pack_ = 1 # source:False
     struct_qvector_long_long___P__syntax_highlight_style__P__const_char__P__._fields_ = [
-        ('array', ctypes.POINTER(ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(syntax_highlight_style), ctypes.c_char_p))),
+        ('array', ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(syntax_highlight_style), ctypes.c_char_p)),
         ('n', ctypes.c_uint64),
         ('alloc', ctypes.c_uint64),
     ]
@@ -1176,10 +1188,10 @@ def ctypeslib_define():
     class struct_backward_flow_iterator_t_no_regs_t__simple_bfi_t_(Structure):
         pass
     
-    class struct_segment_t(Structure):
+    class struct_func_t(Structure):
         pass
     
-    class struct_func_t(Structure):
+    class struct_segment_t(Structure):
         pass
     
     class struct_simple_bfi_t(Structure):
@@ -1500,6 +1512,12 @@ def ctypeslib_define():
     class struct__37EC8ECBAB39934116D1B12D6D12C693(Structure):
         pass
     
+    class struct_llabel_t(Structure):
+        pass
+    
+    class struct_regvar_t(Structure):
+        pass
+    
     class struct_range_t(Structure):
         pass
     
@@ -1507,12 +1525,6 @@ def ctypeslib_define():
         pass
     
     class struct_regarg_t(Structure):
-        pass
-    
-    class struct_llabel_t(Structure):
-        pass
-    
-    class struct_regvar_t(Structure):
         pass
     
     struct__37EC8ECBAB39934116D1B12D6D12C693._pack_ = 1 # source:False
@@ -2408,6 +2420,7 @@ def ctypeslib_define():
     class struct_ida_syntax_highlighter_t(Structure):
         pass
     
+    external_ident_colorizers_t = struct_qvector_bool___P__syntax_highlight_style__P__const__qstring_char___R__
     ida_syntax_highlighter_t__multicmtvec_t = struct_qvector_ida_syntax_highlighter_t__multicmt_t_
     ida_syntax_highlighter_t__keywords_t = struct_qvector_ida_syntax_highlighter_t__keywords_style_t_
     external_colorizers_t = struct_qvector_long_long___P__syntax_highlight_style__P__const_char__P__
@@ -2422,7 +2435,6 @@ def ctypeslib_define():
     ]
     
     qstrvec_t = struct_qvector__qstring_char__
-    external_ident_colorizers_t = struct_qvector_bool___P__syntax_highlight_style__P__const__qstring_char___R__
     struct_ida_syntax_highlighter_t._pack_ = 1 # source:False
     struct_ida_syntax_highlighter_t._fields_ = [
         ('PADDING_0', ctypes.c_ubyte * 16),
@@ -2818,7 +2830,6 @@ def ctypeslib_define():
     class struct_dynamic_register_set_t(Structure):
         pass
     
-    register_info_vec_t = struct_qvector_register_info_t_
     struct_qvector_const_char__P_._pack_ = 1 # source:False
     struct_qvector_const_char__P_._fields_ = [
         ('array', ctypes.POINTER(ctypes.c_char_p)),
@@ -2827,6 +2838,7 @@ def ctypeslib_define():
     ]
     
     dynamic_register_set_t__const_char_vec_t = struct_qvector_const_char__P_
+    register_info_vec_t = struct_qvector_register_info_t_
     struct_dynamic_register_set_t._pack_ = 1 # source:False
     struct_dynamic_register_set_t._fields_ = [
         ('ri_vec', register_info_vec_t),
@@ -4039,6 +4051,16 @@ def ctypeslib_define():
         ('PADDING_1', ctypes.c_ubyte * 4),
     ]
     
+    class union_view_mouse_event_location_t(Union):
+        pass
+    
+    union_view_mouse_event_location_t._pack_ = 1 # source:False
+    union_view_mouse_event_location_t._fields_ = [
+        ('ea', ctypes.c_uint64),
+        ('item', ctypes.POINTER(struct_selection_item_t)),
+    ]
+    
+    view_mouse_event_t__location_t = union_view_mouse_event_location_t
     
     # values for enumeration 'tcc_renderer_type_t'
     tcc_renderer_type_t__enumvalues = {
@@ -4052,16 +4074,6 @@ def ctypeslib_define():
     TCCRT_GRAPH = 2
     TCCRT_PROXIMITY = 3
     tcc_renderer_type_t = ctypes.c_uint32 # enum
-    class union_view_mouse_event_location_t(Union):
-        pass
-    
-    union_view_mouse_event_location_t._pack_ = 1 # source:False
-    union_view_mouse_event_location_t._fields_ = [
-        ('ea', ctypes.c_uint64),
-        ('item', ctypes.POINTER(struct_selection_item_t)),
-    ]
-    
-    view_mouse_event_t__location_t = union_view_mouse_event_location_t
     struct_view_mouse_event_t._pack_ = 1 # source:False
     struct_view_mouse_event_t._fields_ = [
         ('rtype', tcc_renderer_type_t),
@@ -4124,10 +4136,10 @@ def ctypeslib_define():
     class struct_action_ctx_base_t(Structure):
         pass
     
-    class struct_struc_t(Structure):
+    class struct_member_t(Structure):
         pass
     
-    class struct_member_t(Structure):
+    class struct_struc_t(Structure):
         pass
     
     sizevec_t = struct_qvector_unsigned_long_long_
@@ -4499,7 +4511,7 @@ def ctypeslib_define():
         ('circle_center', struct_point_t),
         ('circle_radius', ctypes.c_int32),
         ('PADDING_2', ctypes.c_ubyte * 4),
-        ('callback', ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.c_char_p)),
+        ('callback', ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.POINTER(ctypes.POINTER(None)))),
         ('callback_ud', ctypes.POINTER(None)),
     ]
     
@@ -5305,14 +5317,23 @@ def ctypeslib_define():
     class struct_insn_t(Structure):
         pass
     
-    class union_insn_t_0(Union):
+    class union_op_t_1(Union):
         pass
     
-    union_insn_t_0._pack_ = 1 # source:False
-    union_insn_t_0._fields_ = [
-        ('auxpref', ctypes.c_uint32),
-        ('auxpref_u16', ctypes.c_uint16 * 2),
-        ('auxpref_u8', ctypes.c_ubyte * 4),
+    union_op_t_1._pack_ = 1 # source:False
+    union_op_t_1._fields_ = [
+        ('value', ctypes.c_uint64),
+        ('value_shorts', struct__0B605D7B00AC5C12C153272CF5BD15AF),
+        ('PADDING_0', ctypes.c_ubyte * 4),
+    ]
+    
+    class union_op_t_0(Union):
+        pass
+    
+    union_op_t_0._pack_ = 1 # source:False
+    union_op_t_0._fields_ = [
+        ('reg', ctypes.c_uint16),
+        ('phrase', ctypes.c_uint16),
     ]
     
     class union_op_t_3(Union):
@@ -5335,25 +5356,6 @@ def ctypeslib_define():
         ('PADDING_0', ctypes.c_ubyte * 4),
     ]
     
-    class union_op_t_1(Union):
-        pass
-    
-    union_op_t_1._pack_ = 1 # source:False
-    union_op_t_1._fields_ = [
-        ('value', ctypes.c_uint64),
-        ('value_shorts', struct__0B605D7B00AC5C12C153272CF5BD15AF),
-        ('PADDING_0', ctypes.c_ubyte * 4),
-    ]
-    
-    class union_op_t_0(Union):
-        pass
-    
-    union_op_t_0._pack_ = 1 # source:False
-    union_op_t_0._fields_ = [
-        ('reg', ctypes.c_uint16),
-        ('phrase', ctypes.c_uint16),
-    ]
-    
     struct_op_t._pack_ = 1 # source:False
     struct_op_t._anonymous_ = ('_0', '_1', '_2', '_3',)
     struct_op_t._fields_ = [
@@ -5372,6 +5374,16 @@ def ctypeslib_define():
         ('specflag3', ctypes.c_char),
         ('specflag4', ctypes.c_char),
         ('PADDING_0', ctypes.c_ubyte * 4),
+    ]
+    
+    class union_insn_t_0(Union):
+        pass
+    
+    union_insn_t_0._pack_ = 1 # source:False
+    union_insn_t_0._fields_ = [
+        ('auxpref', ctypes.c_uint32),
+        ('auxpref_u16', ctypes.c_uint16 * 2),
+        ('auxpref_u8', ctypes.c_ubyte * 4),
     ]
     
     struct_insn_t._pack_ = 1 # source:False
@@ -5684,6 +5696,17 @@ def ctypeslib_define():
     class struct_input_event_t(Structure):
         pass
     
+    class union_input_event_t_0(Union):
+        pass
+    
+    union_input_event_t_0._pack_ = 1 # source:False
+    union_input_event_t_0._fields_ = [
+        ('shortcut', struct_input_event_t__input_event_shortcut_data_t),
+        ('keyboard', struct_input_event_t__input_event_keyboard_data_t),
+        ('mouse', struct_input_event_t__input_event_mouse_data_t),
+        ('PADDING_0', ctypes.c_ubyte * 4),
+    ]
+    
     
     # values for enumeration 'input_event_kind_t'
     input_event_kind_t__enumvalues = {
@@ -5703,17 +5726,6 @@ def ctypeslib_define():
     iek_mouse_button_release = 5
     iek_mouse_wheel = 6
     input_event_kind_t = ctypes.c_uint32 # enum
-    class union_input_event_t_0(Union):
-        pass
-    
-    union_input_event_t_0._pack_ = 1 # source:False
-    union_input_event_t_0._fields_ = [
-        ('shortcut', struct_input_event_t__input_event_shortcut_data_t),
-        ('keyboard', struct_input_event_t__input_event_keyboard_data_t),
-        ('mouse', struct_input_event_t__input_event_mouse_data_t),
-        ('PADDING_0', ctypes.c_ubyte * 4),
-    ]
-    
     struct_input_event_t._pack_ = 1 # source:False
     struct_input_event_t._anonymous_ = ('_0',)
     struct_input_event_t._fields_ = [
@@ -6602,7 +6614,7 @@ def ctypeslib_define():
         ('psnames', ctypes.POINTER(ctypes.c_char_p)),
         ('plnames', ctypes.POINTER(ctypes.c_char_p)),
         ('assemblers', ctypes.POINTER(ctypes.POINTER(struct_asm_t))),
-        ('_notify', ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.c_char_p)),
+        ('_notify', ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.POINTER(ctypes.POINTER(None)))),
         ('reg_names', ctypes.POINTER(ctypes.c_char_p)),
         ('regs_num', ctypes.c_int32),
         ('reg_first_sreg', ctypes.c_int32),
@@ -6805,7 +6817,7 @@ def ctypeslib_define():
         ('resume_modes', ctypes.c_uint16),
         ('PADDING_3', ctypes.c_ubyte * 4),
         ('set_dbg_options', ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(None))),
-        ('callback', ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.c_char_p)),
+        ('callback', ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.POINTER(ctypes.POINTER(None)))),
     ]
     
     struct_direntry_t._pack_ = 1 # source:False
@@ -7190,15 +7202,6 @@ def ctypeslib_define():
     class union_opinfo_t(Union):
         pass
     
-    struct_refinfo_t._pack_ = 1 # source:False
-    struct_refinfo_t._fields_ = [
-        ('target', ctypes.c_uint64),
-        ('base', ctypes.c_uint64),
-        ('tdelta', ctypes.c_int64),
-        ('flags', ctypes.c_uint32),
-        ('PADDING_0', ctypes.c_ubyte * 4),
-    ]
-    
     class struct_strpath_t(Structure):
         pass
     
@@ -7208,6 +7211,15 @@ def ctypeslib_define():
         ('PADDING_0', ctypes.c_ubyte * 4),
         ('ids', ctypes.c_uint64 * 32),
         ('delta', ctypes.c_int64),
+    ]
+    
+    struct_refinfo_t._pack_ = 1 # source:False
+    struct_refinfo_t._fields_ = [
+        ('target', ctypes.c_uint64),
+        ('base', ctypes.c_uint64),
+        ('tdelta', ctypes.c_int64),
+        ('flags', ctypes.c_uint32),
+        ('PADDING_0', ctypes.c_ubyte * 4),
     ]
     
     union_opinfo_t._pack_ = 1 # source:False
@@ -7351,19 +7363,6 @@ def ctypeslib_define():
         ('rem', ctypes.c_int64),
     ]
     
-    class union_cfgopt_t_1(Union):
-        pass
-    
-    union_cfgopt_t_1._pack_ = 1 # source:False
-    union_cfgopt_t_1._fields_ = [
-        ('buf_size', ctypes.c_uint64),
-        ('num_range', struct_cfgopt_t__num_range_t),
-        ('bit_flags', ctypes.c_uint32),
-        ('params', struct_cfgopt_t__params_t),
-        ('mbroff_obj', ctypes.POINTER(None)),
-        ('PADDING_0', ctypes.c_ubyte * 8),
-    ]
-    
     class union_cfgopt_t_0(Union):
         pass
     
@@ -7377,6 +7376,19 @@ def ctypeslib_define():
         ('hnd', ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t))),
         ('hnd2', ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t), ctypes.c_int64, ctypes.c_int64)),
         ('hnd3', ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t), ctypes.c_int64, ctypes.c_int64, ctypes.POINTER(None))),
+    ]
+    
+    class union_cfgopt_t_1(Union):
+        pass
+    
+    union_cfgopt_t_1._pack_ = 1 # source:False
+    union_cfgopt_t_1._fields_ = [
+        ('buf_size', ctypes.c_uint64),
+        ('num_range', struct_cfgopt_t__num_range_t),
+        ('bit_flags', ctypes.c_uint32),
+        ('params', struct_cfgopt_t__params_t),
+        ('mbroff_obj', ctypes.POINTER(None)),
+        ('PADDING_0', ctypes.c_ubyte * 8),
     ]
     
     struct_cfgopt_t._pack_ = 1 # source:False
@@ -7426,6 +7438,25 @@ def ctypeslib_define():
         ('userdata', ctypes.POINTER(None)),
     ]
     
+    class union_jvalue_t_0(Union):
+        pass
+    
+    class struct_jarr_t(Structure):
+        pass
+    
+    class struct_jobj_t(Structure):
+        pass
+    
+    union_jvalue_t_0._pack_ = 1 # source:False
+    union_jvalue_t_0._fields_ = [
+        ('_num', ctypes.c_int64),
+        ('_str', ctypes.POINTER(struct__qstring_char_)),
+        ('_obj', ctypes.POINTER(struct_jobj_t)),
+        ('_arr', ctypes.POINTER(struct_jarr_t)),
+        ('_bool', ctypes.c_char),
+        ('PADDING_0', ctypes.c_ubyte * 7),
+    ]
+    
     
     # values for enumeration 'jtype_t'
     jtype_t__enumvalues = {
@@ -7443,25 +7474,6 @@ def ctypeslib_define():
     JT_ARR = 4
     JT_BOOL = 5
     jtype_t = ctypes.c_uint32 # enum
-    class union_jvalue_t_0(Union):
-        pass
-    
-    class struct_jobj_t(Structure):
-        pass
-    
-    class struct_jarr_t(Structure):
-        pass
-    
-    union_jvalue_t_0._pack_ = 1 # source:False
-    union_jvalue_t_0._fields_ = [
-        ('_num', ctypes.c_int64),
-        ('_str', ctypes.POINTER(struct__qstring_char_)),
-        ('_obj', ctypes.POINTER(struct_jobj_t)),
-        ('_arr', ctypes.POINTER(struct_jarr_t)),
-        ('_bool', ctypes.c_char),
-        ('PADDING_0', ctypes.c_ubyte * 7),
-    ]
-    
     struct_jvalue_t._pack_ = 1 # source:False
     struct_jvalue_t._anonymous_ = ('_0',)
     struct_jvalue_t._fields_ = [
@@ -7798,6 +7810,15 @@ def ctypeslib_define():
         ('PADDING_2', ctypes.c_ubyte * 4),
     ]
     
+    class union_token_t_0(Union):
+        pass
+    
+    union_token_t_0._pack_ = 1 # source:False
+    union_token_t_0._fields_ = [
+        ('unicode', ctypes.c_char),
+        ('is_unsigned', ctypes.c_char),
+    ]
+    
     class union_token_t_1(Union):
         pass
     
@@ -7806,15 +7827,6 @@ def ctypeslib_define():
         ('fnum', struct_fpvalue_t),
         ('i64', ctypes.c_int64),
         ('PADDING_0', ctypes.c_ubyte * 8),
-    ]
-    
-    class union_token_t_0(Union):
-        pass
-    
-    union_token_t_0._pack_ = 1 # source:False
-    union_token_t_0._fields_ = [
-        ('unicode', ctypes.c_char),
-        ('is_unsigned', ctypes.c_char),
     ]
     
     struct_token_t._pack_ = 1 # source:False
@@ -8322,15 +8334,6 @@ def ctypeslib_define():
     qvector_modinfo_t___const_iterator = ctypes.POINTER(struct_modinfo_t)
     qvector_register_info_t___iterator = ctypes.POINTER(struct_register_info_t)
     qvector_tev_reg_value_t___iterator = ctypes.POINTER(struct_tev_reg_value_t)
-    _0425F8F1A3AE8F87FA89CDE6305293FE = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_locchange_md_t), ctypes.POINTER(None))
-    _0F4B5B224EF598EAC96C9D985A235D75 = ctypes.CFUNCTYPE(None, ctypes.c_char_p, ctypes.POINTER(None))
-    _12B695DC843A94285F7310A143C8C434 = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_insn_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_int32))
-    _223DCB884574D5DE586AD2D6B7376847 = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_char_p)
-    _2B5C0BD264F9291D6A7F6F791424403F = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t))
-    _2C0E99206E7908236DCABCB2B91A8D4F = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32, ctypes.c_char, ctypes.c_char)
-    _47FFB0B1AABFAE006217B68E4FFCB4B3 = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_locchange_md_t), ctypes.POINTER(None))
-    _53B156155FBE7E40597743DACE3276C6 = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_TWidget), ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(None))
-    _6748483DB9EEBDB64F2EA25B987191DF = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(struct_form_actions_t))
     
     # values for enumeration '_7014156F94AE1B7FC5F5E3560392A8C4'
     _7014156F94AE1B7FC5F5E3560392A8C4__enumvalues = {
@@ -8340,11 +8343,6 @@ def ctypeslib_define():
     DTN_FULL_NAME = 0
     DTN_DISPLAY_NAME = 1
     _7014156F94AE1B7FC5F5E3560392A8C4 = ctypes.c_uint32 # enum
-    _7148FF134A2561D170DBC235C372E12B = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_insn_t), ctypes.POINTER(struct_op_t), ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p)
-    _776C644986E1218BAA015F499D7289A7 = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.POINTER(struct_place_t), ctypes.POINTER(None))
-    _79278B08C9A02D276B5400213E6E8772 = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_cfgopt_t), ctypes.c_int32, ctypes.POINTER(None))
-    _7A67CD558302B3EA29FC91F77D84E941 = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.c_int32, ctypes.POINTER(struct_view_mouse_event_t), ctypes.POINTER(None))
-    _7C51D3F4B871613F1BA7F83DBEBC3FD5 = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_TWidget), ctypes.POINTER(None))
     
     # values for enumeration '_94D4D585A38CDA12BD4A7F760DAFD340'
     _94D4D585A38CDA12BD4A7F760DAFD340__enumvalues = {
@@ -8356,7 +8354,6 @@ def ctypeslib_define():
     JT_SWITCH = 1
     JT_CALL = 2
     _94D4D585A38CDA12BD4A7F760DAFD340 = ctypes.c_uint32 # enum
-    _9F642B09C10686E3843EA25A959506D5 = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(None))
     
     # values for enumeration '_A32948CF266C727D9CC1D79F2B35CC28'
     _A32948CF266C727D9CC1D79F2B35CC28__enumvalues = {
@@ -8368,10 +8365,6 @@ def ctypeslib_define():
     QMOVE_OVERWRITE = 2
     QMOVE_OVR_RO = 4
     _A32948CF266C727D9CC1D79F2B35CC28 = ctypes.c_uint32 # enum
-    _A6F93F8BAFF0D1A2AF75D768A5FCB062 = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(None))
-    _AF4ED28A64411848F4EED41572FA4CE1 = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_char_p, ctypes.c_int32, ctypes.c_char_p)
-    _B4F266B0568ADA5794EA29B6B9D8A3FE = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None))
-    _B583FC0ED2D81EF34EE9B85011DA3455 = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(None))
     
     # values for enumeration '_C7C212E52085C0E483DB7F2B4EDAB218'
     _C7C212E52085C0E483DB7F2B4EDAB218__enumvalues = {
@@ -8411,10 +8404,6 @@ def ctypeslib_define():
     REG_INVARG = 16
     REG_NOMATCH = 17
     _C7C212E52085C0E483DB7F2B4EDAB218 = ctypes.c_uint32 # enum
-    _C9E14A82B8291B557AC92E2F5A452CE5 = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(None), ctypes.c_char)
-    _DB40683AED1FE27CD84662F2517C7BCC = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(None))
-    _EFB3D94CDC38BD29E337526787ABDBEA = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_linput_t), ctypes.POINTER(struct_impinfo_t))
-    _F6359FE077454C49B917BFA4BFA37580 = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_TWidget), ctypes.c_int32, ctypes.POINTER(None))
     _qstring_unsigned_char___iterator = ctypes.POINTER(ctypes.c_ubyte)
     _qstring_wchar_t___const_iterator = ctypes.POINTER(ctypes.c_int16)
     qvector__qstring_char____iterator = ctypes.POINTER(struct__qstring_char_)
@@ -8436,6 +8425,8 @@ def ctypeslib_define():
     qvector_tev_info_reg_t___iterator = ctypes.POINTER(struct_tev_info_reg_t)
     qvector_tryblk_t___const_iterator = ctypes.POINTER(struct_tryblk_t)
     qvector_valstr_t___const_iterator = ctypes.POINTER(struct_valstr_t)
+    custom_viewer_get_place_xcoord_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.POINTER(struct_place_t), ctypes.POINTER(None))
+    custom_viewer_location_changed_t = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_locchange_md_t), ctypes.POINTER(None))
     qvector_catch_t___const_iterator = ctypes.POINTER(struct_catch_t)
     qvector_const_char__P___iterator = ctypes.POINTER(ctypes.c_char_p)
     qvector_debug_event_t___iterator = ctypes.POINTER(struct_debug_event_t)
@@ -8483,6 +8474,8 @@ def ctypeslib_define():
     qvector_row_info_t___iterator = ctypes.POINTER(struct_row_info_t)
     qvector_tev_info_t___iterator = ctypes.POINTER(struct_tev_info_t)
     qvector_twinline_t___iterator = ctypes.POINTER(struct_twinline_t)
+    custom_viewer_adjust_place_t = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(None))
+    custom_viewer_can_navigate_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_locchange_md_t), ctypes.POINTER(None))
     
     # values for enumeration 'hexplace_gen_t__int_format_t'
     hexplace_gen_t__int_format_t__enumvalues = {
@@ -8494,6 +8487,7 @@ def ctypeslib_define():
     if_signed = 1
     if_unsigned = 2
     hexplace_gen_t__int_format_t = ctypes.c_uint32 # enum
+    processor_t__regval_getter_t = ctypes.CFUNCTYPE(ctypes.POINTER(struct_regval_t), ctypes.c_char_p, ctypes.POINTER(struct_regval_t))
     qvector_argpart_t___iterator = ctypes.POINTER(struct_argpart_t)
     qvector_ea_name_t___iterator = ctypes.POINTER(struct_ea_name_t)
     qvector_funcarg_t___iterator = ctypes.POINTER(struct_funcarg_t)
@@ -8502,6 +8496,7 @@ def ctypeslib_define():
     qvector_modinfo_t___iterator = ctypes.POINTER(struct_modinfo_t)
     std__map_int__int___key_type = ctypes.c_int32
     _qstring_wchar_t___iterator = ctypes.POINTER(ctypes.c_int16)
+    custom_viewer_mouse_moved_t = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.c_int32, ctypes.POINTER(struct_view_mouse_event_t), ctypes.POINTER(None))
     
     # values for enumeration 'hexplace_gen_t__byte_kind_t'
     hexplace_gen_t__byte_kind_t__enumvalues = {
@@ -8599,9 +8594,12 @@ def ctypeslib_define():
     qvector_tinfo_t___iterator = ctypes.POINTER(struct_tinfo_t)
     qvector_token_t___iterator = ctypes.POINTER(struct_token_t)
     qvector_wchar_t___iterator = ctypes.POINTER(ctypes.c_int16)
+    code_viewer_lines_click_t = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(None))
     qvector_edge_t___iterator = ctypes.POINTER(struct_edge_t)
     qvector_rect_t___iterator = ctypes.POINTER(struct_rect_t)
     _qstring_char___iterator = ctypes.c_char_p
+    code_viewer_lines_icon_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(None))
+    custom_viewer_dblclick_t = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_TWidget), ctypes.c_int32, ctypes.POINTER(None))
     
     # values for enumeration 'form_actions_t__dlgbtn_t'
     form_actions_t__dlgbtn_t__enumvalues = {
@@ -8616,6 +8614,7 @@ def ctypeslib_define():
     qvector_bpt_t___iterator = ctypes.POINTER(struct_bpt_t)
     qvector_kvp_t___iterator = ctypes.POINTER(struct_kvp_t)
     _se_translator_function = ctypes.CFUNCTYPE(None, ctypes.c_uint32, ctypes.POINTER(struct__EXCEPTION_POINTERS))
+    custom_viewer_keydown_t = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_TWidget), ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(None))
     
     # values for enumeration 'idb_event__event_code_t'
     idb_event__event_code_t__enumvalues = {
@@ -8848,6 +8847,7 @@ def ctypeslib_define():
     denorm_absent = 0
     denorm_present = 1
     std__float_denorm_style = ctypes.c_uint32 # enum
+    custom_viewer_curpos_t = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(None))
     qvector_int___iterator = ctypes.POINTER(ctypes.c_int32)
     std___Atomic_counter_t = ctypes.c_uint32
     
@@ -8885,6 +8885,10 @@ def ctypeslib_define():
     round_toward_neg_infinity = 3
     std__float_round_style = ctypes.c_uint32 # enum
     cliopt_poly_handler_t = ctypes.CFUNCTYPE(None, ctypes.c_int32, ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(None))
+    custom_viewer_click_t = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_TWidget), ctypes.c_int32, ctypes.POINTER(None))
+    custom_viewer_close_t = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(None))
+    custom_viewer_popup_t = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(None))
+    custom_viewer_help_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_TWidget), ctypes.POINTER(None))
     
     # values for enumeration 'graph_notification_t'
     graph_notification_t__enumvalues = {
@@ -9295,6 +9299,7 @@ def ctypeslib_define():
     ev_last_cb_before_loader = 2023
     ev_loader = 3000
     processor_t__event_t = ctypes.c_uint32 # enum
+    config_changed_cb_t = ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_cfgopt_t), ctypes.c_int32, ctypes.POINTER(None))
     
     # values for enumeration 'debugger_t__event_t'
     debugger_t__event_t__enumvalues = {
@@ -9516,6 +9521,7 @@ def ctypeslib_define():
     lcr_scroll = 6
     lcr_internal = 7
     locchange_reason_t = ctypes.c_uint32 # enum
+    lx_preprocessor_cb = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_char_p, ctypes.c_int32, ctypes.c_char_p)
     
     # values for enumeration 'msg_notification_t'
     msg_notification_t__enumvalues = {
@@ -10407,6 +10413,7 @@ def ctypeslib_define():
     __ISA_AVAILABLE_NEON_ARM64 = 2
     ISA_AVAILABILITY = ctypes.c_uint32 # enum
     _CRT_REPORT_HOOK = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(ctypes.c_int32))
+    cfgopt_handler_t = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t))
     cliopt_handler_t = ctypes.CFUNCTYPE(None, ctypes.c_char_p, ctypes.POINTER(None))
     
     # values for enumeration 'dbg_event_code_t'
@@ -10432,6 +10439,7 @@ def ctypeslib_define():
     DEBNAME_UPPER = 2
     DEBNAME_NICE = 3
     debug_name_how_t = ctypes.c_uint32 # enum
+    is_stkarg_load_t = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_insn_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_int32))
     register_class_t = ctypes.c_ubyte
     std__max_align_t = ctypes.c_double
     std__new_handler = ctypes.CFUNCTYPE(None)
@@ -10526,6 +10534,7 @@ def ctypeslib_define():
     SRCIT_STTVAR = 5
     SRCIT_LOCVAR = 6
     src_item_kind_t = ctypes.c_uint32 # enum
+    ss_restore_cb_t = ctypes.CFUNCTYPE(None, ctypes.c_char_p, ctypes.POINTER(None))
     std__streamsize = ctypes.c_int64
     
     # values for enumeration 'stock_type_id_t'
@@ -10661,6 +10670,7 @@ def ctypeslib_define():
     nat_hlo = 11
     nat_last = 12
     navaddr_type_t = ctypes.c_uint32 # enum
+    set_op_tinfo_t = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_insn_t), ctypes.POINTER(struct_op_t), ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p)
     std__nullptr_t = ctypes.c_int64
     std__streamoff = ctypes.c_int64
     
@@ -10775,6 +10785,7 @@ def ctypeslib_define():
     LINPUT_PROCMEM = 3
     LINPUT_GENERIC = 4
     linput_type_t = ctypes.c_uint32 # enum
+    lx_warning_cb = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_char_p)
     
     # values for enumeration 'regval_type_t'
     regval_type_t__enumvalues = {
@@ -10813,6 +10824,7 @@ def ctypeslib_define():
     RESMOD_HANDLE = 8
     RESMOD_MAX = 9
     resume_mode_t = ctypes.c_uint32 # enum
+    set_options_t = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(None), ctypes.c_char)
     
     # values for enumeration 'struc_error_t'
     struc_error_t__enumvalues = {
@@ -10936,6 +10948,7 @@ def ctypeslib_define():
     LECVT_ERROR = 0
     LECVT_OK = 1
     lecvt_code_t = ctypes.c_uint32 # enum
+    lx_pragma_cb = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_char_p)
     
     # values for enumeration 'ofile_type_t'
     ofile_type_t__enumvalues = {
@@ -10954,6 +10967,7 @@ def ctypeslib_define():
     OFILE_DIF = 5
     ofile_type_t = ctypes.c_uint32 # enum
     qsemaphore_t = ctypes.POINTER(struct___qsemaphore_t)
+    qthread_cb_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None))
     
     # values for enumeration 'range_kind_t'
     range_kind_t__enumvalues = {
@@ -11010,6 +11024,7 @@ def ctypeslib_define():
     edge_cross = 4
     edge_subgraph = 5
     edge_type_t = ctypes.c_uint32 # enum
+    formchgcb_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(struct_form_actions_t))
     
     # values for enumeration 'hook_type_t'
     hook_type_t__enumvalues = {
@@ -11036,6 +11051,8 @@ def ctypeslib_define():
     HT_LAST = 9
     hook_type_t = ctypes.c_uint32 # enum
     int_fast8_t = ctypes.c_char
+    lx_macro_cb = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32, ctypes.c_char, ctypes.c_char)
+    lx_undef_cb = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_char_p)
     
     # values for enumeration 'mbox_kind_t'
     mbox_kind_t__enumvalues = {
@@ -11102,6 +11119,7 @@ def ctypeslib_define():
         ('_Val', ctypes.c_float),
     ]
     
+    buttoncb_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(struct_form_actions_t))
     
     # values for enumeration 'gtd_func_t'
     gtd_func_t__enumvalues = {
@@ -11121,6 +11139,7 @@ def ctypeslib_define():
     GTS_BASECLASS = 2
     gts_code_t = ctypes.c_uint32 # enum
     idastate_t = ctypes.c_int32
+    importer_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_linput_t), ctypes.POINTER(struct_impinfo_t))
     
     # values for enumeration 'nametype_t'
     nametype_t__enumvalues = {
@@ -11466,7 +11485,6 @@ def ctypeslib_define():
     int32_t = ctypes.c_int32
     int64_t = ctypes.c_int64
     uint8_t = ctypes.c_uint8
-    va_list = ctypes.c_char_p
     _HFILE = ctypes.POINTER(None)
     _dev_t = ctypes.c_uint32
     _ino_t = ctypes.c_uint16
@@ -11654,15 +11672,15 @@ def ctypeslib_define():
     std___Tree_std___Tset_traits_int__std__less_int___std__allocator_int___false____key_type = ctypes.c_int32
     std___Simple_types_std__pair_const_unsigned_long_long__unsigned_long_long____value_type = struct_std__pair_const_unsigned_long_long__unsigned_long_long_
     std___Tree_std___Tset_traits_int__std__less_int___std__allocator_int___false_____Alnode = struct_std__allocator_std___Tree_node_int__void__P__
-    qvector_bool___P__syntax_highlight_style__P__const__qstring_char___R____const_iterator = ctypes.POINTER(ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(syntax_highlight_style), ctypes.POINTER(struct__qstring_char_)))
+    qvector_bool___P__syntax_highlight_style__P__const__qstring_char___R____const_iterator = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(syntax_highlight_style), ctypes.POINTER(struct__qstring_char_))
     std___Simple_types_std__pair_const_unsigned_long_long__unsigned_long_long____size_type = ctypes.c_uint64
     std___Default_allocator_traits_std__allocator_std__pair_const_int__int_____size_type = ctypes.c_uint64
     std___Simple_types_std__pair_const_unsigned_long_long__unsigned_long_long____pointer = ctypes.POINTER(struct_std__pair_const_unsigned_long_long__unsigned_long_long_)
     std___Tset_traits_int__std__less_int___std__allocator_int___false___allocator_type = struct_std__allocator_int_
-    qvector_long_long___P__syntax_highlight_style__P__const_char__P____const_iterator = ctypes.POINTER(ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(syntax_highlight_style), ctypes.c_char_p))
-    qvector_bool___P__syntax_highlight_style__P__const__qstring_char___R____iterator = ctypes.POINTER(ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(syntax_highlight_style), ctypes.POINTER(struct__qstring_char_)))
+    qvector_long_long___P__syntax_highlight_style__P__const_char__P____const_iterator = ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(syntax_highlight_style), ctypes.c_char_p)
+    qvector_bool___P__syntax_highlight_style__P__const__qstring_char___R____iterator = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(syntax_highlight_style), ctypes.POINTER(struct__qstring_char_))
     std___Tset_traits_int__std__less_int___std__allocator_int___false___key_compare = struct_std__less_int_
-    qvector_long_long___P__syntax_highlight_style__P__const_char__P____iterator = ctypes.POINTER(ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(syntax_highlight_style), ctypes.c_char_p))
+    qvector_long_long___P__syntax_highlight_style__P__const_char__P____iterator = ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(syntax_highlight_style), ctypes.c_char_p)
     std___Default_allocator_traits_std__allocator_char16_t____size_type = ctypes.c_uint64
     std___Default_allocator_traits_std__allocator_char32_t____size_type = ctypes.c_uint64
     std___Default_allocator_traits_std__allocator_wchar_t____size_type = ctypes.c_uint64
@@ -11736,8 +11754,6 @@ def ctypeslib_define():
     std__basic_string_char32_t____Alty = struct_std__allocator_char32_t_
     std__basic_string_char___reference = ctypes.c_char_p
     std__basic_string_char___size_type = ctypes.c_uint64
-    _486A9EF9057A4F79C352527BA63EDFD3 = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_idc_value_t))
-    _5199E2C0DF2CA3E7E8DCA56464B8E928 = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint32, ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(None))
     std___Simple_types_char___pointer = ctypes.c_char_p
     std__basic_string_wchar_t____Alty = struct_std__allocator_wchar_t_
     qvector_movbpt_code_t___iterator = ctypes.POINTER(movbpt_code_t)
@@ -11747,6 +11763,7 @@ def ctypeslib_define():
     _invalid_parameter_handler = ctypes.CFUNCTYPE(None, ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), ctypes.c_uint32, ctypes.c_uint64)
     rangeset_t__const_iterator = ctypes.POINTER(struct_range_t)
     std__set_int___key_compare = struct_std__less_int_
+    local_tinfo_predicate_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint32, ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(None))
     _source_file_iterator = struct_qiterator_qrefcnt_t_source_file_t__
     _source_item_iterator = struct_qiterator_qrefcnt_t_source_item_t__
     compiled_binpat_vec_t = struct_qvector_compiled_binpat_t_
@@ -11837,6 +11854,7 @@ def ctypeslib_define():
     valstrvec_t = struct_qvector_valstr_t_
     catchvec_t = struct_qvector_catch_t_
     extlangs_t = struct_qvector_extlang_t__P_
+    idc_func_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_idc_value_t))
     idc_vars_t = struct_qvector_idc_global_t_
     inodevec_t = struct_qvector_unsigned_long_long_
     op_dtype_t = ctypes.c_ubyte
@@ -11875,6 +11893,7 @@ def ctypeslib_define():
     lldiv_t = struct__lldiv_t
     rsize_t = ctypes.c_uint64
     ssize_t = ctypes.c_int64
+    testf_t = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint32, ctypes.POINTER(None))
     comp_t = ctypes.c_ubyte
     ldiv_t = struct__ldiv_t
     lxtype = ctypes.c_uint16
@@ -11933,9 +11952,8 @@ def ctypeslib_define():
         ('PADDING_0', ctypes.c_ubyte * 4),
     ]
     
-    _47EB95A8857FB680635907AB7DCDCDE8 = ctypes.CFUNCTYPE(lecvt_code_t, ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_TWidget), ctypes.c_uint32)
-    _492C834E753BED590AB0BAB80BEB78E7 = ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(syntax_highlight_style), ctypes.c_char_p)
-    _C09AF1331CFCFC509FB4233AA5230FB3 = ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.c_char_p)
+    external_colorizer_t = ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(syntax_highlight_style), ctypes.c_char_p)
+    lochist_entry_cvt2_t = ctypes.CFUNCTYPE(lecvt_code_t, ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_TWidget), ctypes.c_uint32)
     class union_input_event_t___4953DA15226C435F033B39D89D558652(Union):
         pass
     
@@ -11967,7 +11985,7 @@ def ctypeslib_define():
         ('auxpref_u8', ctypes.c_ubyte * 4),
     ]
     
-    _5D6657710F2FD348305D4B59534642C3 = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_char_p, ctypes.c_uint32, ctypes.c_char_p, ctypes.c_uint32)
+    demangler_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_char_p, ctypes.c_uint32, ctypes.c_char_p, ctypes.c_uint32)
     std___Tree_std___Tmap_traits_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t__std__less_unsigned_long_long___std__allocator_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t____false____allocator_type = struct_std__allocator_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t__
     std___Tree_std___Tmap_traits_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t__std__less_unsigned_long_long___std__allocator_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t____false____key_compare = struct_std__less_unsigned_long_long_
     std___Tree_std___Tmap_traits_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t__std__less_unsigned_long_long___std__allocator_std__pair_const_unsigned_long_long__backward_flow_iterator_t_no_regs_t__simple_bfi_t___state_t____false____size_type = ctypes.c_uint64
@@ -12045,24 +12063,26 @@ def ctypeslib_define():
     std___String_val_std___Simple_types_char____pointer = ctypes.c_char_p
     std___Tree_simple_types_int____Node = struct_std___Tree_node_int__void__P_
     std__map_int__int___allocator_type = struct_std__allocator_std__pair_const_int__int__
-    _13DEA147606768949B8709A1F27A1AE6 = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct__iobuf))
-    _403A3450421E1FA417431FD6F5C6B815 = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t), ctypes.c_int64, ctypes.c_int64)
-    _40A15942B64B468D028A9EDC3BF273C3 = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t), ctypes.c_int64, ctypes.c_int64, ctypes.POINTER(None))
-    _77081ABAD94FC9A5EE14B650E0DBF110 = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint32, ctypes.POINTER(None))
-    _9E76F4EBF8BA4D34546A573D2A95E8EF = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint64)
-    _A2117BA638E63C1EAFEA64D9666358AE = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p, ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(None))
     screen_graph_selection_base_t = struct_qvector_selection_item_t_
     std___No_propagate_allocators = struct_std__integral_constant_bool__false_
     std__set_int___allocator_type = struct_std__allocator_int_
     std___Propagate_allocators = struct_std__integral_constant_bool__true_
     array_of_node_set_t = struct_qvector_node_set_t_
     array_of_intmap_t = struct_qvector_intmap_t_
+    cfgopt_handler2_t = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t), ctypes.c_int64, ctypes.c_int64)
+    cfgopt_handler3_t = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t), ctypes.c_int64, ctypes.c_int64, ctypes.POINTER(None))
+    has_delay_slot_t = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint64)
+    html_footer_cb_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct__iobuf))
+    html_header_cb_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct__iobuf))
+    may_destroy_cb_t = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint64)
     table_checker_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_switch_info_t), ctypes.c_uint64, ctypes.c_int32, ctypes.POINTER(struct_procmod_t))
     movbpt_codes_t = struct_qvector_movbpt_code_t_
     std__streampos = struct_std__fpos__Mbstatet_
+    h2ti_type_cb = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p, ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(None))
     blob_idx_t = ctypes.c_uint64
     graph_id_t = ctypes.c_uint64
     _HEAPINFO = struct__heapinfo
+    hook_cb_t = ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.POINTER(ctypes.POINTER(None)))
     nodeidx_t = ctypes.c_uint64
     qtime64_t = ctypes.c_uint64
     aflags_t = ctypes.c_uint32
@@ -12094,11 +12114,11 @@ def ctypeslib_define():
         ('PADDING_0', ctypes.c_ubyte * 4),
     ]
     
-    _94760D3F2768AB73DF4E13DC5B377508 = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(syntax_highlight_style), ctypes.POINTER(struct__qstring_char_))
-    _BCFAB6CAE5EB6A58B72F2C0C12D28D2B = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint64, ctypes.c_char_p, ctypes.c_uint64, ctypes.POINTER(None))
+    external_ident_colorizer_t = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(syntax_highlight_style), ctypes.POINTER(struct__qstring_char_))
+    import_enum_cb_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint64, ctypes.c_char_p, ctypes.c_uint64, ctypes.POINTER(None))
     lx_resolver_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(None), ctypes.POINTER(struct_token_t), ctypes.POINTER(ctypes.c_int64))
-    _06ACCA0CDDC5718C62D5A4485E2E115D = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct__iobuf), ctypes.POINTER(struct__qstring_char_), ctypes.c_uint32, ctypes.c_uint32)
-    _5DBD8E863343736E5AD8CF23F5B72447 = ctypes.CFUNCTYPE(ctypes.c_uint32, ctypes.c_uint64, ctypes.c_uint64, ctypes.POINTER(None))
+    nav_colorizer_t = ctypes.CFUNCTYPE(ctypes.c_uint32, ctypes.c_uint64, ctypes.c_uint64, ctypes.POINTER(None))
+    html_line_cb_t = ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct__iobuf), ctypes.POINTER(struct__qstring_char_), ctypes.c_uint32, ctypes.c_uint32)
     class union_cfgopt_t___275FC9DDBA9D1187AC5032610B4D4F63(Union):
         pass
     
@@ -12110,6 +12130,18 @@ def ctypeslib_define():
         ('params', struct_cfgopt_t__params_t),
         ('mbroff_obj', ctypes.POINTER(None)),
         ('PADDING_0', ctypes.c_ubyte * 8),
+    ]
+    
+    class union_cfgopt_t___99DF67CCA67C584E9D46033DDA6FC151(Union):
+        pass
+    
+    union_cfgopt_t___99DF67CCA67C584E9D46033DDA6FC151._pack_ = 1 # source:False
+    union_cfgopt_t___99DF67CCA67C584E9D46033DDA6FC151._fields_ = [
+        ('ptr', ctypes.POINTER(None)),
+        ('mbroff', ctypes.c_uint64),
+        ('hnd', ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t))),
+        ('hnd2', ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t), ctypes.c_int64, ctypes.c_int64)),
+        ('hnd3', ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t), ctypes.c_int64, ctypes.c_int64, ctypes.POINTER(None))),
     ]
     
     class union_jvalue_t___86FD308AB52B8F8AFE7E7C65068A43C3(Union):
@@ -12234,12 +12266,13 @@ def ctypeslib_define():
     std___String_iterator_std___String_val_std___Simple_types_char_____pointer = ctypes.c_char_p
     std__map__qstring_char___qrefcnt_t_refcnted_regex_t____key_type = struct__qstring_char_
     std___Tree_simple_types_std__pair_const_int__int_____Nodeptr = ctypes.POINTER(struct_std___Tree_node_std__pair_const_int__int___void__P_)
+    syntax_highlighter_t__block_highlighter_t = ctypes.CFUNCTYPE(None, ctypes.POINTER(None), ctypes.POINTER(struct_highlighter_cbs_t), ctypes.POINTER(struct__qstring_char_))
     std__basic_string_char16_t____Scary_val = struct_std___String_val_std___Simple_types_char16_t__
     std__basic_string_char32_t____Scary_val = struct_std___String_val_std___Simple_types_char32_t__
     std___Tree_simple_types_int____Nodeptr = ctypes.POINTER(struct_std___Tree_node_int__void__P_)
     std__basic_string_wchar_t____Scary_val = struct_std___String_val_std___Simple_types_wchar_t__
     std__basic_string_char____Scary_val = struct_std___String_val_std___Simple_types_char__
-    _F6553CF4C635466D7A900A328CA0BFD3 = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(None))
+    code_viewer_lines_linenum_t = ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(None))
     std__u16streampos = struct_std__fpos__Mbstatet_
     std__u32streampos = struct_std__fpos__Mbstatet_
     std__wstreampos = struct_std__fpos__Mbstatet_
@@ -12248,18 +12281,6 @@ def ctypeslib_define():
     const_t = ctypes.c_uint64
     inode_t = ctypes.c_uint64
     enum_t = ctypes.c_uint64
-    class union_cfgopt_t___072F956EBF1D0FA65345CBEA02E26438(Union):
-        pass
-    
-    union_cfgopt_t___072F956EBF1D0FA65345CBEA02E26438._pack_ = 1 # source:False
-    union_cfgopt_t___072F956EBF1D0FA65345CBEA02E26438._fields_ = [
-        ('ptr', ctypes.POINTER(None)),
-        ('mbroff', ctypes.c_uint64),
-        ('hnd', ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t))),
-        ('hnd2', ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t), ctypes.c_int64, ctypes.c_int64)),
-        ('hnd3', ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t), ctypes.c_int64, ctypes.c_int64, ctypes.POINTER(None))),
-    ]
-    
     class union_argloc_t___F4A6A313BC9EA9730D72EF3AFDF761E4(Union):
         pass
     
@@ -12511,7 +12532,7 @@ def ctypeslib_define():
     Warn.argtypes = [help_t]
     _Adjust_manually_vector_aligned = _libraries['FIXME_STUB']._Adjust_manually_vector_aligned
     _Adjust_manually_vector_aligned.restype = None
-    _Adjust_manually_vector_aligned.argtypes = [ctypes.POINTER(ctypes.POINTER(None)), ctypes.POINTER(ctypes.c_uint64)]
+    _Adjust_manually_vector_aligned.argtypes = [ctypes.POINTER(ctypes.POINTER(None)), ctypes.POINTER(size_t)]
     _BitScanForward = _libraries['FIXME_STUB']._BitScanForward
     _BitScanForward.restype = ctypes.c_ubyte
     _BitScanForward.argtypes = [ctypes.POINTER(ctypes.c_uint32), ctypes.c_uint32]
@@ -12737,7 +12758,7 @@ def ctypeslib_define():
     __acrt_get_locale_data_prefix.restype = ctypes.POINTER(struct___crt_locale_data_public)
     __acrt_get_locale_data_prefix.argtypes = [ctypes.POINTER(None)]
     __acrt_iob_func = _libraries['FIXME_STUB'].__acrt_iob_func
-    __acrt_iob_func.restype = ctypes.POINTER(struct__iobuf)
+    __acrt_iob_func.restype = ctypes.POINTER(FILE)
     __acrt_iob_func.argtypes = [ctypes.c_uint32]
     __acrt_locale_get_ctype_array_value = _libraries['FIXME_STUB'].__acrt_locale_get_ctype_array_value
     __acrt_locale_get_ctype_array_value.restype = ctypes.c_int32
@@ -12769,6 +12790,7 @@ def ctypeslib_define():
     __ceilf = _libraries['FIXME_STUB'].__ceilf
     __ceilf.restype = ctypes.c_float
     __ceilf.argtypes = [ctypes.c_float]
+    va_list = ctypes.POINTER(ctypes.POINTER(None))
     __conio_common_vcwprintf = _libraries['FIXME_STUB'].__conio_common_vcwprintf
     __conio_common_vcwprintf.restype = ctypes.c_int32
     __conio_common_vcwprintf.argtypes = [ctypes.c_uint64, ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
@@ -12903,7 +12925,7 @@ def ctypeslib_define():
     __popcnt64.restype = ctypes.c_uint64
     __popcnt64.argtypes = [ctypes.c_uint64]
     __pwctype_func = _libraries['FIXME_STUB'].__pwctype_func
-    __pwctype_func.restype = ctypes.POINTER(ctypes.c_uint16)
+    __pwctype_func.restype = ctypes.POINTER(wctype_t)
     __pwctype_func.argtypes = []
     __report_gsfailure = _libraries['FIXME_STUB'].__report_gsfailure
     __report_gsfailure.restype = None
@@ -12965,28 +12987,28 @@ def ctypeslib_define():
     __std_swap_ranges_trivially_swappable_noalias.argtypes = [ctypes.POINTER(None), ctypes.POINTER(None), ctypes.POINTER(None)]
     __stdio_common_vfprintf = _libraries['FIXME_STUB'].__stdio_common_vfprintf
     __stdio_common_vfprintf.restype = ctypes.c_int32
-    __stdio_common_vfprintf.argtypes = [ctypes.c_uint64, ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t, va_list]
+    __stdio_common_vfprintf.argtypes = [ctypes.c_uint64, ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t, va_list]
     __stdio_common_vfprintf_p = _libraries['FIXME_STUB'].__stdio_common_vfprintf_p
     __stdio_common_vfprintf_p.restype = ctypes.c_int32
-    __stdio_common_vfprintf_p.argtypes = [ctypes.c_uint64, ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t, va_list]
+    __stdio_common_vfprintf_p.argtypes = [ctypes.c_uint64, ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t, va_list]
     __stdio_common_vfprintf_s = _libraries['FIXME_STUB'].__stdio_common_vfprintf_s
     __stdio_common_vfprintf_s.restype = ctypes.c_int32
-    __stdio_common_vfprintf_s.argtypes = [ctypes.c_uint64, ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t, va_list]
+    __stdio_common_vfprintf_s.argtypes = [ctypes.c_uint64, ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t, va_list]
     __stdio_common_vfscanf = _libraries['FIXME_STUB'].__stdio_common_vfscanf
     __stdio_common_vfscanf.restype = ctypes.c_int32
-    __stdio_common_vfscanf.argtypes = [ctypes.c_uint64, ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t, va_list]
+    __stdio_common_vfscanf.argtypes = [ctypes.c_uint64, ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t, va_list]
     __stdio_common_vfwprintf = _libraries['FIXME_STUB'].__stdio_common_vfwprintf
     __stdio_common_vfwprintf.restype = ctypes.c_int32
-    __stdio_common_vfwprintf.argtypes = [ctypes.c_uint64, ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
+    __stdio_common_vfwprintf.argtypes = [ctypes.c_uint64, ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
     __stdio_common_vfwprintf_p = _libraries['FIXME_STUB'].__stdio_common_vfwprintf_p
     __stdio_common_vfwprintf_p.restype = ctypes.c_int32
-    __stdio_common_vfwprintf_p.argtypes = [ctypes.c_uint64, ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
+    __stdio_common_vfwprintf_p.argtypes = [ctypes.c_uint64, ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
     __stdio_common_vfwprintf_s = _libraries['FIXME_STUB'].__stdio_common_vfwprintf_s
     __stdio_common_vfwprintf_s.restype = ctypes.c_int32
-    __stdio_common_vfwprintf_s.argtypes = [ctypes.c_uint64, ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
+    __stdio_common_vfwprintf_s.argtypes = [ctypes.c_uint64, ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
     __stdio_common_vfwscanf = _libraries['FIXME_STUB'].__stdio_common_vfwscanf
     __stdio_common_vfwscanf.restype = ctypes.c_int32
-    __stdio_common_vfwscanf.argtypes = [ctypes.c_uint64, ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
+    __stdio_common_vfwscanf.argtypes = [ctypes.c_uint64, ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
     __stdio_common_vsnprintf_s = _libraries['FIXME_STUB'].__stdio_common_vsnprintf_s
     __stdio_common_vsnprintf_s.restype = ctypes.c_int32
     __stdio_common_vsnprintf_s.argtypes = [ctypes.c_uint64, ctypes.c_char_p, size_t, size_t, ctypes.c_char_p, _locale_t, va_list]
@@ -13058,7 +13080,7 @@ def ctypeslib_define():
     __uncaught_exceptions.argtypes = []
     __va_start = _libraries['FIXME_STUB'].__va_start
     __va_start.restype = None
-    __va_start.argtypes = [ctypes.POINTER(ctypes.c_char_p)]
+    __va_start.argtypes = [ctypes.POINTER(va_list)]
     __vswprintf_l = _libraries['FIXME_STUB'].__vswprintf_l
     __vswprintf_l.restype = ctypes.c_int32
     __vswprintf_l.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
@@ -13166,7 +13188,7 @@ def ctypeslib_define():
     _calloc_base.argtypes = [size_t, size_t]
     _cgetws_s = _libraries['FIXME_STUB']._cgetws_s
     _cgetws_s.restype = errno_t
-    _cgetws_s.argtypes = [ctypes.POINTER(ctypes.c_int16), size_t, ctypes.POINTER(ctypes.c_uint64)]
+    _cgetws_s.argtypes = [ctypes.POINTER(ctypes.c_int16), size_t, ctypes.POINTER(size_t)]
     _chdir = _libraries['FIXME_STUB']._chdir
     _chdir.restype = ctypes.c_int32
     _chdir.argtypes = [ctypes.c_char_p]
@@ -13229,16 +13251,16 @@ def ctypeslib_define():
     _creat.argtypes = [ctypes.c_char_p, ctypes.c_int32]
     _ctime32 = _libraries['FIXME_STUB']._ctime32
     _ctime32.restype = ctypes.c_char_p
-    _ctime32.argtypes = [ctypes.POINTER(ctypes.c_int32)]
+    _ctime32.argtypes = [ctypes.POINTER(__time32_t)]
     _ctime32_s = _libraries['FIXME_STUB']._ctime32_s
     _ctime32_s.restype = errno_t
-    _ctime32_s.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.c_int32)]
+    _ctime32_s.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(__time32_t)]
     _ctime64 = _libraries['FIXME_STUB']._ctime64
     _ctime64.restype = ctypes.c_char_p
-    _ctime64.argtypes = [ctypes.POINTER(ctypes.c_int64)]
+    _ctime64.argtypes = [ctypes.POINTER(__time64_t)]
     _ctime64_s = _libraries['FIXME_STUB']._ctime64_s
     _ctime64_s.restype = errno_t
-    _ctime64_s.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.c_int64)]
+    _ctime64_s.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(__time64_t)]
     _cvt_dtoi_sat = _libraries['FIXME_STUB']._cvt_dtoi_sat
     _cvt_dtoi_sat.restype = ctypes.c_int32
     _cvt_dtoi_sat.argtypes = [ctypes.c_double]
@@ -13367,7 +13389,7 @@ def ctypeslib_define():
     _dup2.argtypes = [ctypes.c_int32, ctypes.c_int32]
     _dupenv_s = _libraries['FIXME_STUB']._dupenv_s
     _dupenv_s.restype = errno_t
-    _dupenv_s.argtypes = [ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p]
+    _dupenv_s.argtypes = [ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(size_t), ctypes.c_char_p]
     _ecvt = _libraries['FIXME_STUB']._ecvt
     _ecvt.restype = ctypes.c_char_p
     _ecvt.argtypes = [ctypes.c_double, ctypes.c_int32, ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_int32)]
@@ -13388,7 +13410,7 @@ def ctypeslib_define():
     _expand.argtypes = [ctypes.POINTER(None), size_t]
     _fclose_nolock = _libraries['FIXME_STUB']._fclose_nolock
     _fclose_nolock.restype = ctypes.c_int32
-    _fclose_nolock.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _fclose_nolock.argtypes = [ctypes.POINTER(FILE)]
     _fcloseall = _libraries['FIXME_STUB']._fcloseall
     _fcloseall.restype = ctypes.c_int32
     _fcloseall.argtypes = []
@@ -13414,7 +13436,7 @@ def ctypeslib_define():
     _fdnorm.restype = ctypes.c_int16
     _fdnorm.argtypes = [ctypes.POINTER(ctypes.c_uint16)]
     _fdopen = _libraries['FIXME_STUB']._fdopen
-    _fdopen.restype = ctypes.POINTER(struct__iobuf)
+    _fdopen.restype = ctypes.POINTER(FILE)
     _fdopen.argtypes = [ctypes.c_int32, ctypes.c_char_p]
     _fdpcomp = _libraries['FIXME_STUB']._fdpcomp
     _fdpcomp.restype = ctypes.c_int32
@@ -13439,16 +13461,16 @@ def ctypeslib_define():
     _fdunscale.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_float)]
     _fflush_nolock = _libraries['FIXME_STUB']._fflush_nolock
     _fflush_nolock.restype = ctypes.c_int32
-    _fflush_nolock.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _fflush_nolock.argtypes = [ctypes.POINTER(FILE)]
     _fgetc_nolock = _libraries['FIXME_STUB']._fgetc_nolock
     _fgetc_nolock.restype = ctypes.c_int32
-    _fgetc_nolock.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _fgetc_nolock.argtypes = [ctypes.POINTER(FILE)]
     _fgetchar = _libraries['FIXME_STUB']._fgetchar
     _fgetchar.restype = ctypes.c_int32
     _fgetchar.argtypes = []
     _fgetwc_nolock = _libraries['FIXME_STUB']._fgetwc_nolock
     _fgetwc_nolock.restype = wint_t
-    _fgetwc_nolock.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _fgetwc_nolock.argtypes = [ctypes.POINTER(FILE)]
     _fgetwchar = _libraries['FIXME_STUB']._fgetwchar
     _fgetwchar.restype = wint_t
     _fgetwchar.argtypes = []
@@ -13460,7 +13482,7 @@ def ctypeslib_define():
     _filelengthi64.argtypes = [ctypes.c_int32]
     _fileno = _libraries['FIXME_STUB']._fileno
     _fileno.restype = ctypes.c_int32
-    _fileno.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _fileno.argtypes = [ctypes.POINTER(FILE)]
     _findclose = _libraries['FIXME_STUB']._findclose
     _findclose.restype = ctypes.c_int32
     _findclose.argtypes = [intptr_t]
@@ -13514,34 +13536,34 @@ def ctypeslib_define():
     _fpreset.argtypes = []
     _fprintf_l = _libraries['FIXME_STUB']._fprintf_l
     _fprintf_l.restype = ctypes.c_int32
-    _fprintf_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t]
+    _fprintf_l.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t]
     _fprintf_p = _libraries['FIXME_STUB']._fprintf_p
     _fprintf_p.restype = ctypes.c_int32
-    _fprintf_p.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p]
+    _fprintf_p.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p]
     _fprintf_p_l = _libraries['FIXME_STUB']._fprintf_p_l
     _fprintf_p_l.restype = ctypes.c_int32
-    _fprintf_p_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t]
+    _fprintf_p_l.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t]
     _fprintf_s_l = _libraries['FIXME_STUB']._fprintf_s_l
     _fprintf_s_l.restype = ctypes.c_int32
-    _fprintf_s_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t]
+    _fprintf_s_l.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t]
     _fputc_nolock = _libraries['FIXME_STUB']._fputc_nolock
     _fputc_nolock.restype = ctypes.c_int32
-    _fputc_nolock.argtypes = [ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    _fputc_nolock.argtypes = [ctypes.c_int32, ctypes.POINTER(FILE)]
     _fputchar = _libraries['FIXME_STUB']._fputchar
     _fputchar.restype = ctypes.c_int32
     _fputchar.argtypes = [ctypes.c_int32]
     _fputwc_nolock = _libraries['FIXME_STUB']._fputwc_nolock
     _fputwc_nolock.restype = wint_t
-    _fputwc_nolock.argtypes = [ctypes.c_int16, ctypes.POINTER(struct__iobuf)]
+    _fputwc_nolock.argtypes = [ctypes.c_int16, ctypes.POINTER(FILE)]
     _fputwchar = _libraries['FIXME_STUB']._fputwchar
     _fputwchar.restype = wint_t
     _fputwchar.argtypes = [ctypes.c_int16]
     _fread_nolock = _libraries['FIXME_STUB']._fread_nolock
     _fread_nolock.restype = size_t
-    _fread_nolock.argtypes = [ctypes.POINTER(None), size_t, size_t, ctypes.POINTER(struct__iobuf)]
+    _fread_nolock.argtypes = [ctypes.POINTER(None), size_t, size_t, ctypes.POINTER(FILE)]
     _fread_nolock_s = _libraries['FIXME_STUB']._fread_nolock_s
     _fread_nolock_s.restype = size_t
-    _fread_nolock_s.argtypes = [ctypes.POINTER(None), size_t, size_t, size_t, ctypes.POINTER(struct__iobuf)]
+    _fread_nolock_s.argtypes = [ctypes.POINTER(None), size_t, size_t, size_t, ctypes.POINTER(FILE)]
     _free_base = _libraries['FIXME_STUB']._free_base
     _free_base.restype = None
     _free_base.argtypes = [ctypes.POINTER(None)]
@@ -13550,21 +13572,21 @@ def ctypeslib_define():
     _freea.argtypes = [ctypes.POINTER(None)]
     _fscanf_l = _libraries['FIXME_STUB']._fscanf_l
     _fscanf_l.restype = ctypes.c_int32
-    _fscanf_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t]
+    _fscanf_l.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t]
     _fscanf_s_l = _libraries['FIXME_STUB']._fscanf_s_l
     _fscanf_s_l.restype = ctypes.c_int32
-    _fscanf_s_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t]
+    _fscanf_s_l.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t]
     _fseek_nolock = _libraries['FIXME_STUB']._fseek_nolock
     _fseek_nolock.restype = ctypes.c_int32
-    _fseek_nolock.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_int32, ctypes.c_int32]
+    _fseek_nolock.argtypes = [ctypes.POINTER(FILE), ctypes.c_int32, ctypes.c_int32]
     _fseeki64 = _libraries['FIXME_STUB']._fseeki64
     _fseeki64.restype = ctypes.c_int32
-    _fseeki64.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_int64, ctypes.c_int32]
+    _fseeki64.argtypes = [ctypes.POINTER(FILE), ctypes.c_int64, ctypes.c_int32]
     _fseeki64_nolock = _libraries['FIXME_STUB']._fseeki64_nolock
     _fseeki64_nolock.restype = ctypes.c_int32
-    _fseeki64_nolock.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_int64, ctypes.c_int32]
+    _fseeki64_nolock.argtypes = [ctypes.POINTER(FILE), ctypes.c_int64, ctypes.c_int32]
     _fsopen = _libraries['FIXME_STUB']._fsopen
-    _fsopen.restype = ctypes.POINTER(struct__iobuf)
+    _fsopen.restype = ctypes.POINTER(FILE)
     _fsopen.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32]
     _fstat32 = _libraries['FIXME_STUB']._fstat32
     _fstat32.restype = ctypes.c_int32
@@ -13580,37 +13602,37 @@ def ctypeslib_define():
     _fstat64i32.argtypes = [ctypes.c_int32, ctypes.POINTER(struct__stat64i32)]
     _ftell_nolock = _libraries['FIXME_STUB']._ftell_nolock
     _ftell_nolock.restype = ctypes.c_int32
-    _ftell_nolock.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _ftell_nolock.argtypes = [ctypes.POINTER(FILE)]
     _ftelli64 = _libraries['FIXME_STUB']._ftelli64
     _ftelli64.restype = ctypes.c_int64
-    _ftelli64.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _ftelli64.argtypes = [ctypes.POINTER(FILE)]
     _ftelli64_nolock = _libraries['FIXME_STUB']._ftelli64_nolock
     _ftelli64_nolock.restype = ctypes.c_int64
-    _ftelli64_nolock.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _ftelli64_nolock.argtypes = [ctypes.POINTER(FILE)]
     _fullpath = _libraries['FIXME_STUB']._fullpath
     _fullpath.restype = ctypes.c_char_p
     _fullpath.argtypes = [ctypes.c_char_p, ctypes.c_char_p, size_t]
     _fwprintf_l = _libraries['FIXME_STUB']._fwprintf_l
     _fwprintf_l.restype = ctypes.c_int32
-    _fwprintf_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t]
+    _fwprintf_l.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t]
     _fwprintf_p = _libraries['FIXME_STUB']._fwprintf_p
     _fwprintf_p.restype = ctypes.c_int32
-    _fwprintf_p.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16)]
+    _fwprintf_p.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16)]
     _fwprintf_p_l = _libraries['FIXME_STUB']._fwprintf_p_l
     _fwprintf_p_l.restype = ctypes.c_int32
-    _fwprintf_p_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t]
+    _fwprintf_p_l.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t]
     _fwprintf_s_l = _libraries['FIXME_STUB']._fwprintf_s_l
     _fwprintf_s_l.restype = ctypes.c_int32
-    _fwprintf_s_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t]
+    _fwprintf_s_l.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t]
     _fwrite_nolock = _libraries['FIXME_STUB']._fwrite_nolock
     _fwrite_nolock.restype = size_t
-    _fwrite_nolock.argtypes = [ctypes.POINTER(None), size_t, size_t, ctypes.POINTER(struct__iobuf)]
+    _fwrite_nolock.argtypes = [ctypes.POINTER(None), size_t, size_t, ctypes.POINTER(FILE)]
     _fwscanf_l = _libraries['FIXME_STUB']._fwscanf_l
     _fwscanf_l.restype = ctypes.c_int32
-    _fwscanf_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t]
+    _fwscanf_l.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t]
     _fwscanf_s_l = _libraries['FIXME_STUB']._fwscanf_s_l
     _fwscanf_s_l.restype = ctypes.c_int32
-    _fwscanf_s_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t]
+    _fwscanf_s_l.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t]
     _gcvt = _libraries['FIXME_STUB']._gcvt
     _gcvt.restype = ctypes.c_char_p
     _gcvt.argtypes = [ctypes.c_double, ctypes.c_int32, ctypes.c_char_p]
@@ -13655,7 +13677,7 @@ def ctypeslib_define():
     _get_purecall_handler.argtypes = []
     _get_stream_buffer_pointers = _libraries['FIXME_STUB']._get_stream_buffer_pointers
     _get_stream_buffer_pointers.restype = errno_t
-    _get_stream_buffer_pointers.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.POINTER(ctypes.c_char_p)), ctypes.POINTER(ctypes.POINTER(ctypes.c_char_p)), ctypes.POINTER(ctypes.POINTER(ctypes.c_int32))]
+    _get_stream_buffer_pointers.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.POINTER(ctypes.c_char_p)), ctypes.POINTER(ctypes.POINTER(ctypes.c_char_p)), ctypes.POINTER(ctypes.POINTER(ctypes.c_int32))]
     _get_terminate = _libraries['FIXME_STUB']._get_terminate
     _get_terminate.restype = terminate_handler
     _get_terminate.argtypes = []
@@ -13667,7 +13689,7 @@ def ctypeslib_define():
     _get_timezone.argtypes = [ctypes.POINTER(ctypes.c_int32)]
     _get_tzname = _libraries['FIXME_STUB']._get_tzname
     _get_tzname.restype = errno_t
-    _get_tzname.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p, size_t, ctypes.c_int32]
+    _get_tzname.argtypes = [ctypes.POINTER(size_t), ctypes.c_char_p, size_t, ctypes.c_int32]
     _get_unexpected = _libraries['FIXME_STUB']._get_unexpected
     _get_unexpected.restype = unexpected_handler
     _get_unexpected.argtypes = []
@@ -13676,7 +13698,7 @@ def ctypeslib_define():
     _get_wpgmptr.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_int16))]
     _getc_nolock = _libraries['FIXME_STUB']._getc_nolock
     _getc_nolock.restype = ctypes.c_int32
-    _getc_nolock.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _getc_nolock.argtypes = [ctypes.POINTER(FILE)]
     _getcwd = _libraries['FIXME_STUB']._getcwd
     _getcwd.restype = ctypes.c_char_p
     _getcwd.argtypes = [ctypes.c_char_p, ctypes.c_int32]
@@ -13700,10 +13722,10 @@ def ctypeslib_define():
     _getsystime.argtypes = [ctypes.POINTER(struct_tm)]
     _getw = _libraries['FIXME_STUB']._getw
     _getw.restype = ctypes.c_int32
-    _getw.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _getw.argtypes = [ctypes.POINTER(FILE)]
     _getwc_nolock = _libraries['FIXME_STUB']._getwc_nolock
     _getwc_nolock.restype = wint_t
-    _getwc_nolock.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _getwc_nolock.argtypes = [ctypes.POINTER(FILE)]
     _getwch = _libraries['FIXME_STUB']._getwch
     _getwch.restype = wint_t
     _getwch.argtypes = []
@@ -13721,16 +13743,16 @@ def ctypeslib_define():
     _getws_s.argtypes = [ctypes.POINTER(ctypes.c_int16), size_t]
     _gmtime32 = _libraries['FIXME_STUB']._gmtime32
     _gmtime32.restype = ctypes.POINTER(struct_tm)
-    _gmtime32.argtypes = [ctypes.POINTER(ctypes.c_int32)]
+    _gmtime32.argtypes = [ctypes.POINTER(__time32_t)]
     _gmtime32_s = _libraries['FIXME_STUB']._gmtime32_s
     _gmtime32_s.restype = errno_t
-    _gmtime32_s.argtypes = [ctypes.POINTER(struct_tm), ctypes.POINTER(ctypes.c_int32)]
+    _gmtime32_s.argtypes = [ctypes.POINTER(struct_tm), ctypes.POINTER(__time32_t)]
     _gmtime64 = _libraries['FIXME_STUB']._gmtime64
     _gmtime64.restype = ctypes.POINTER(struct_tm)
-    _gmtime64.argtypes = [ctypes.POINTER(ctypes.c_int64)]
+    _gmtime64.argtypes = [ctypes.POINTER(__time64_t)]
     _gmtime64_s = _libraries['FIXME_STUB']._gmtime64_s
     _gmtime64_s.restype = errno_t
-    _gmtime64_s.argtypes = [ctypes.POINTER(struct_tm), ctypes.POINTER(ctypes.c_int64)]
+    _gmtime64_s.argtypes = [ctypes.POINTER(struct_tm), ctypes.POINTER(__time64_t)]
     _heapchk = _libraries['FIXME_STUB']._heapchk
     _heapchk.restype = ctypes.c_int32
     _heapchk.argtypes = []
@@ -13739,7 +13761,7 @@ def ctypeslib_define():
     _heapmin.argtypes = []
     _heapwalk = _libraries['FIXME_STUB']._heapwalk
     _heapwalk.restype = ctypes.c_int32
-    _heapwalk.argtypes = [ctypes.POINTER(struct__heapinfo)]
+    _heapwalk.argtypes = [ctypes.POINTER(_HEAPINFO)]
     _hypot = _libraries['FIXME_STUB']._hypot
     _hypot.restype = ctypes.c_double
     _hypot.argtypes = [ctypes.c_double, ctypes.c_double]
@@ -13964,19 +13986,19 @@ def ctypeslib_define():
     _load_core_module.argtypes = [ctypes.POINTER(struct_idadll_t), ctypes.c_char_p, ctypes.c_char_p]
     _localtime32 = _libraries['FIXME_STUB']._localtime32
     _localtime32.restype = ctypes.POINTER(struct_tm)
-    _localtime32.argtypes = [ctypes.POINTER(ctypes.c_int32)]
+    _localtime32.argtypes = [ctypes.POINTER(__time32_t)]
     _localtime32_s = _libraries['FIXME_STUB']._localtime32_s
     _localtime32_s.restype = errno_t
-    _localtime32_s.argtypes = [ctypes.POINTER(struct_tm), ctypes.POINTER(ctypes.c_int32)]
+    _localtime32_s.argtypes = [ctypes.POINTER(struct_tm), ctypes.POINTER(__time32_t)]
     _localtime64 = _libraries['FIXME_STUB']._localtime64
     _localtime64.restype = ctypes.POINTER(struct_tm)
-    _localtime64.argtypes = [ctypes.POINTER(ctypes.c_int64)]
+    _localtime64.argtypes = [ctypes.POINTER(__time64_t)]
     _localtime64_s = _libraries['FIXME_STUB']._localtime64_s
     _localtime64_s.restype = errno_t
-    _localtime64_s.argtypes = [ctypes.POINTER(struct_tm), ctypes.POINTER(ctypes.c_int64)]
+    _localtime64_s.argtypes = [ctypes.POINTER(struct_tm), ctypes.POINTER(__time64_t)]
     _lock_file = _libraries['FIXME_STUB']._lock_file
     _lock_file.restype = None
-    _lock_file.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _lock_file.argtypes = [ctypes.POINTER(FILE)]
     _locking = _libraries['FIXME_STUB']._locking
     _locking.restype = ctypes.c_int32
     _locking.argtypes = [ctypes.c_int32, ctypes.c_int32, ctypes.c_int32]
@@ -14036,7 +14058,7 @@ def ctypeslib_define():
     _mbstowcs_l.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.c_char_p, size_t, _locale_t]
     _mbstowcs_s_l = _libraries['FIXME_STUB']._mbstowcs_s_l
     _mbstowcs_s_l.restype = errno_t
-    _mbstowcs_s_l.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_int16), size_t, ctypes.c_char_p, size_t, _locale_t]
+    _mbstowcs_s_l.argtypes = [ctypes.POINTER(size_t), ctypes.POINTER(ctypes.c_int16), size_t, ctypes.c_char_p, size_t, _locale_t]
     _mbstrlen = _libraries['FIXME_STUB']._mbstrlen
     _mbstrlen.restype = size_t
     _mbstrlen.argtypes = [ctypes.c_char_p]
@@ -14108,12 +14130,12 @@ def ctypeslib_define():
     _open_osfhandle.argtypes = [intptr_t, ctypes.c_int32]
     _pclose = _libraries['FIXME_STUB']._pclose
     _pclose.restype = ctypes.c_int32
-    _pclose.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _pclose.argtypes = [ctypes.POINTER(FILE)]
     _pipe = _libraries['FIXME_STUB']._pipe
     _pipe.restype = ctypes.c_int32
     _pipe.argtypes = [ctypes.POINTER(ctypes.c_int32), ctypes.c_uint32, ctypes.c_int32]
     _popen = _libraries['FIXME_STUB']._popen
-    _popen.restype = ctypes.POINTER(struct__iobuf)
+    _popen.restype = ctypes.POINTER(FILE)
     _popen.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     _printf_l = _libraries['FIXME_STUB']._printf_l
     _printf_l.restype = ctypes.c_int32
@@ -14129,7 +14151,7 @@ def ctypeslib_define():
     _printf_s_l.argtypes = [ctypes.c_char_p, _locale_t]
     _putc_nolock = _libraries['FIXME_STUB']._putc_nolock
     _putc_nolock.restype = ctypes.c_int32
-    _putc_nolock.argtypes = [ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    _putc_nolock.argtypes = [ctypes.c_int32, ctypes.POINTER(FILE)]
     _putenv = _libraries['FIXME_STUB']._putenv
     _putenv.restype = ctypes.c_int32
     _putenv.argtypes = [ctypes.c_char_p]
@@ -14138,10 +14160,10 @@ def ctypeslib_define():
     _putenv_s.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     _putw = _libraries['FIXME_STUB']._putw
     _putw.restype = ctypes.c_int32
-    _putw.argtypes = [ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    _putw.argtypes = [ctypes.c_int32, ctypes.POINTER(FILE)]
     _putwc_nolock = _libraries['FIXME_STUB']._putwc_nolock
     _putwc_nolock.restype = wint_t
-    _putwc_nolock.argtypes = [ctypes.c_int16, ctypes.POINTER(struct__iobuf)]
+    _putwc_nolock.argtypes = [ctypes.c_int16, ctypes.POINTER(FILE)]
     _putwch = _libraries['FIXME_STUB']._putwch
     _putwch.restype = wint_t
     _putwch.argtypes = [ctypes.c_int16]
@@ -14558,10 +14580,10 @@ def ctypeslib_define():
     _tempnam.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     _time32 = _libraries['FIXME_STUB']._time32
     _time32.restype = __time32_t
-    _time32.argtypes = [ctypes.POINTER(ctypes.c_int32)]
+    _time32.argtypes = [ctypes.POINTER(__time32_t)]
     _time64 = _libraries['FIXME_STUB']._time64
     _time64.restype = __time64_t
-    _time64.argtypes = [ctypes.POINTER(ctypes.c_int64)]
+    _time64.argtypes = [ctypes.POINTER(__time64_t)]
     _timespec32_get = _libraries['FIXME_STUB']._timespec32_get
     _timespec32_get.restype = ctypes.c_int32
     _timespec32_get.argtypes = [ctypes.POINTER(struct__timespec32), ctypes.c_int32]
@@ -14624,10 +14646,10 @@ def ctypeslib_define():
     _umul128.argtypes = [ctypes.c_uint64, ctypes.c_uint64, ctypes.POINTER(ctypes.c_uint64)]
     _ungetc_nolock = _libraries['FIXME_STUB']._ungetc_nolock
     _ungetc_nolock.restype = ctypes.c_int32
-    _ungetc_nolock.argtypes = [ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    _ungetc_nolock.argtypes = [ctypes.c_int32, ctypes.POINTER(FILE)]
     _ungetwc_nolock = _libraries['FIXME_STUB']._ungetwc_nolock
     _ungetwc_nolock.restype = wint_t
-    _ungetwc_nolock.argtypes = [wint_t, ctypes.POINTER(struct__iobuf)]
+    _ungetwc_nolock.argtypes = [wint_t, ctypes.POINTER(FILE)]
     _ungetwch = _libraries['FIXME_STUB']._ungetwch
     _ungetwch.restype = wint_t
     _ungetwch.argtypes = [wint_t]
@@ -14639,7 +14661,7 @@ def ctypeslib_define():
     _unlink.argtypes = [ctypes.c_char_p]
     _unlock_file = _libraries['FIXME_STUB']._unlock_file
     _unlock_file.restype = None
-    _unlock_file.argtypes = [ctypes.POINTER(struct__iobuf)]
+    _unlock_file.argtypes = [ctypes.POINTER(FILE)]
     _vcwprintf = _libraries['FIXME_STUB']._vcwprintf
     _vcwprintf.restype = ctypes.c_int32
     _vcwprintf.argtypes = [ctypes.POINTER(ctypes.c_int16), va_list]
@@ -14672,40 +14694,40 @@ def ctypeslib_define():
     _vcwscanf_s_l.argtypes = [ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
     _vfprintf_l = _libraries['FIXME_STUB']._vfprintf_l
     _vfprintf_l.restype = ctypes.c_int32
-    _vfprintf_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t, va_list]
+    _vfprintf_l.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t, va_list]
     _vfprintf_p = _libraries['FIXME_STUB']._vfprintf_p
     _vfprintf_p.restype = ctypes.c_int32
-    _vfprintf_p.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, va_list]
+    _vfprintf_p.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, va_list]
     _vfprintf_p_l = _libraries['FIXME_STUB']._vfprintf_p_l
     _vfprintf_p_l.restype = ctypes.c_int32
-    _vfprintf_p_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t, va_list]
+    _vfprintf_p_l.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t, va_list]
     _vfprintf_s_l = _libraries['FIXME_STUB']._vfprintf_s_l
     _vfprintf_s_l.restype = ctypes.c_int32
-    _vfprintf_s_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t, va_list]
+    _vfprintf_s_l.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t, va_list]
     _vfscanf_l = _libraries['FIXME_STUB']._vfscanf_l
     _vfscanf_l.restype = ctypes.c_int32
-    _vfscanf_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t, va_list]
+    _vfscanf_l.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t, va_list]
     _vfscanf_s_l = _libraries['FIXME_STUB']._vfscanf_s_l
     _vfscanf_s_l.restype = ctypes.c_int32
-    _vfscanf_s_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, _locale_t, va_list]
+    _vfscanf_s_l.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, _locale_t, va_list]
     _vfwprintf_l = _libraries['FIXME_STUB']._vfwprintf_l
     _vfwprintf_l.restype = ctypes.c_int32
-    _vfwprintf_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
+    _vfwprintf_l.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
     _vfwprintf_p = _libraries['FIXME_STUB']._vfwprintf_p
     _vfwprintf_p.restype = ctypes.c_int32
-    _vfwprintf_p.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), va_list]
+    _vfwprintf_p.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), va_list]
     _vfwprintf_p_l = _libraries['FIXME_STUB']._vfwprintf_p_l
     _vfwprintf_p_l.restype = ctypes.c_int32
-    _vfwprintf_p_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
+    _vfwprintf_p_l.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
     _vfwprintf_s_l = _libraries['FIXME_STUB']._vfwprintf_s_l
     _vfwprintf_s_l.restype = ctypes.c_int32
-    _vfwprintf_s_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
+    _vfwprintf_s_l.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
     _vfwscanf_l = _libraries['FIXME_STUB']._vfwscanf_l
     _vfwscanf_l.restype = ctypes.c_int32
-    _vfwscanf_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
+    _vfwscanf_l.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
     _vfwscanf_s_l = _libraries['FIXME_STUB']._vfwscanf_s_l
     _vfwscanf_s_l.restype = ctypes.c_int32
-    _vfwscanf_s_l.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
+    _vfwscanf_s_l.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), _locale_t, va_list]
     _vprintf_l = _libraries['FIXME_STUB']._vprintf_l
     _vprintf_l.restype = ctypes.c_int32
     _vprintf_l.argtypes = [ctypes.c_char_p, _locale_t, va_list]
@@ -14972,7 +14994,7 @@ def ctypeslib_define():
     _wcstombs_l.argtypes = [ctypes.c_char_p, ctypes.POINTER(ctypes.c_int16), size_t, _locale_t]
     _wcstombs_s_l = _libraries['FIXME_STUB']._wcstombs_s_l
     _wcstombs_s_l.restype = errno_t
-    _wcstombs_s_l.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.c_int16), size_t, _locale_t]
+    _wcstombs_s_l.argtypes = [ctypes.POINTER(size_t), ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.c_int16), size_t, _locale_t]
     _wcstoui64 = _libraries['FIXME_STUB']._wcstoui64
     _wcstoui64.restype = ctypes.c_uint64
     _wcstoui64.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.POINTER(ctypes.c_int16)), ctypes.c_int32]
@@ -15002,16 +15024,16 @@ def ctypeslib_define():
     _wcsxfrm_l.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), size_t, _locale_t]
     _wctime32 = _libraries['FIXME_STUB']._wctime32
     _wctime32.restype = ctypes.POINTER(ctypes.c_int16)
-    _wctime32.argtypes = [ctypes.POINTER(ctypes.c_int32)]
+    _wctime32.argtypes = [ctypes.POINTER(__time32_t)]
     _wctime32_s = _libraries['FIXME_STUB']._wctime32_s
     _wctime32_s.restype = errno_t
-    _wctime32_s.argtypes = [ctypes.POINTER(ctypes.c_int16), size_t, ctypes.POINTER(ctypes.c_int32)]
+    _wctime32_s.argtypes = [ctypes.POINTER(ctypes.c_int16), size_t, ctypes.POINTER(__time32_t)]
     _wctime64 = _libraries['FIXME_STUB']._wctime64
     _wctime64.restype = ctypes.POINTER(ctypes.c_int16)
-    _wctime64.argtypes = [ctypes.POINTER(ctypes.c_int64)]
+    _wctime64.argtypes = [ctypes.POINTER(__time64_t)]
     _wctime64_s = _libraries['FIXME_STUB']._wctime64_s
     _wctime64_s.restype = errno_t
-    _wctime64_s.argtypes = [ctypes.POINTER(ctypes.c_int16), size_t, ctypes.POINTER(ctypes.c_int64)]
+    _wctime64_s.argtypes = [ctypes.POINTER(ctypes.c_int16), size_t, ctypes.POINTER(__time64_t)]
     _wctomb_l = _libraries['FIXME_STUB']._wctomb_l
     _wctomb_l.restype = ctypes.c_int32
     _wctomb_l.argtypes = [ctypes.c_char_p, ctypes.c_int16, _locale_t]
@@ -15020,7 +15042,7 @@ def ctypeslib_define():
     _wctomb_s_l.argtypes = [ctypes.POINTER(ctypes.c_int32), ctypes.c_char_p, size_t, ctypes.c_int16, _locale_t]
     _wdupenv_s = _libraries['FIXME_STUB']._wdupenv_s
     _wdupenv_s.restype = errno_t
-    _wdupenv_s.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_int16)), ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_int16)]
+    _wdupenv_s.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_int16)), ctypes.POINTER(size_t), ctypes.POINTER(ctypes.c_int16)]
     _wexecl = _libraries['FIXME_STUB']._wexecl
     _wexecl.restype = intptr_t
     _wexecl.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16)]
@@ -15046,7 +15068,7 @@ def ctypeslib_define():
     _wexecvpe.restype = intptr_t
     _wexecvpe.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.POINTER(ctypes.c_int16)), ctypes.POINTER(ctypes.POINTER(ctypes.c_int16))]
     _wfdopen = _libraries['FIXME_STUB']._wfdopen
-    _wfdopen.restype = ctypes.POINTER(struct__iobuf)
+    _wfdopen.restype = ctypes.POINTER(FILE)
     _wfdopen.argtypes = [ctypes.c_int32, ctypes.POINTER(ctypes.c_int16)]
     _wfindfirst32 = _libraries['FIXME_STUB']._wfindfirst32
     _wfindfirst32.restype = intptr_t
@@ -15073,19 +15095,19 @@ def ctypeslib_define():
     _wfindnext64i32.restype = ctypes.c_int32
     _wfindnext64i32.argtypes = [intptr_t, ctypes.POINTER(struct__wfinddata64i32_t)]
     _wfopen = _libraries['FIXME_STUB']._wfopen
-    _wfopen.restype = ctypes.POINTER(struct__iobuf)
+    _wfopen.restype = ctypes.POINTER(FILE)
     _wfopen.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16)]
     _wfopen_s = _libraries['FIXME_STUB']._wfopen_s
     _wfopen_s.restype = errno_t
-    _wfopen_s.argtypes = [ctypes.POINTER(ctypes.POINTER(struct__iobuf)), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16)]
+    _wfopen_s.argtypes = [ctypes.POINTER(ctypes.POINTER(FILE)), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16)]
     _wfreopen = _libraries['FIXME_STUB']._wfreopen
-    _wfreopen.restype = ctypes.POINTER(struct__iobuf)
-    _wfreopen.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(struct__iobuf)]
+    _wfreopen.restype = ctypes.POINTER(FILE)
+    _wfreopen.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(FILE)]
     _wfreopen_s = _libraries['FIXME_STUB']._wfreopen_s
     _wfreopen_s.restype = errno_t
-    _wfreopen_s.argtypes = [ctypes.POINTER(ctypes.POINTER(struct__iobuf)), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(struct__iobuf)]
+    _wfreopen_s.argtypes = [ctypes.POINTER(ctypes.POINTER(FILE)), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(FILE)]
     _wfsopen = _libraries['FIXME_STUB']._wfsopen
-    _wfsopen.restype = ctypes.POINTER(struct__iobuf)
+    _wfsopen.restype = ctypes.POINTER(FILE)
     _wfsopen.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), ctypes.c_int32]
     _wfullpath = _libraries['FIXME_STUB']._wfullpath
     _wfullpath.restype = ctypes.POINTER(ctypes.c_int16)
@@ -15101,7 +15123,7 @@ def ctypeslib_define():
     _wgetenv.argtypes = [ctypes.POINTER(ctypes.c_int16)]
     _wgetenv_s = _libraries['FIXME_STUB']._wgetenv_s
     _wgetenv_s.restype = errno_t
-    _wgetenv_s.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_int16), size_t, ctypes.POINTER(ctypes.c_int16)]
+    _wgetenv_s.argtypes = [ctypes.POINTER(size_t), ctypes.POINTER(ctypes.c_int16), size_t, ctypes.POINTER(ctypes.c_int16)]
     _wmakepath = _libraries['FIXME_STUB']._wmakepath
     _wmakepath.restype = None
     _wmakepath.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16)]
@@ -15124,7 +15146,7 @@ def ctypeslib_define():
     _wperror.restype = None
     _wperror.argtypes = [ctypes.POINTER(ctypes.c_int16)]
     _wpopen = _libraries['FIXME_STUB']._wpopen
-    _wpopen.restype = ctypes.POINTER(struct__iobuf)
+    _wpopen.restype = ctypes.POINTER(FILE)
     _wpopen.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16)]
     _wprintf_l = _libraries['FIXME_STUB']._wprintf_l
     _wprintf_l.restype = ctypes.c_int32
@@ -15317,7 +15339,7 @@ def ctypeslib_define():
     acosl.argtypes = [ctypes.c_double]
     acp_utf8 = _libraries['FIXME_STUB'].acp_utf8
     acp_utf8.restype = ctypes.c_char
-    acp_utf8.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p]
+    acp_utf8.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p]
     activate_widget = _libraries['FIXME_STUB'].activate_widget
     activate_widget.restype = None
     activate_widget.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.c_char]
@@ -15326,7 +15348,7 @@ def ctypeslib_define():
     add_auto_stkpnt.argtypes = [ctypes.POINTER(struct_func_t), ea_t, sval_t]
     add_base_tils = _libraries['FIXME_STUB'].add_base_tils
     add_base_tils.restype = ctypes.c_int32
-    add_base_tils.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char]
+    add_base_tils.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char]
     add_bpt = _libraries['FIXME_STUB'].add_bpt
     add_bpt.restype = ctypes.c_char
     add_bpt.argtypes = [ctypes.POINTER(struct_bpt_t)]
@@ -15458,7 +15480,7 @@ def ctypeslib_define():
     align_flag.argtypes = []
     align_size = _libraries['FIXME_STUB'].align_size
     align_size.restype = None
-    align_size.argtypes = [ctypes.POINTER(ctypes.c_uint64), size_t, size_t]
+    align_size.argtypes = [ctypes.POINTER(size_t), size_t, size_t]
     align_stkarg_up = _libraries['FIXME_STUB'].align_stkarg_up
     align_stkarg_up.restype = sval_t
     align_stkarg_up.argtypes = [sval_t, ctypes.POINTER(struct_tinfo_t), ctypes.c_int32, cm_t]
@@ -15482,13 +15504,13 @@ def ctypeslib_define():
     append_abi_opts.argtypes = [ctypes.c_char_p, ctypes.c_char]
     append_argloc = _libraries['FIXME_STUB'].append_argloc
     append_argloc.restype = ctypes.c_char
-    append_argloc.argtypes = [ctypes.POINTER(struct__qstring_unsigned_char_), ctypes.POINTER(struct_argloc_t)]
+    append_argloc.argtypes = [ctypes.POINTER(qtype), ctypes.POINTER(struct_argloc_t)]
     append_cmt = _libraries['FIXME_STUB'].append_cmt
     append_cmt.restype = ctypes.c_char
     append_cmt.argtypes = [ea_t, ctypes.c_char_p, ctypes.c_char]
     append_disp = _libraries['FIXME_STUB'].append_disp
     append_disp.restype = None
-    append_disp.argtypes = [ctypes.POINTER(struct__qstring_char_), adiff_t, ctypes.c_char]
+    append_disp.argtypes = [ctypes.POINTER(qstring), adiff_t, ctypes.c_char]
     append_func_tail = _libraries['FIXME_STUB'].append_func_tail
     append_func_tail.restype = ctypes.c_char
     append_func_tail.argtypes = [ctypes.POINTER(struct_func_t), ea_t, ea_t]
@@ -15500,7 +15522,7 @@ def ctypeslib_define():
     append_snprintf.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
     append_struct_fields = _libraries['FIXME_STUB'].append_struct_fields
     append_struct_fields.restype = flags_t
-    append_struct_fields.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(ctypes.c_int64), ctypes.c_int32, ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32, flags_t, adiff_t, ctypes.c_char]
+    append_struct_fields.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(adiff_t), ctypes.c_int32, ctypes.POINTER(tid_t), ctypes.c_int32, flags_t, adiff_t, ctypes.c_char]
     append_tinfo_covered = _libraries['FIXME_STUB'].append_tinfo_covered
     append_tinfo_covered.restype = ctypes.c_char
     append_tinfo_covered.argtypes = [ctypes.POINTER(struct_rangeset_t), uint32, uint64]
@@ -15536,7 +15558,7 @@ def ctypeslib_define():
     apply_tinfo_to_stkarg.argtypes = [ctypes.POINTER(struct_insn_t), ctypes.POINTER(struct_op_t), uval_t, ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p]
     asc_to_r50 = _libraries['FIXME_STUB'].asc_to_r50
     asc_to_r50.restype = ctypes.c_int32
-    asc_to_r50.argtypes = [ctypes.POINTER(ctypes.c_uint16), ctypes.c_char_p, ctypes.c_int32]
+    asc_to_r50.argtypes = [ctypes.POINTER(ushort), ctypes.c_char_p, ctypes.c_int32]
     asctime = _libraries['FIXME_STUB'].asctime
     asctime.restype = ctypes.c_char_p
     asctime.argtypes = [ctypes.POINTER(struct_tm)]
@@ -15567,7 +15589,7 @@ def ctypeslib_define():
     asinl.argtypes = [ctypes.c_double]
     ask_addr = _libraries['FIXME_STUB'].ask_addr
     ask_addr.restype = ctypes.c_char
-    ask_addr.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p]
+    ask_addr.argtypes = [ctypes.POINTER(ea_t), ctypes.c_char_p]
     ask_buttons = _libraries['FIXME_STUB'].ask_buttons
     ask_buttons.restype = ctypes.c_int32
     ask_buttons.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32, ctypes.c_char_p]
@@ -15582,19 +15604,19 @@ def ctypeslib_define():
     ask_form.argtypes = [ctypes.c_char_p]
     ask_ident = _libraries['FIXME_STUB'].ask_ident
     ask_ident.restype = ctypes.c_char
-    ask_ident.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p]
+    ask_ident.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p]
     ask_long = _libraries['FIXME_STUB'].ask_long
     ask_long.restype = ctypes.c_char
-    ask_long.argtypes = [ctypes.POINTER(ctypes.c_int64), ctypes.c_char_p]
+    ask_long.argtypes = [ctypes.POINTER(sval_t), ctypes.c_char_p]
     ask_seg = _libraries['FIXME_STUB'].ask_seg
     ask_seg.restype = ctypes.c_char
-    ask_seg.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p]
+    ask_seg.argtypes = [ctypes.POINTER(sel_t), ctypes.c_char_p]
     ask_str = _libraries['FIXME_STUB'].ask_str
     ask_str.restype = ctypes.c_char
-    ask_str.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_int32, ctypes.c_char_p]
+    ask_str.argtypes = [ctypes.POINTER(qstring), ctypes.c_int32, ctypes.c_char_p]
     ask_text = _libraries['FIXME_STUB'].ask_text
     ask_text.restype = ctypes.c_char
-    ask_text.argtypes = [ctypes.POINTER(struct__qstring_char_), size_t, ctypes.c_char_p, ctypes.c_char_p]
+    ask_text.argtypes = [ctypes.POINTER(qstring), size_t, ctypes.c_char_p, ctypes.c_char_p]
     ask_yn = _libraries['FIXME_STUB'].ask_yn
     ask_yn.restype = ctypes.c_int32
     ask_yn.argtypes = [ctypes.c_int32, help_t]
@@ -15633,13 +15655,13 @@ def ctypeslib_define():
     atexit.argtypes = [ctypes.CFUNCTYPE(None)]
     atob32 = _libraries['FIXME_STUB'].atob32
     atob32.restype = ctypes.c_char
-    atob32.argtypes = [ctypes.POINTER(ctypes.c_uint32), ctypes.c_char_p]
+    atob32.argtypes = [ctypes.POINTER(uint32), ctypes.c_char_p]
     atob64 = _libraries['FIXME_STUB'].atob64
     atob64.restype = ctypes.c_char
-    atob64.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p]
+    atob64.argtypes = [ctypes.POINTER(uint64), ctypes.c_char_p]
     atoea = _libraries['FIXME_STUB'].atoea
     atoea.restype = ctypes.c_char
-    atoea.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p]
+    atoea.argtypes = [ctypes.POINTER(ea_t), ctypes.c_char_p]
     atof = _libraries['FIXME_STUB'].atof
     atof.restype = ctypes.c_double
     atof.argtypes = [ctypes.c_char_p]
@@ -15654,7 +15676,7 @@ def ctypeslib_define():
     atoll.argtypes = [ctypes.c_char_p]
     atos = _libraries['FIXME_STUB'].atos
     atos.restype = ctypes.c_int32
-    atos.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p]
+    atos.argtypes = [ctypes.POINTER(sel_t), ctypes.c_char_p]
     attach_action_to_menu = _libraries['FIXME_STUB'].attach_action_to_menu
     attach_action_to_menu.restype = ctypes.c_char
     attach_action_to_menu.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32]
@@ -15669,7 +15691,7 @@ def ctypeslib_define():
     attach_custom_data_format.argtypes = [ctypes.c_int32, ctypes.c_int32]
     attach_dynamic_action_to_popup = _libraries['FIXME_STUB'].attach_dynamic_action_to_popup
     attach_dynamic_action_to_popup.restype = ctypes.c_char
-    attach_dynamic_action_to_popup.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_TPopupMenu), ctypes.POINTER(struct_action_desc_t), ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(struct__qstring_char_)]
+    attach_dynamic_action_to_popup.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_TPopupMenu), ctypes.POINTER(struct_action_desc_t), ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(qstring)]
     attach_process = _libraries['FIXME_STUB'].attach_process
     attach_process.restype = ctypes.c_int32
     attach_process.argtypes = [pid_t, ctypes.c_int32]
@@ -15684,7 +15706,7 @@ def ctypeslib_define():
     auto_cancel.argtypes = [ea_t, ea_t]
     auto_get = _libraries['FIXME_STUB'].auto_get
     auto_get.restype = ea_t
-    auto_get.argtypes = [ctypes.POINTER(ctypes.c_int32), ea_t, ea_t]
+    auto_get.argtypes = [ctypes.POINTER(atype_t), ea_t, ea_t]
     auto_is_ok = _libraries['FIXME_STUB'].auto_is_ok
     auto_is_ok.restype = ctypes.c_char
     auto_is_ok.argtypes = []
@@ -15735,13 +15757,13 @@ def ctypeslib_define():
     banner.argtypes = [ctypes.c_int32]
     base2file = _libraries['FIXME_STUB'].base2file
     base2file.restype = ctypes.c_int32
-    base2file.argtypes = [ctypes.POINTER(struct__iobuf), int64, ea_t, ea_t]
+    base2file.argtypes = [ctypes.POINTER(FILE), int64, ea_t, ea_t]
     base64_decode = _libraries['FIXME_STUB'].base64_decode
     base64_decode.restype = ctypes.c_char
     base64_decode.argtypes = [ctypes.POINTER(struct_bytevec_t), ctypes.c_char_p, size_t]
     base64_encode = _libraries['FIXME_STUB'].base64_encode
     base64_encode.restype = ctypes.c_char
-    base64_encode.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(None), size_t]
+    base64_encode.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(None), size_t]
     batch = (ctypes.c_char).in_dll(_libraries['FIXME_STUB'], 'batch') if getattr(_libraries['FIXME_STUB'], 'batch', None) else None
     beep = _libraries['FIXME_STUB'].beep
     beep.restype = None
@@ -15754,13 +15776,13 @@ def ctypeslib_define():
     bin_flag.argtypes = []
     bin_search = _libraries['FIXME_STUB'].bin_search
     bin_search.restype = ea_t
-    bin_search.argtypes = [ea_t, ea_t, ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), size_t, ctypes.c_int32, ctypes.c_int32]
+    bin_search.argtypes = [ea_t, ea_t, ctypes.POINTER(uchar), ctypes.POINTER(uchar), size_t, ctypes.c_int32, ctypes.c_int32]
     bin_search2 = _libraries['FIXME_STUB'].bin_search2
     bin_search2.restype = ea_t
-    bin_search2.argtypes = [ea_t, ea_t, ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), size_t, ctypes.c_int32]
+    bin_search2.argtypes = [ea_t, ea_t, ctypes.POINTER(uchar), ctypes.POINTER(uchar), size_t, ctypes.c_int32]
     bin_search3 = _libraries['FIXME_STUB'].bin_search3
     bin_search3.restype = ea_t
-    bin_search3.argtypes = [ctypes.POINTER(ctypes.c_uint64), ea_t, ea_t, ctypes.POINTER(struct_qvector_compiled_binpat_t_), ctypes.c_int32]
+    bin_search3.argtypes = [ctypes.POINTER(size_t), ea_t, ea_t, ctypes.POINTER(compiled_binpat_vec_t), ctypes.c_int32]
     bitcount = _libraries['FIXME_STUB'].bitcount
     bitcount.restype = ctypes.c_int32
     bitcount.argtypes = [uint64]
@@ -15778,10 +15800,10 @@ def ctypeslib_define():
     bookmarks_t_find_index.argtypes = [ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(None)]
     bookmarks_t_get = _libraries['FIXME_STUB'].bookmarks_t_get
     bookmarks_t_get.restype = ctypes.c_char
-    bookmarks_t_get.argtypes = [ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(ctypes.c_uint32), ctypes.POINTER(None)]
+    bookmarks_t_get.argtypes = [ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(qstring), ctypes.POINTER(uint32), ctypes.POINTER(None)]
     bookmarks_t_get_desc = _libraries['FIXME_STUB'].bookmarks_t_get_desc
     bookmarks_t_get_desc.restype = ctypes.c_char
-    bookmarks_t_get_desc.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_lochist_entry_t), uint32, ctypes.POINTER(None)]
+    bookmarks_t_get_desc.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_lochist_entry_t), uint32, ctypes.POINTER(None)]
     bookmarks_t_get_dirtree_id = _libraries['FIXME_STUB'].bookmarks_t_get_dirtree_id
     bookmarks_t_get_dirtree_id.restype = dirtree_id_t
     bookmarks_t_get_dirtree_id.argtypes = [ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(None)]
@@ -15820,7 +15842,7 @@ def ctypeslib_define():
     btowc.argtypes = [ctypes.c_int32]
     build_anon_type_name = _libraries['FIXME_STUB'].build_anon_type_name
     build_anon_type_name.restype = None
-    build_anon_type_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte)]
+    build_anon_type_name.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(type_t), ctypes.POINTER(p_list)]
     build_loaders_list = _libraries['FIXME_STUB'].build_loaders_list
     build_loaders_list.restype = ctypes.POINTER(struct_load_info_t)
     build_loaders_list.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.c_char_p]
@@ -15829,10 +15851,10 @@ def ctypeslib_define():
     build_snapshot_tree.argtypes = [ctypes.POINTER(struct_snapshot_t)]
     build_stkvar_name = _libraries['FIXME_STUB'].build_stkvar_name
     build_stkvar_name.restype = ssize_t
-    build_stkvar_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_func_t), sval_t]
+    build_stkvar_name.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_func_t), sval_t]
     build_stkvar_xrefs = _libraries['FIXME_STUB'].build_stkvar_xrefs
     build_stkvar_xrefs.restype = None
-    build_stkvar_xrefs.argtypes = [ctypes.POINTER(struct_qvector_xreflist_entry_t_), ctypes.POINTER(struct_func_t), ctypes.POINTER(struct_member_t)]
+    build_stkvar_xrefs.argtypes = [ctypes.POINTER(xreflist_t), ctypes.POINTER(struct_func_t), ctypes.POINTER(struct_member_t)]
     build_strlist = _libraries['FIXME_STUB'].build_strlist
     build_strlist.restype = None
     build_strlist.argtypes = []
@@ -15850,7 +15872,7 @@ def ctypeslib_define():
     calc_bg_color.argtypes = [ea_t]
     calc_c_cpp_name = _libraries['FIXME_STUB'].calc_c_cpp_name
     calc_c_cpp_name.restype = ssize_t
-    calc_c_cpp_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.POINTER(struct_tinfo_t), ctypes.c_int32]
+    calc_c_cpp_name.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.POINTER(struct_tinfo_t), ctypes.c_int32]
     calc_crc32 = _libraries['FIXME_STUB'].calc_crc32
     calc_crc32.restype = uint32
     calc_crc32.argtypes = [uint32, ctypes.POINTER(None), size_t]
@@ -15907,25 +15929,25 @@ def ctypeslib_define():
     calc_probable_base_by_value.argtypes = [ea_t, uval_t]
     calc_reference_data = _libraries['FIXME_STUB'].calc_reference_data
     calc_reference_data.restype = ctypes.c_char
-    calc_reference_data.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_uint64), ea_t, ctypes.POINTER(struct_refinfo_t), adiff_t]
+    calc_reference_data.argtypes = [ctypes.POINTER(ea_t), ctypes.POINTER(ea_t), ea_t, ctypes.POINTER(struct_refinfo_t), adiff_t]
     calc_stkvar_struc_offset = _libraries['FIXME_STUB'].calc_stkvar_struc_offset
     calc_stkvar_struc_offset.restype = ea_t
     calc_stkvar_struc_offset.argtypes = [ctypes.POINTER(struct_func_t), ctypes.POINTER(struct_insn_t), ctypes.c_int32]
     calc_switch_cases = _libraries['FIXME_STUB'].calc_switch_cases
     calc_switch_cases.restype = ctypes.c_char
-    calc_switch_cases.argtypes = [ctypes.POINTER(struct_qvector_qvector_long_long__), ctypes.POINTER(struct_qvector_unsigned_long_long_), ea_t, ctypes.POINTER(struct_switch_info_t)]
+    calc_switch_cases.argtypes = [ctypes.POINTER(casevec_t), ctypes.POINTER(eavec_t), ea_t, ctypes.POINTER(struct_switch_info_t)]
     calc_target = _libraries['FIXME_STUB'].calc_target
     calc_target.restype = ea_t
     calc_target.argtypes = [ea_t, ea_t, ctypes.c_int32, adiff_t]
     calc_thunk_func_target = _libraries['FIXME_STUB'].calc_thunk_func_target
     calc_thunk_func_target.restype = ea_t
-    calc_thunk_func_target.argtypes = [ctypes.POINTER(struct_func_t), ctypes.POINTER(ctypes.c_uint64)]
+    calc_thunk_func_target.argtypes = [ctypes.POINTER(struct_func_t), ctypes.POINTER(ea_t)]
     calc_tinfo_gaps = _libraries['FIXME_STUB'].calc_tinfo_gaps
     calc_tinfo_gaps.restype = ctypes.c_char
     calc_tinfo_gaps.argtypes = [ctypes.POINTER(struct_rangeset_t), uint32]
     call_idc_func = _libraries['FIXME_STUB'].call_idc_func
     call_idc_func.restype = ctypes.c_char
-    call_idc_func.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.c_char_p, struct_idc_value_t * 0, size_t, ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_idc_resolver_t)]
+    call_idc_func.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.c_char_p, struct_idc_value_t * 0, size_t, ctypes.POINTER(qstring), ctypes.POINTER(struct_idc_resolver_t)]
     call_system = _libraries['FIXME_STUB'].call_system
     call_system.restype = ctypes.c_int32
     call_system.argtypes = [ctypes.c_char_p]
@@ -15977,10 +15999,10 @@ def ctypeslib_define():
     cfgopt_t__apply3.argtypes = [ctypes.POINTER(struct_cfgopt_t), ctypes.POINTER(struct_lexer_t), ctypes.c_int32, ctypes.POINTER(None), ctypes.POINTER(None)]
     change_bptlocs = _libraries['FIXME_STUB'].change_bptlocs
     change_bptlocs.restype = ctypes.c_int32
-    change_bptlocs.argtypes = [ctypes.POINTER(struct_qvector_movbpt_info_t_), ctypes.POINTER(struct_qvector_movbpt_code_t_), ctypes.c_char]
+    change_bptlocs.argtypes = [ctypes.POINTER(movbpt_infos_t), ctypes.POINTER(movbpt_codes_t), ctypes.c_char]
     change_codepage = _libraries['FIXME_STUB'].change_codepage
     change_codepage.restype = ctypes.c_char
-    change_codepage.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32]
+    change_codepage.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32]
     change_segment_status = _libraries['FIXME_STUB'].change_segment_status
     change_segment_status.restype = ctypes.c_int32
     change_segment_status.argtypes = [ctypes.POINTER(struct_segment_t), ctypes.c_char]
@@ -16001,13 +16023,13 @@ def ctypeslib_define():
     check_flat_jump_table.argtypes = [ctypes.POINTER(struct_switch_info_t), ea_t, ctypes.c_int32]
     check_for_table_jump = _libraries['FIXME_STUB'].check_for_table_jump
     check_for_table_jump.restype = ctypes.c_char
-    check_for_table_jump.argtypes = [ctypes.POINTER(struct_switch_info_t), ctypes.POINTER(struct_insn_t), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_switch_info_t), ctypes.POINTER(struct_insn_t), ctypes.POINTER(struct_procmod_t)) * 0, size_t, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_switch_info_t), ctypes.c_uint64, ctypes.c_int32, ctypes.POINTER(struct_procmod_t)), ctypes.c_char_p]
+    check_for_table_jump.argtypes = [ctypes.POINTER(struct_switch_info_t), ctypes.POINTER(struct_insn_t), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_switch_info_t), ctypes.POINTER(struct_insn_t), ctypes.POINTER(struct_procmod_t)) * 0, size_t, table_checker_t, ctypes.c_char_p]
     check_process_exit = _libraries['FIXME_STUB'].check_process_exit
     check_process_exit.restype = ctypes.c_int32
     check_process_exit.argtypes = [ctypes.POINTER(None), ctypes.POINTER(ctypes.c_int32), ctypes.c_int32]
     check_spoiled_jpt = _libraries['FIXME_STUB'].check_spoiled_jpt
     check_spoiled_jpt.restype = None
-    check_spoiled_jpt.argtypes = [ctypes.POINTER(struct_jump_pattern_t), ctypes.POINTER(struct_qvector_op_t_)]
+    check_spoiled_jpt.argtypes = [ctypes.POINTER(struct_jump_pattern_t), ctypes.POINTER(tracked_regs_t)]
     chmod = _libraries['FIXME_STUB'].chmod
     chmod.restype = ctypes.c_int32
     chmod.argtypes = [ctypes.c_char_p, ctypes.c_int32]
@@ -16022,7 +16044,7 @@ def ctypeslib_define():
     choose_enum.argtypes = [ctypes.c_char_p, enum_t]
     choose_enum_by_value = _libraries['FIXME_STUB'].choose_enum_by_value
     choose_enum_by_value.restype = enum_t
-    choose_enum_by_value.argtypes = [ctypes.c_char_p, enum_t, uint64, ctypes.c_int32, ctypes.POINTER(ctypes.c_ubyte)]
+    choose_enum_by_value.argtypes = [ctypes.c_char_p, enum_t, uint64, ctypes.c_int32, ctypes.POINTER(uchar)]
     choose_func = _libraries['FIXME_STUB'].choose_func
     choose_func.restype = ctypes.POINTER(struct_func_t)
     choose_func.argtypes = [ctypes.c_char_p, ea_t]
@@ -16031,16 +16053,16 @@ def ctypeslib_define():
     choose_idasgn.argtypes = []
     choose_ioport_device = _libraries['FIXME_STUB'].choose_ioport_device
     choose_ioport_device.restype = ctypes.c_char
-    choose_ioport_device.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p)]
+    choose_ioport_device.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(qstring), ctypes.c_char_p)]
     choose_ioport_device2 = _libraries['FIXME_STUB'].choose_ioport_device2
     choose_ioport_device2.restype = ctypes.c_char
-    choose_ioport_device2.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.POINTER(struct_choose_ioport_parser_t)]
+    choose_ioport_device2.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.POINTER(struct_choose_ioport_parser_t)]
     choose_local_tinfo = _libraries['FIXME_STUB'].choose_local_tinfo
     choose_local_tinfo.restype = uint32
-    choose_local_tinfo.argtypes = [ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint32, ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(None)), uint32, ctypes.POINTER(None)]
+    choose_local_tinfo.argtypes = [ctypes.POINTER(struct_til_t), ctypes.c_char_p, local_tinfo_predicate_t, uint32, ctypes.POINTER(None)]
     choose_local_tinfo_and_delta = _libraries['FIXME_STUB'].choose_local_tinfo_and_delta
     choose_local_tinfo_and_delta.restype = uint32
-    choose_local_tinfo_and_delta.argtypes = [ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint32, ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(None)), uint32, ctypes.POINTER(None)]
+    choose_local_tinfo_and_delta.argtypes = [ctypes.POINTER(int32), ctypes.POINTER(struct_til_t), ctypes.c_char_p, local_tinfo_predicate_t, uint32, ctypes.POINTER(None)]
     choose_name = _libraries['FIXME_STUB'].choose_name
     choose_name.restype = ea_t
     choose_name.argtypes = [ctypes.c_char_p]
@@ -16061,13 +16083,13 @@ def ctypeslib_define():
     choose_struc.argtypes = [ctypes.c_char_p]
     choose_struc_path = _libraries['FIXME_STUB'].choose_struc_path
     choose_struc_path.restype = ctypes.c_int32
-    choose_struc_path.argtypes = [ctypes.c_char_p, tid_t, uval_t, adiff_t, ctypes.c_char, ctypes.POINTER(ctypes.c_uint64)]
+    choose_struc_path.argtypes = [ctypes.c_char_p, tid_t, uval_t, adiff_t, ctypes.c_char, ctypes.POINTER(tid_t)]
     choose_til = _libraries['FIXME_STUB'].choose_til
     choose_til.restype = ctypes.c_char
-    choose_til.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    choose_til.argtypes = [ctypes.POINTER(qstring)]
     choose_trace_file = _libraries['FIXME_STUB'].choose_trace_file
     choose_trace_file.restype = ctypes.c_char
-    choose_trace_file.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    choose_trace_file.argtypes = [ctypes.POINTER(qstring)]
     choose_xref = _libraries['FIXME_STUB'].choose_xref
     choose_xref.restype = ea_t
     choose_xref.argtypes = [ea_t]
@@ -16088,16 +16110,16 @@ def ctypeslib_define():
     cleanup_argloc.argtypes = [ctypes.POINTER(struct_argloc_t)]
     cleanup_name = _libraries['FIXME_STUB'].cleanup_name
     cleanup_name.restype = ctypes.c_char
-    cleanup_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_char_p, uint32]
+    cleanup_name.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_char_p, uint32]
     clear_all_bits = _libraries['FIXME_STUB'].clear_all_bits
     clear_all_bits.restype = None
-    clear_all_bits.argtypes = [ctypes.POINTER(ctypes.c_ubyte), size_t]
+    clear_all_bits.argtypes = [ctypes.POINTER(uchar), size_t]
     clear_bit = _libraries['FIXME_STUB'].clear_bit
     clear_bit.restype = None
-    clear_bit.argtypes = [ctypes.POINTER(ctypes.c_ubyte), size_t]
+    clear_bit.argtypes = [ctypes.POINTER(uchar), size_t]
     clear_bits = _libraries['FIXME_STUB'].clear_bits
     clear_bits.restype = None
-    clear_bits.argtypes = [ctypes.POINTER(ctypes.c_ubyte), size_t, size_t]
+    clear_bits.argtypes = [ctypes.POINTER(uchar), size_t, size_t]
     clear_refresh_request = _libraries['FIXME_STUB'].clear_refresh_request
     clear_refresh_request.restype = None
     clear_refresh_request.argtypes = [uint64]
@@ -16115,10 +16137,10 @@ def ctypeslib_define():
     clear_trace.argtypes = []
     clearerr = _libraries['FIXME_STUB'].clearerr
     clearerr.restype = None
-    clearerr.argtypes = [ctypes.POINTER(struct__iobuf)]
+    clearerr.argtypes = [ctypes.POINTER(FILE)]
     clearerr_s = _libraries['FIXME_STUB'].clearerr_s
     clearerr_s.restype = errno_t
-    clearerr_s.argtypes = [ctypes.POINTER(struct__iobuf)]
+    clearerr_s.argtypes = [ctypes.POINTER(FILE)]
     cliopts_t_add = _libraries['FIXME_STUB'].cliopts_t_add
     cliopts_t_add.restype = None
     cliopts_t_add.argtypes = [ctypes.POINTER(struct_cliopts_t), ctypes.POINTER(struct_cliopt_t), size_t]
@@ -16253,16 +16275,16 @@ def ctypeslib_define():
     code_flag.argtypes = []
     code_highlight_block = _libraries['FIXME_STUB'].code_highlight_block
     code_highlight_block.restype = None
-    code_highlight_block.argtypes = [ctypes.POINTER(None), ctypes.POINTER(struct_highlighter_cbs_t), ctypes.POINTER(struct__qstring_char_)]
+    code_highlight_block.argtypes = [ctypes.POINTER(None), ctypes.POINTER(struct_highlighter_cbs_t), ctypes.POINTER(qstring)]
     collect_stack_trace = _libraries['FIXME_STUB'].collect_stack_trace
     collect_stack_trace.restype = ctypes.c_char
     collect_stack_trace.argtypes = [thid_t, ctypes.POINTER(struct_call_stack_t)]
     combine_regs_jpt = _libraries['FIXME_STUB'].combine_regs_jpt
     combine_regs_jpt.restype = None
-    combine_regs_jpt.argtypes = [ctypes.POINTER(struct_jump_pattern_t), ctypes.POINTER(struct_qvector_op_t_), ctypes.POINTER(struct_qvector_op_t_), ea_t]
+    combine_regs_jpt.argtypes = [ctypes.POINTER(struct_jump_pattern_t), ctypes.POINTER(tracked_regs_t), ctypes.POINTER(tracked_regs_t), ea_t]
     compact_numbered_types = _libraries['FIXME_STUB'].compact_numbered_types
     compact_numbered_types.restype = ctypes.c_int32
-    compact_numbered_types.argtypes = [ctypes.POINTER(struct_til_t), uint32, ctypes.POINTER(struct_qvector_int_), ctypes.c_int32]
+    compact_numbered_types.argtypes = [ctypes.POINTER(struct_til_t), uint32, ctypes.POINTER(intvec_t), ctypes.c_int32]
     compact_til = _libraries['FIXME_STUB'].compact_til
     compact_til.restype = ctypes.c_char
     compact_til.argtypes = [ctypes.POINTER(struct_til_t)]
@@ -16274,13 +16296,13 @@ def ctypeslib_define():
     compare_tinfo.argtypes = [uint32, uint32, ctypes.c_int32]
     compile_idc_file = _libraries['FIXME_STUB'].compile_idc_file
     compile_idc_file.restype = ctypes.c_char
-    compile_idc_file.argtypes = [ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_), ctypes.c_int32]
+    compile_idc_file.argtypes = [ctypes.c_char_p, ctypes.POINTER(qstring), ctypes.c_int32]
     compile_idc_snippet = _libraries['FIXME_STUB'].compile_idc_snippet
     compile_idc_snippet.restype = ctypes.c_char
-    compile_idc_snippet.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_idc_resolver_t), ctypes.c_char]
+    compile_idc_snippet.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.POINTER(qstring), ctypes.POINTER(struct_idc_resolver_t), ctypes.c_char]
     compile_idc_text = _libraries['FIXME_STUB'].compile_idc_text
     compile_idc_text.restype = ctypes.c_char
-    compile_idc_text.argtypes = [ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_idc_resolver_t), ctypes.c_char]
+    compile_idc_text.argtypes = [ctypes.c_char_p, ctypes.POINTER(qstring), ctypes.POINTER(struct_idc_resolver_t), ctypes.c_char]
     construct_macro = _libraries['FIXME_STUB'].construct_macro
     construct_macro.restype = ctypes.c_char
     construct_macro.argtypes = [ctypes.POINTER(struct_insn_t), ctypes.c_char, ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_insn_t), ctypes.c_char)]
@@ -16367,7 +16389,7 @@ def ctypeslib_define():
     create_byte.argtypes = [ea_t, asize_t, ctypes.c_char]
     create_bytearray_linput = _libraries['FIXME_STUB'].create_bytearray_linput
     create_bytearray_linput.restype = ctypes.POINTER(struct_linput_t)
-    create_bytearray_linput.argtypes = [ctypes.POINTER(ctypes.c_ubyte), size_t]
+    create_bytearray_linput.argtypes = [ctypes.POINTER(uchar), size_t]
     create_code_viewer = _libraries['FIXME_STUB'].create_code_viewer
     create_code_viewer.restype = ctypes.POINTER(struct_TWidget)
     create_code_viewer.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.c_int32, ctypes.POINTER(struct_TWidget)]
@@ -16408,8 +16430,8 @@ def ctypeslib_define():
     create_generic_linput.restype = ctypes.POINTER(struct_linput_t)
     create_generic_linput.argtypes = [ctypes.POINTER(struct_generic_linput_t)]
     create_graph_viewer = _libraries['FIXME_STUB'].create_graph_viewer
-    create_graph_viewer.restype = ctypes.POINTER(struct_TWidget)
-    create_graph_viewer.argtypes = [ctypes.c_char_p, uval_t, ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.c_char_p), ctypes.POINTER(None), ctypes.c_int32, ctypes.POINTER(struct_TWidget)]
+    create_graph_viewer.restype = ctypes.POINTER(graph_viewer_t)
+    create_graph_viewer.argtypes = [ctypes.c_char_p, uval_t, hook_cb_t, ctypes.POINTER(None), ctypes.c_int32, ctypes.POINTER(struct_TWidget)]
     create_idcv_ref = _libraries['FIXME_STUB'].create_idcv_ref
     create_idcv_ref.restype = ctypes.c_char
     create_idcv_ref.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_idc_value_t)]
@@ -16433,7 +16455,7 @@ def ctypeslib_define():
     create_mutable_graph.argtypes = [uval_t]
     create_numbered_type_name = _libraries['FIXME_STUB'].create_numbered_type_name
     create_numbered_type_name.restype = ssize_t
-    create_numbered_type_name.argtypes = [ctypes.POINTER(struct__qstring_char_), int32]
+    create_numbered_type_name.argtypes = [ctypes.POINTER(qstring), int32]
     create_outctx = _libraries['FIXME_STUB'].create_outctx
     create_outctx.restype = ctypes.POINTER(struct_outctx_base_t)
     create_outctx.argtypes = [ea_t, flags_t, ctypes.c_int32]
@@ -16451,7 +16473,7 @@ def ctypeslib_define():
     create_qword.argtypes = [ea_t, asize_t, ctypes.c_char]
     create_source_viewer = _libraries['FIXME_STUB'].create_source_viewer
     create_source_viewer.restype = ctypes.POINTER(struct_source_view_t)
-    create_source_viewer.argtypes = [ctypes.POINTER(ctypes.POINTER(struct_TWidget)), ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_TWidget), source_file_ptr, ctypes.POINTER(struct_qvector_simpleline_t_), ctypes.c_int32, ctypes.c_int32, ctypes.c_int32]
+    create_source_viewer.argtypes = [ctypes.POINTER(ctypes.POINTER(struct_TWidget)), ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_TWidget), source_file_ptr, ctypes.POINTER(strvec_t), ctypes.c_int32, ctypes.c_int32, ctypes.c_int32]
     create_strlit = _libraries['FIXME_STUB'].create_strlit
     create_strlit.restype = ctypes.c_char
     create_strlit.argtypes = [ea_t, size_t, int32]
@@ -16518,7 +16540,7 @@ def ctypeslib_define():
     dbg_add_insn_tev.argtypes = [thid_t, ea_t, save_reg_values_t]
     dbg_add_many_tevs = _libraries['FIXME_STUB'].dbg_add_many_tevs
     dbg_add_many_tevs.restype = ctypes.c_char
-    dbg_add_many_tevs.argtypes = [ctypes.POINTER(struct_qvector_tev_info_reg_t_)]
+    dbg_add_many_tevs.argtypes = [ctypes.POINTER(tevinforeg_vec_t)]
     dbg_add_ret_tev = _libraries['FIXME_STUB'].dbg_add_ret_tev
     dbg_add_ret_tev.restype = None
     dbg_add_ret_tev.argtypes = [thid_t, ea_t, ea_t]
@@ -16533,7 +16555,7 @@ def ctypeslib_define():
     dbg_appcall.argtypes = [ctypes.POINTER(struct_idc_value_t), ea_t, thid_t, ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct_idc_value_t), size_t]
     dbg_bin_search = _libraries['FIXME_STUB'].dbg_bin_search
     dbg_bin_search.restype = drc_t
-    dbg_bin_search.argtypes = [ctypes.POINTER(ctypes.c_uint64), ea_t, ea_t, ctypes.POINTER(struct_qvector_compiled_binpat_t_), ctypes.c_int32, ctypes.POINTER(struct__qstring_char_)]
+    dbg_bin_search.argtypes = [ctypes.POINTER(ea_t), ea_t, ea_t, ctypes.POINTER(compiled_binpat_vec_t), ctypes.c_int32, ctypes.POINTER(qstring)]
     dbg_can_query = _libraries['FIXME_STUB'].dbg_can_query
     dbg_can_query.restype = ctypes.c_char
     dbg_can_query.argtypes = []
@@ -16561,7 +16583,7 @@ def ctypeslib_define():
     decode_prev_insn.argtypes = [ctypes.POINTER(struct_insn_t), ea_t]
     decorate_name = _libraries['FIXME_STUB'].decorate_name
     decorate_name.restype = ctypes.c_char
-    decorate_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_char, cm_t, ctypes.POINTER(struct_tinfo_t)]
+    decorate_name.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_char, cm_t, ctypes.POINTER(struct_tinfo_t)]
     deep_copy_idcv = _libraries['FIXME_STUB'].deep_copy_idcv
     deep_copy_idcv.restype = error_t
     deep_copy_idcv.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_idc_value_t)]
@@ -16651,7 +16673,7 @@ def ctypeslib_define():
     del_item_color.argtypes = [ea_t]
     del_items = _libraries['FIXME_STUB'].del_items
     del_items.restype = ctypes.c_char
-    del_items.argtypes = [ea_t, ctypes.c_int32, asize_t, ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint64)]
+    del_items.argtypes = [ea_t, ctypes.c_int32, asize_t, may_destroy_cb_t]
     del_local_name = _libraries['FIXME_STUB'].del_local_name
     del_local_name.restype = ctypes.c_char
     del_local_name.argtypes = [ea_t]
@@ -16729,7 +16751,7 @@ def ctypeslib_define():
     del_tinfo.argtypes = [ea_t]
     del_tinfo_attr = _libraries['FIXME_STUB'].del_tinfo_attr
     del_tinfo_attr.restype = ctypes.c_char
-    del_tinfo_attr.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct__qstring_char_), ctypes.c_char]
+    del_tinfo_attr.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(qstring), ctypes.c_char]
     del_tryblks = _libraries['FIXME_STUB'].del_tryblks
     del_tryblks.restype = None
     del_tryblks.argtypes = [ctypes.POINTER(struct_range_t)]
@@ -16789,13 +16811,13 @@ def ctypeslib_define():
     deref_idcv.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.c_int32]
     deref_ptr = _libraries['FIXME_STUB'].deref_ptr
     deref_ptr.restype = ctypes.c_char
-    deref_ptr.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(ctypes.c_uint64)]
+    deref_ptr.argtypes = [ctypes.POINTER(ea_t), ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(ea_t)]
     deserialize_dynamic_register_set = _libraries['FIXME_STUB'].deserialize_dynamic_register_set
     deserialize_dynamic_register_set.restype = None
     deserialize_dynamic_register_set.argtypes = [ctypes.POINTER(struct_dynamic_register_set_t), ctypes.POINTER(struct_memory_deserializer_t)]
     deserialize_tinfo = _libraries['FIXME_STUB'].deserialize_tinfo
     deserialize_tinfo.restype = ctypes.c_char
-    deserialize_tinfo.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct_til_t), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte))]
+    deserialize_tinfo.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct_til_t), ctypes.POINTER(ctypes.POINTER(type_t)), ctypes.POINTER(ctypes.POINTER(p_list)), ctypes.POINTER(ctypes.POINTER(p_list))]
     destroy_custom_viewer = _libraries['FIXME_STUB'].destroy_custom_viewer
     destroy_custom_viewer.restype = None
     destroy_custom_viewer.argtypes = [ctypes.POINTER(struct_TWidget)]
@@ -16846,19 +16868,19 @@ def ctypeslib_define():
     dirtree_findnext.argtypes = [ctypes.POINTER(struct_dirtree_impl_t), ctypes.POINTER(struct_dirtree_iterator_t)]
     dirtree_get_abspath_by_cursor = _libraries['FIXME_STUB'].dirtree_get_abspath_by_cursor
     dirtree_get_abspath_by_cursor.restype = ctypes.c_char
-    dirtree_get_abspath_by_cursor.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_dirtree_impl_t), ctypes.POINTER(struct_dirtree_cursor_t)]
+    dirtree_get_abspath_by_cursor.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_dirtree_impl_t), ctypes.POINTER(struct_dirtree_cursor_t)]
     dirtree_get_abspath_by_relpath = _libraries['FIXME_STUB'].dirtree_get_abspath_by_relpath
     dirtree_get_abspath_by_relpath.restype = ctypes.c_char
-    dirtree_get_abspath_by_relpath.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_dirtree_impl_t), ctypes.c_char_p]
+    dirtree_get_abspath_by_relpath.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_dirtree_impl_t), ctypes.c_char_p]
     dirtree_get_dir_size = _libraries['FIXME_STUB'].dirtree_get_dir_size
     dirtree_get_dir_size.restype = ssize_t
     dirtree_get_dir_size.argtypes = [ctypes.POINTER(struct_dirtree_impl_t), diridx_t]
     dirtree_get_entry_attrs = _libraries['FIXME_STUB'].dirtree_get_entry_attrs
     dirtree_get_entry_attrs.restype = None
-    dirtree_get_entry_attrs.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_dirtree_impl_t), ctypes.POINTER(struct_direntry_t)]
+    dirtree_get_entry_attrs.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_dirtree_impl_t), ctypes.POINTER(struct_direntry_t)]
     dirtree_get_entry_name = _libraries['FIXME_STUB'].dirtree_get_entry_name
     dirtree_get_entry_name.restype = ctypes.c_char
-    dirtree_get_entry_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_dirtree_impl_t), ctypes.POINTER(struct_direntry_t), uint32]
+    dirtree_get_entry_name.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_dirtree_impl_t), ctypes.POINTER(struct_direntry_t), uint32]
     dirtree_get_id = _libraries['FIXME_STUB'].dirtree_get_id
     dirtree_get_id.restype = ctypes.c_char_p
     dirtree_get_id.argtypes = [ctypes.POINTER(struct_dirtree_impl_t)]
@@ -16873,7 +16895,7 @@ def ctypeslib_define():
     dirtree_get_rank.argtypes = [ctypes.POINTER(struct_dirtree_impl_t), diridx_t, ctypes.POINTER(struct_direntry_t)]
     dirtree_getcwd = _libraries['FIXME_STUB'].dirtree_getcwd
     dirtree_getcwd.restype = None
-    dirtree_getcwd.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_dirtree_impl_t)]
+    dirtree_getcwd.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_dirtree_impl_t)]
     dirtree_link = _libraries['FIXME_STUB'].dirtree_link
     dirtree_link.restype = dterr_t
     dirtree_link.argtypes = [ctypes.POINTER(struct_dirtree_impl_t), ctypes.c_char_p, ctypes.c_char]
@@ -16948,7 +16970,7 @@ def ctypeslib_define():
     dummy_name_ea.argtypes = [ctypes.c_char_p]
     dump_func_type_data = _libraries['FIXME_STUB'].dump_func_type_data
     dump_func_type_data.restype = ctypes.c_char
-    dump_func_type_data.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_func_type_data_t), ctypes.c_int32]
+    dump_func_type_data.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_func_type_data_t), ctypes.c_int32]
     dup = _libraries['FIXME_STUB'].dup
     dup.restype = ctypes.c_int32
     dup.argtypes = [ctypes.c_int32]
@@ -16966,7 +16988,7 @@ def ctypeslib_define():
     ea2node.argtypes = [ea_t]
     ea2str = _libraries['FIXME_STUB'].ea2str
     ea2str.restype = ctypes.c_char
-    ea2str.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t]
+    ea2str.argtypes = [ctypes.POINTER(qstring), ea_t]
     ea_viewer_history_push_and_jump = _libraries['FIXME_STUB'].ea_viewer_history_push_and_jump
     ea_viewer_history_push_and_jump.restype = ctypes.c_char
     ea_viewer_history_push_and_jump.argtypes = [ctypes.POINTER(struct_TWidget), ea_t, ctypes.c_int32, ctypes.c_int32, ctypes.c_int32]
@@ -16975,18 +16997,18 @@ def ctypeslib_define():
     eadd.argtypes = [ctypes.POINTER(struct_fpvalue_t), ctypes.POINTER(struct_fpvalue_t), ctypes.POINTER(struct_fpvalue_t), ctypes.c_char]
     echsize = _libraries['FIXME_STUB'].echsize
     echsize.restype = None
-    echsize.argtypes = [ctypes.POINTER(struct__iobuf), uint64]
+    echsize.argtypes = [ctypes.POINTER(FILE), uint64]
     ecleaz = _libraries['FIXME_STUB'].ecleaz
     ecleaz.restype = None
     ecleaz.argtypes = [eNI]
     eclose = _libraries['FIXME_STUB'].eclose
     eclose.restype = None
-    eclose.argtypes = [ctypes.POINTER(struct__iobuf)]
+    eclose.argtypes = [ctypes.POINTER(FILE)]
     ecmp = _libraries['FIXME_STUB'].ecmp
     ecmp.restype = ctypes.c_int32
     ecmp.argtypes = [ctypes.POINTER(struct_fpvalue_t), ctypes.POINTER(struct_fpvalue_t)]
     ecreate = _libraries['FIXME_STUB'].ecreate
-    ecreate.restype = ctypes.POINTER(struct__iobuf)
+    ecreate.restype = ctypes.POINTER(FILE)
     ecreate.argtypes = [ctypes.c_char_p]
     ecvt = _libraries['FIXME_STUB'].ecvt
     ecvt.restype = ctypes.c_char_p
@@ -16999,13 +17021,13 @@ def ctypeslib_define():
     ediv.argtypes = [ctypes.POINTER(struct_fpvalue_t), ctypes.POINTER(struct_fpvalue_t), ctypes.POINTER(struct_fpvalue_t)]
     eetol = _libraries['FIXME_STUB'].eetol
     eetol.restype = fpvalue_error_t
-    eetol.argtypes = [ctypes.POINTER(ctypes.c_int64), ctypes.POINTER(struct_fpvalue_t), ctypes.c_char]
+    eetol.argtypes = [ctypes.POINTER(sval_t), ctypes.POINTER(struct_fpvalue_t), ctypes.c_char]
     eetol64 = _libraries['FIXME_STUB'].eetol64
     eetol64.restype = fpvalue_error_t
-    eetol64.argtypes = [ctypes.POINTER(ctypes.c_int64), ctypes.POINTER(struct_fpvalue_t), ctypes.c_char]
+    eetol64.argtypes = [ctypes.POINTER(int64), ctypes.POINTER(struct_fpvalue_t), ctypes.c_char]
     eetol64u = _libraries['FIXME_STUB'].eetol64u
     eetol64u.restype = fpvalue_error_t
-    eetol64u.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(struct_fpvalue_t), ctypes.c_char]
+    eetol64u.argtypes = [ctypes.POINTER(uint64), ctypes.POINTER(struct_fpvalue_t), ctypes.c_char]
     eldexp = _libraries['FIXME_STUB'].eldexp
     eldexp.restype = fpvalue_error_t
     eldexp.argtypes = [ctypes.POINTER(struct_fpvalue_t), int32, ctypes.POINTER(struct_fpvalue_t)]
@@ -17074,7 +17096,7 @@ def ctypeslib_define():
     enum_flag.argtypes = []
     enum_import_names = _libraries['FIXME_STUB'].enum_import_names
     enum_import_names.restype = ctypes.c_int32
-    enum_import_names.argtypes = [ctypes.c_int32, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint64, ctypes.c_char_p, ctypes.c_uint64, ctypes.POINTER(None)), ctypes.POINTER(None)]
+    enum_import_names.argtypes = [ctypes.c_int32, import_enum_cb_t, ctypes.POINTER(None)]
     enumerate_files = _libraries['FIXME_STUB'].enumerate_files
     enumerate_files.restype = ctypes.c_int32
     enumerate_files.argtypes = [ctypes.c_char_p, size_t, ctypes.c_char_p, ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(None)), ctypes.POINTER(None)]
@@ -17083,10 +17105,10 @@ def ctypeslib_define():
     enumerate_files2.argtypes = [ctypes.c_char_p, size_t, ctypes.c_char_p, ctypes.c_char_p, ctypes.POINTER(struct_file_enumerator_t)]
     enumerate_segments_with_selector = _libraries['FIXME_STUB'].enumerate_segments_with_selector
     enumerate_segments_with_selector.restype = ea_t
-    enumerate_segments_with_selector.argtypes = [sel_t, ctypes.CFUNCTYPE(ctypes.c_uint64, ctypes.POINTER(struct_segment_t), ctypes.POINTER(None)), ctypes.POINTER(None)]
+    enumerate_segments_with_selector.argtypes = [sel_t, ctypes.CFUNCTYPE(ea_t, ctypes.POINTER(struct_segment_t), ctypes.POINTER(None)), ctypes.POINTER(None)]
     enumerate_selectors = _libraries['FIXME_STUB'].enumerate_selectors
     enumerate_selectors.restype = ctypes.c_int32
-    enumerate_selectors.argtypes = [ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint64, ctypes.c_uint64)]
+    enumerate_selectors.argtypes = [ctypes.CFUNCTYPE(ctypes.c_int32, sel_t, ea_t)]
     enumplace_t__adjust = _libraries['FIXME_STUB'].enumplace_t__adjust
     enumplace_t__adjust.restype = None
     enumplace_t__adjust.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(None)]
@@ -17107,16 +17129,16 @@ def ctypeslib_define():
     enumplace_t__copyfrom.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(struct_place_t)]
     enumplace_t__deserialize = _libraries['FIXME_STUB'].enumplace_t__deserialize
     enumplace_t__deserialize.restype = ctypes.c_char
-    enumplace_t__deserialize.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    enumplace_t__deserialize.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     enumplace_t__ending = _libraries['FIXME_STUB'].enumplace_t__ending
     enumplace_t__ending.restype = ctypes.c_char
     enumplace_t__ending.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(None)]
     enumplace_t__enter = _libraries['FIXME_STUB'].enumplace_t__enter
     enumplace_t__enter.restype = ctypes.POINTER(struct_place_t)
-    enumplace_t__enter.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(ctypes.c_uint32)]
+    enumplace_t__enter.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(uint32)]
     enumplace_t__generate = _libraries['FIXME_STUB'].enumplace_t__generate
     enumplace_t__generate.restype = ctypes.c_int32
-    enumplace_t__generate.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(struct_qvector__qstring_char__), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_uint32), ctypes.POINTER(None), ctypes.c_int32]
+    enumplace_t__generate.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(qstrvec_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(color_t), ctypes.POINTER(bgcolor_t), ctypes.POINTER(None), ctypes.c_int32]
     enumplace_t__id = _libraries['FIXME_STUB'].enumplace_t__id
     enumplace_t__id.restype = ctypes.c_int32
     enumplace_t__id.argtypes = [ctypes.POINTER(struct_enumplace_t)]
@@ -17137,7 +17159,7 @@ def ctypeslib_define():
     enumplace_t__prev.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(None)]
     enumplace_t__print = _libraries['FIXME_STUB'].enumplace_t__print
     enumplace_t__print.restype = None
-    enumplace_t__print.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(None)]
+    enumplace_t__print.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(qstring), ctypes.POINTER(None)]
     enumplace_t__rebase = _libraries['FIXME_STUB'].enumplace_t__rebase
     enumplace_t__rebase.restype = ctypes.c_char
     enumplace_t__rebase.argtypes = [ctypes.POINTER(struct_enumplace_t), ctypes.POINTER(struct_segm_move_infos_t)]
@@ -17155,10 +17177,10 @@ def ctypeslib_define():
     eof.argtypes = [ctypes.c_int32]
     equal_bytes = _libraries['FIXME_STUB'].equal_bytes
     equal_bytes.restype = ctypes.c_char
-    equal_bytes.argtypes = [ea_t, ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), size_t, ctypes.c_int32]
+    equal_bytes.argtypes = [ea_t, ctypes.POINTER(uchar), ctypes.POINTER(uchar), size_t, ctypes.c_int32]
     eread = _libraries['FIXME_STUB'].eread
     eread.restype = None
-    eread.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(None), size_t]
+    eread.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(None), size_t]
     erf = _libraries['FIXME_STUB'].erf
     erf.restype = ctypes.c_double
     erf.argtypes = [ctypes.c_double]
@@ -17183,28 +17205,28 @@ def ctypeslib_define():
     errorexit = (ctypes.c_int32).in_dll(_libraries['FIXME_STUB'], 'errorexit') if getattr(_libraries['FIXME_STUB'], 'errorexit', None) else None
     eseek = _libraries['FIXME_STUB'].eseek
     eseek.restype = None
-    eseek.argtypes = [ctypes.POINTER(struct__iobuf), int64]
+    eseek.argtypes = [ctypes.POINTER(FILE), int64]
     eshift = _libraries['FIXME_STUB'].eshift
     eshift.restype = ctypes.c_int32
     eshift.argtypes = [eNI, ctypes.c_int32]
     eval_expr = _libraries['FIXME_STUB'].eval_expr
     eval_expr.restype = ctypes.c_char
-    eval_expr.argtypes = [ctypes.POINTER(struct_idc_value_t), ea_t, ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_)]
+    eval_expr.argtypes = [ctypes.POINTER(struct_idc_value_t), ea_t, ctypes.c_char_p, ctypes.POINTER(qstring)]
     eval_expr_long = _libraries['FIXME_STUB'].eval_expr_long
     eval_expr_long.restype = ctypes.c_char
-    eval_expr_long.argtypes = [ctypes.POINTER(ctypes.c_uint64), ea_t, ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_)]
+    eval_expr_long.argtypes = [ctypes.POINTER(uval_t), ea_t, ctypes.c_char_p, ctypes.POINTER(qstring)]
     eval_idc_expr = _libraries['FIXME_STUB'].eval_idc_expr
     eval_idc_expr.restype = ctypes.c_char
-    eval_idc_expr.argtypes = [ctypes.POINTER(struct_idc_value_t), ea_t, ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_)]
+    eval_idc_expr.argtypes = [ctypes.POINTER(struct_idc_value_t), ea_t, ctypes.c_char_p, ctypes.POINTER(qstring)]
     eval_idc_snippet = _libraries['FIXME_STUB'].eval_idc_snippet
     eval_idc_snippet.restype = ctypes.c_char
-    eval_idc_snippet.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_idc_resolver_t)]
+    eval_idc_snippet.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.c_char_p, ctypes.POINTER(qstring), ctypes.POINTER(struct_idc_resolver_t)]
     ewrite = _libraries['FIXME_STUB'].ewrite
     ewrite.restype = None
-    ewrite.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(None), size_t]
+    ewrite.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(None), size_t]
     exec_idc_script = _libraries['FIXME_STUB'].exec_idc_script
     exec_idc_script.restype = ctypes.c_char
-    exec_idc_script.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.c_char_p, ctypes.c_char_p, struct_idc_value_t * 0, size_t, ctypes.POINTER(struct__qstring_char_)]
+    exec_idc_script.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.c_char_p, ctypes.c_char_p, struct_idc_value_t * 0, size_t, ctypes.POINTER(qstring)]
     exec_system_script = _libraries['FIXME_STUB'].exec_system_script
     exec_system_script.restype = ctypes.c_char
     exec_system_script.argtypes = [ctypes.c_char_p, ctypes.c_char]
@@ -17264,13 +17286,13 @@ def ctypeslib_define():
     extend_sign.argtypes = [uint64, ctypes.c_int32, ctypes.c_char]
     extract_argloc = _libraries['FIXME_STUB'].extract_argloc
     extract_argloc.restype = ctypes.c_char
-    extract_argloc.argtypes = [ctypes.POINTER(struct_argloc_t), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.c_char]
+    extract_argloc.argtypes = [ctypes.POINTER(struct_argloc_t), ctypes.POINTER(ctypes.POINTER(type_t)), ctypes.c_char]
     extract_module_from_archive = _libraries['FIXME_STUB'].extract_module_from_archive
     extract_module_from_archive.restype = ctypes.c_char
     extract_module_from_archive.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.c_char_p), ctypes.c_char]
     extract_name = _libraries['FIXME_STUB'].extract_name
     extract_name.restype = ssize_t
-    extract_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_int32]
+    extract_name.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_int32]
     f_any = _libraries['FIXME_STUB'].f_any
     f_any.restype = ctypes.c_char
     f_any.argtypes = [flags_t, ctypes.POINTER(None)]
@@ -17363,7 +17385,7 @@ def ctypeslib_define():
     fc_calc_block_type.argtypes = [ctypes.POINTER(struct_qflow_chart_t), size_t]
     fclose = _libraries['FIXME_STUB'].fclose
     fclose.restype = ctypes.c_int32
-    fclose.argtypes = [ctypes.POINTER(struct__iobuf)]
+    fclose.argtypes = [ctypes.POINTER(FILE)]
     fcloseall = _libraries['FIXME_STUB'].fcloseall
     fcloseall.restype = ctypes.c_int32
     fcloseall.argtypes = []
@@ -17380,35 +17402,35 @@ def ctypeslib_define():
     fdiml.restype = ctypes.c_double
     fdiml.argtypes = [ctypes.c_double, ctypes.c_double]
     fdopen = _libraries['FIXME_STUB'].fdopen
-    fdopen.restype = ctypes.POINTER(struct__iobuf)
+    fdopen.restype = ctypes.POINTER(FILE)
     fdopen.argtypes = [ctypes.c_int32, ctypes.c_char_p]
     feof = _libraries['FIXME_STUB'].feof
     feof.restype = ctypes.c_int32
-    feof.argtypes = [ctypes.POINTER(struct__iobuf)]
+    feof.argtypes = [ctypes.POINTER(FILE)]
     ferror = _libraries['FIXME_STUB'].ferror
     ferror.restype = ctypes.c_int32
-    ferror.argtypes = [ctypes.POINTER(struct__iobuf)]
+    ferror.argtypes = [ctypes.POINTER(FILE)]
     fflush = _libraries['FIXME_STUB'].fflush
     fflush.restype = ctypes.c_int32
-    fflush.argtypes = [ctypes.POINTER(struct__iobuf)]
+    fflush.argtypes = [ctypes.POINTER(FILE)]
     fgetc = _libraries['FIXME_STUB'].fgetc
     fgetc.restype = ctypes.c_int32
-    fgetc.argtypes = [ctypes.POINTER(struct__iobuf)]
+    fgetc.argtypes = [ctypes.POINTER(FILE)]
     fgetchar = _libraries['FIXME_STUB'].fgetchar
     fgetchar.restype = ctypes.c_int32
     fgetchar.argtypes = []
     fgetpos = _libraries['FIXME_STUB'].fgetpos
     fgetpos.restype = ctypes.c_int32
-    fgetpos.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int64)]
+    fgetpos.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(fpos_t)]
     fgets = _libraries['FIXME_STUB'].fgets
     fgets.restype = ctypes.c_char_p
-    fgets.argtypes = [ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    fgets.argtypes = [ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(FILE)]
     fgetwc = _libraries['FIXME_STUB'].fgetwc
     fgetwc.restype = wint_t
-    fgetwc.argtypes = [ctypes.POINTER(struct__iobuf)]
+    fgetwc.argtypes = [ctypes.POINTER(FILE)]
     fgetws = _libraries['FIXME_STUB'].fgetws
     fgetws.restype = ctypes.POINTER(ctypes.c_int16)
-    fgetws.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    fgetws.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.c_int32, ctypes.POINTER(FILE)]
     file2base = _libraries['FIXME_STUB'].file2base
     file2base.restype = ctypes.c_int32
     file2base.argtypes = [ctypes.POINTER(struct_linput_t), int64, ea_t, ea_t, ctypes.c_int32]
@@ -17417,7 +17439,7 @@ def ctypeslib_define():
     filelength.argtypes = [ctypes.c_int32]
     fileno = _libraries['FIXME_STUB'].fileno
     fileno.restype = ctypes.c_int32
-    fileno.argtypes = [ctypes.POINTER(struct__iobuf)]
+    fileno.argtypes = [ctypes.POINTER(FILE)]
     find_binary = _libraries['FIXME_STUB'].find_binary
     find_binary.restype = ea_t
     find_binary.argtypes = [ea_t, ea_t, ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32]
@@ -17480,7 +17502,7 @@ def ctypeslib_define():
     find_idc_class.argtypes = [ctypes.c_char_p]
     find_idc_func = _libraries['FIXME_STUB'].find_idc_func
     find_idc_func.restype = ctypes.c_char
-    find_idc_func.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_int32]
+    find_idc_func.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_int32]
     find_idc_gvar = _libraries['FIXME_STUB'].find_idc_gvar
     find_idc_gvar.restype = ctypes.POINTER(struct_idc_value_t)
     find_idc_gvar.argtypes = [ctypes.c_char_p]
@@ -17489,10 +17511,10 @@ def ctypeslib_define():
     find_imm.argtypes = [ea_t, ctypes.c_int32, uval_t, ctypes.POINTER(ctypes.c_int32)]
     find_ioport = _libraries['FIXME_STUB'].find_ioport
     find_ioport.restype = ctypes.POINTER(struct_ioport_t)
-    find_ioport.argtypes = [ctypes.POINTER(struct_qvector_ioport_t_), ea_t]
+    find_ioport.argtypes = [ctypes.POINTER(ioports_t), ea_t]
     find_ioport_bit = _libraries['FIXME_STUB'].find_ioport_bit
     find_ioport_bit.restype = ctypes.POINTER(struct_ioport_bit_t)
-    find_ioport_bit.argtypes = [ctypes.POINTER(struct_qvector_ioport_t_), ea_t, size_t]
+    find_ioport_bit.argtypes = [ctypes.POINTER(ioports_t), ea_t, size_t]
     find_jtable_size = _libraries['FIXME_STUB'].find_jtable_size
     find_jtable_size.restype = ctypes.c_char
     find_jtable_size.argtypes = [ctypes.POINTER(struct_switch_info_t)]
@@ -17596,29 +17618,29 @@ def ctypeslib_define():
     fmodl.restype = ctypes.c_double
     fmodl.argtypes = [ctypes.c_double, ctypes.c_double]
     fopen = _libraries['FIXME_STUB'].fopen
-    fopen.restype = ctypes.POINTER(struct__iobuf)
+    fopen.restype = ctypes.POINTER(FILE)
     fopen.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     fopenA = _libraries['FIXME_STUB'].fopenA
-    fopenA.restype = ctypes.POINTER(struct__iobuf)
+    fopenA.restype = ctypes.POINTER(FILE)
     fopenA.argtypes = [ctypes.c_char_p]
     fopenM = _libraries['FIXME_STUB'].fopenM
-    fopenM.restype = ctypes.POINTER(struct__iobuf)
+    fopenM.restype = ctypes.POINTER(FILE)
     fopenM.argtypes = [ctypes.c_char_p]
     fopenRB = _libraries['FIXME_STUB'].fopenRB
-    fopenRB.restype = ctypes.POINTER(struct__iobuf)
+    fopenRB.restype = ctypes.POINTER(FILE)
     fopenRB.argtypes = [ctypes.c_char_p]
     fopenRT = _libraries['FIXME_STUB'].fopenRT
-    fopenRT.restype = ctypes.POINTER(struct__iobuf)
+    fopenRT.restype = ctypes.POINTER(FILE)
     fopenRT.argtypes = [ctypes.c_char_p]
     fopenWB = _libraries['FIXME_STUB'].fopenWB
-    fopenWB.restype = ctypes.POINTER(struct__iobuf)
+    fopenWB.restype = ctypes.POINTER(FILE)
     fopenWB.argtypes = [ctypes.c_char_p]
     fopenWT = _libraries['FIXME_STUB'].fopenWT
-    fopenWT.restype = ctypes.POINTER(struct__iobuf)
+    fopenWT.restype = ctypes.POINTER(FILE)
     fopenWT.argtypes = [ctypes.c_char_p]
     fopen_s = _libraries['FIXME_STUB'].fopen_s
     fopen_s.restype = errno_t
-    fopen_s.argtypes = [ctypes.POINTER(ctypes.POINTER(struct__iobuf)), ctypes.c_char_p, ctypes.c_char_p]
+    fopen_s.argtypes = [ctypes.POINTER(ctypes.POINTER(FILE)), ctypes.c_char_p, ctypes.c_char_p]
     for_all_arglocs = _libraries['FIXME_STUB'].for_all_arglocs
     for_all_arglocs.restype = ctypes.c_int32
     for_all_arglocs.argtypes = [ctypes.POINTER(struct_aloc_visitor_t), ctypes.POINTER(struct_argloc_t), ctypes.c_int32, ctypes.c_int32]
@@ -17642,10 +17664,10 @@ def ctypeslib_define():
     format_c_number.argtypes = [ctypes.c_char_p, size_t, struct_uint128, ctypes.c_int32, ctypes.c_int32]
     format_cdata = _libraries['FIXME_STUB'].format_cdata
     format_cdata.restype = ctypes.c_char
-    format_cdata.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__), ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct_valstr_t), ctypes.POINTER(struct_format_data_info_t)]
+    format_cdata.argtypes = [ctypes.POINTER(qstrvec_t), ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct_valstr_t), ctypes.POINTER(struct_format_data_info_t)]
     format_charlit = _libraries['FIXME_STUB'].format_charlit
     format_charlit.restype = ctypes.c_char
-    format_charlit.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), size_t, uint32, ctypes.c_int32]
+    format_charlit.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(ctypes.POINTER(uchar)), size_t, uint32, ctypes.c_int32]
     fpclassify = _libraries['FIXME_STUB'].fpclassify
     fpclassify.restype = ctypes.c_int32
     fpclassify.argtypes = [ctypes.c_double]
@@ -17654,25 +17676,25 @@ def ctypeslib_define():
     fpreset.argtypes = []
     fprintf = _libraries['FIXME_STUB'].fprintf
     fprintf.restype = ctypes.c_int32
-    fprintf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p]
+    fprintf.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p]
     fprintf_s = _libraries['FIXME_STUB'].fprintf_s
     fprintf_s.restype = ctypes.c_int32
-    fprintf_s.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p]
+    fprintf_s.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p]
     fputc = _libraries['FIXME_STUB'].fputc
     fputc.restype = ctypes.c_int32
-    fputc.argtypes = [ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    fputc.argtypes = [ctypes.c_int32, ctypes.POINTER(FILE)]
     fputchar = _libraries['FIXME_STUB'].fputchar
     fputchar.restype = ctypes.c_int32
     fputchar.argtypes = [ctypes.c_int32]
     fputs = _libraries['FIXME_STUB'].fputs
     fputs.restype = ctypes.c_int32
-    fputs.argtypes = [ctypes.c_char_p, ctypes.POINTER(struct__iobuf)]
+    fputs.argtypes = [ctypes.c_char_p, ctypes.POINTER(FILE)]
     fputwc = _libraries['FIXME_STUB'].fputwc
     fputwc.restype = wint_t
-    fputwc.argtypes = [ctypes.c_int16, ctypes.POINTER(struct__iobuf)]
+    fputwc.argtypes = [ctypes.c_int16, ctypes.POINTER(FILE)]
     fputws = _libraries['FIXME_STUB'].fputws
     fputws.restype = ctypes.c_int32
-    fputws.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(struct__iobuf)]
+    fputws.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(FILE)]
     frame_off_args = _libraries['FIXME_STUB'].frame_off_args
     frame_off_args.restype = ea_t
     frame_off_args.argtypes = [ctypes.POINTER(struct_func_t)]
@@ -17687,22 +17709,22 @@ def ctypeslib_define():
     frame_off_savregs.argtypes = [ctypes.POINTER(struct_func_t)]
     fread = _libraries['FIXME_STUB'].fread
     fread.restype = size_t
-    fread.argtypes = [ctypes.POINTER(None), size_t, size_t, ctypes.POINTER(struct__iobuf)]
+    fread.argtypes = [ctypes.POINTER(None), size_t, size_t, ctypes.POINTER(FILE)]
     fread2bytes = _libraries['FIXME_STUB'].fread2bytes
     fread2bytes.restype = ctypes.c_int32
-    fread2bytes.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_uint16), ctypes.c_char]
+    fread2bytes.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(uint16), ctypes.c_char]
     fread4bytes = _libraries['FIXME_STUB'].fread4bytes
     fread4bytes.restype = ctypes.c_int32
-    fread4bytes.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_uint32), ctypes.c_char]
+    fread4bytes.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(uint32), ctypes.c_char]
     fread8bytes = _libraries['FIXME_STUB'].fread8bytes
     fread8bytes.restype = ctypes.c_int32
-    fread8bytes.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_uint64), ctypes.c_char]
+    fread8bytes.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ulonglong), ctypes.c_char]
     fread_s = _libraries['FIXME_STUB'].fread_s
     fread_s.restype = size_t
-    fread_s.argtypes = [ctypes.POINTER(None), size_t, size_t, size_t, ctypes.POINTER(struct__iobuf)]
+    fread_s.argtypes = [ctypes.POINTER(None), size_t, size_t, size_t, ctypes.POINTER(FILE)]
     freadbytes = _libraries['FIXME_STUB'].freadbytes
     freadbytes.restype = ctypes.c_int32
-    freadbytes.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(None), ctypes.c_int32, ctypes.c_int32]
+    freadbytes.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(None), ctypes.c_int32, ctypes.c_int32]
     free = _libraries['FIXME_STUB'].free
     free.restype = None
     free.argtypes = [ctypes.POINTER(None)]
@@ -17737,11 +17759,11 @@ def ctypeslib_define():
     free_til.restype = None
     free_til.argtypes = [ctypes.POINTER(struct_til_t)]
     freopen = _libraries['FIXME_STUB'].freopen
-    freopen.restype = ctypes.POINTER(struct__iobuf)
-    freopen.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.POINTER(struct__iobuf)]
+    freopen.restype = ctypes.POINTER(FILE)
+    freopen.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.POINTER(FILE)]
     freopen_s = _libraries['FIXME_STUB'].freopen_s
     freopen_s.restype = errno_t
-    freopen_s.argtypes = [ctypes.POINTER(ctypes.POINTER(struct__iobuf)), ctypes.c_char_p, ctypes.c_char_p, ctypes.POINTER(struct__iobuf)]
+    freopen_s.argtypes = [ctypes.POINTER(ctypes.POINTER(FILE)), ctypes.c_char_p, ctypes.c_char_p, ctypes.POINTER(FILE)]
     frexp = _libraries['FIXME_STUB'].frexp
     frexp.restype = ctypes.c_double
     frexp.argtypes = [ctypes.c_double, ctypes.POINTER(ctypes.c_int32)]
@@ -17753,19 +17775,19 @@ def ctypeslib_define():
     frexpl.argtypes = [ctypes.c_double, ctypes.POINTER(ctypes.c_int32)]
     fscanf = _libraries['FIXME_STUB'].fscanf
     fscanf.restype = ctypes.c_int32
-    fscanf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p]
+    fscanf.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p]
     fscanf_s = _libraries['FIXME_STUB'].fscanf_s
     fscanf_s.restype = ctypes.c_int32
-    fscanf_s.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p]
+    fscanf_s.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p]
     fseek = _libraries['FIXME_STUB'].fseek
     fseek.restype = ctypes.c_int32
-    fseek.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_int32, ctypes.c_int32]
+    fseek.argtypes = [ctypes.POINTER(FILE), ctypes.c_int32, ctypes.c_int32]
     fsetpos = _libraries['FIXME_STUB'].fsetpos
     fsetpos.restype = ctypes.c_int32
-    fsetpos.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int64)]
+    fsetpos.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(fpos_t)]
     ftell = _libraries['FIXME_STUB'].ftell
     ftell.restype = ctypes.c_int32
-    ftell.argtypes = [ctypes.POINTER(struct__iobuf)]
+    ftell.argtypes = [ctypes.POINTER(FILE)]
     func_contains = _libraries['FIXME_STUB'].func_contains
     func_contains.restype = ctypes.c_char
     func_contains.argtypes = [ctypes.POINTER(struct_func_t), ea_t]
@@ -17777,19 +17799,19 @@ def ctypeslib_define():
     func_has_stkframe_hole.argtypes = [ea_t, ctypes.POINTER(struct_func_type_data_t)]
     func_item_iterator_decode_preceding_insn = _libraries['FIXME_STUB'].func_item_iterator_decode_preceding_insn
     func_item_iterator_decode_preceding_insn.restype = ctypes.c_char
-    func_item_iterator_decode_preceding_insn.argtypes = [ctypes.POINTER(struct_func_item_iterator_t), ctypes.POINTER(struct_qvector_unsigned_long_long_), ctypes.c_char_p, ctypes.POINTER(struct_insn_t)]
+    func_item_iterator_decode_preceding_insn.argtypes = [ctypes.POINTER(struct_func_item_iterator_t), ctypes.POINTER(eavec_t), ctypes.c_char_p, ctypes.POINTER(struct_insn_t)]
     func_item_iterator_decode_prev_insn = _libraries['FIXME_STUB'].func_item_iterator_decode_prev_insn
     func_item_iterator_decode_prev_insn.restype = ctypes.c_char
     func_item_iterator_decode_prev_insn.argtypes = [ctypes.POINTER(struct_func_item_iterator_t), ctypes.POINTER(struct_insn_t)]
     func_item_iterator_next = _libraries['FIXME_STUB'].func_item_iterator_next
     func_item_iterator_next.restype = ctypes.c_char
-    func_item_iterator_next.argtypes = [ctypes.POINTER(struct_func_item_iterator_t), ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint32, ctypes.POINTER(None)), ctypes.POINTER(None)]
+    func_item_iterator_next.argtypes = [ctypes.POINTER(struct_func_item_iterator_t), testf_t, ctypes.POINTER(None)]
     func_item_iterator_prev = _libraries['FIXME_STUB'].func_item_iterator_prev
     func_item_iterator_prev.restype = ctypes.c_char
-    func_item_iterator_prev.argtypes = [ctypes.POINTER(struct_func_item_iterator_t), ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint32, ctypes.POINTER(None)), ctypes.POINTER(None)]
+    func_item_iterator_prev.argtypes = [ctypes.POINTER(struct_func_item_iterator_t), testf_t, ctypes.POINTER(None)]
     func_item_iterator_succ = _libraries['FIXME_STUB'].func_item_iterator_succ
     func_item_iterator_succ.restype = ctypes.c_char
-    func_item_iterator_succ.argtypes = [ctypes.POINTER(struct_func_item_iterator_t), ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint32, ctypes.POINTER(None)), ctypes.POINTER(None)]
+    func_item_iterator_succ.argtypes = [ctypes.POINTER(struct_func_item_iterator_t), testf_t, ctypes.POINTER(None)]
     func_parent_iterator_set = _libraries['FIXME_STUB'].func_parent_iterator_set
     func_parent_iterator_set.restype = ctypes.c_char
     func_parent_iterator_set.argtypes = [ctypes.POINTER(struct_func_parent_iterator_t), ctypes.POINTER(struct_func_t)]
@@ -17801,34 +17823,34 @@ def ctypeslib_define():
     func_tail_iterator_set_ea.argtypes = [ctypes.POINTER(struct_func_tail_iterator_t), ea_t]
     fwide = _libraries['FIXME_STUB'].fwide
     fwide.restype = ctypes.c_int32
-    fwide.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_int32]
+    fwide.argtypes = [ctypes.POINTER(FILE), ctypes.c_int32]
     fwprintf = _libraries['FIXME_STUB'].fwprintf
     fwprintf.restype = ctypes.c_int32
-    fwprintf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16)]
+    fwprintf.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16)]
     fwprintf_s = _libraries['FIXME_STUB'].fwprintf_s
     fwprintf_s.restype = ctypes.c_int32
-    fwprintf_s.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16)]
+    fwprintf_s.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16)]
     fwrite = _libraries['FIXME_STUB'].fwrite
     fwrite.restype = size_t
-    fwrite.argtypes = [ctypes.POINTER(None), size_t, size_t, ctypes.POINTER(struct__iobuf)]
+    fwrite.argtypes = [ctypes.POINTER(None), size_t, size_t, ctypes.POINTER(FILE)]
     fwrite2bytes = _libraries['FIXME_STUB'].fwrite2bytes
     fwrite2bytes.restype = ctypes.c_int32
-    fwrite2bytes.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_uint16), ctypes.c_char]
+    fwrite2bytes.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(uint16), ctypes.c_char]
     fwrite4bytes = _libraries['FIXME_STUB'].fwrite4bytes
     fwrite4bytes.restype = ctypes.c_int32
-    fwrite4bytes.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_uint32), ctypes.c_char]
+    fwrite4bytes.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(uint32), ctypes.c_char]
     fwrite8bytes = _libraries['FIXME_STUB'].fwrite8bytes
     fwrite8bytes.restype = ctypes.c_int32
-    fwrite8bytes.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_uint64), ctypes.c_char]
+    fwrite8bytes.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ulonglong), ctypes.c_char]
     fwritebytes = _libraries['FIXME_STUB'].fwritebytes
     fwritebytes.restype = ctypes.c_int32
-    fwritebytes.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(None), ctypes.c_int32, ctypes.c_int32]
+    fwritebytes.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(None), ctypes.c_int32, ctypes.c_int32]
     fwscanf = _libraries['FIXME_STUB'].fwscanf
     fwscanf.restype = ctypes.c_int32
-    fwscanf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16)]
+    fwscanf.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16)]
     fwscanf_s = _libraries['FIXME_STUB'].fwscanf_s
     fwscanf_s.restype = ctypes.c_int32
-    fwscanf_s.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16)]
+    fwscanf_s.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16)]
     gcc_layout = _libraries['FIXME_STUB'].gcc_layout
     gcc_layout.restype = ctypes.c_char
     gcc_layout.argtypes = []
@@ -17840,16 +17862,16 @@ def ctypeslib_define():
     gen_complex_call_chart.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ea_t, ea_t, ctypes.c_int32, int32]
     gen_decorate_name = _libraries['FIXME_STUB'].gen_decorate_name
     gen_decorate_name.restype = ctypes.c_char
-    gen_decorate_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_char, cm_t, ctypes.POINTER(struct_tinfo_t)]
+    gen_decorate_name.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_char, cm_t, ctypes.POINTER(struct_tinfo_t)]
     gen_disasm_text = _libraries['FIXME_STUB'].gen_disasm_text
     gen_disasm_text.restype = None
-    gen_disasm_text.argtypes = [ctypes.POINTER(struct_qvector_twinline_t_), ea_t, ea_t, ctypes.c_char]
+    gen_disasm_text.argtypes = [ctypes.POINTER(text_t), ea_t, ea_t, ctypes.c_char]
     gen_exe_file = _libraries['FIXME_STUB'].gen_exe_file
     gen_exe_file.restype = ctypes.c_int32
-    gen_exe_file.argtypes = [ctypes.POINTER(struct__iobuf)]
+    gen_exe_file.argtypes = [ctypes.POINTER(FILE)]
     gen_file = _libraries['FIXME_STUB'].gen_file
     gen_file.restype = ctypes.c_int32
-    gen_file.argtypes = [ofile_type_t, ctypes.POINTER(struct__iobuf), ea_t, ea_t, ctypes.c_int32]
+    gen_file.argtypes = [ofile_type_t, ctypes.POINTER(FILE), ea_t, ea_t, ctypes.c_int32]
     gen_fix_fixups = _libraries['FIXME_STUB'].gen_fix_fixups
     gen_fix_fixups.restype = None
     gen_fix_fixups.argtypes = [ea_t, ea_t, asize_t]
@@ -17870,16 +17892,16 @@ def ctypeslib_define():
     gen_simple_call_chart.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32]
     gen_use_arg_tinfos = _libraries['FIXME_STUB'].gen_use_arg_tinfos
     gen_use_arg_tinfos.restype = None
-    gen_use_arg_tinfos.argtypes = [ea_t, ctypes.POINTER(struct_func_type_data_t), ctypes.POINTER(struct_qvector_funcarg_t_), ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_insn_t), ctypes.POINTER(struct_op_t), ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p), ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_insn_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_int32)), ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint64)]
+    gen_use_arg_tinfos.argtypes = [ea_t, ctypes.POINTER(struct_func_type_data_t), ctypes.POINTER(funcargvec_t), set_op_tinfo_t, is_stkarg_load_t, has_delay_slot_t]
     gen_use_arg_tinfos2 = _libraries['FIXME_STUB'].gen_use_arg_tinfos2
     gen_use_arg_tinfos2.restype = None
-    gen_use_arg_tinfos2.argtypes = [ctypes.POINTER(struct_argtinfo_helper_t), ea_t, ctypes.POINTER(struct_func_type_data_t), ctypes.POINTER(struct_qvector_funcarg_t_)]
+    gen_use_arg_tinfos2.argtypes = [ctypes.POINTER(struct_argtinfo_helper_t), ea_t, ctypes.POINTER(struct_func_type_data_t), ctypes.POINTER(funcargvec_t)]
     generate_disasm_line = _libraries['FIXME_STUB'].generate_disasm_line
     generate_disasm_line.restype = ctypes.c_char
-    generate_disasm_line.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_int32]
+    generate_disasm_line.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_int32]
     generate_disassembly = _libraries['FIXME_STUB'].generate_disassembly
     generate_disassembly.restype = ctypes.c_int32
-    generate_disassembly.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__), ctypes.POINTER(ctypes.c_int32), ea_t, ctypes.c_int32, ctypes.c_char]
+    generate_disassembly.argtypes = [ctypes.POINTER(qstrvec_t), ctypes.POINTER(ctypes.c_int32), ea_t, ctypes.c_int32, ctypes.c_char]
     get_16bit = _libraries['FIXME_STUB'].get_16bit
     get_16bit.restype = uint32
     get_16bit.argtypes = [ea_t]
@@ -17891,10 +17913,10 @@ def ctypeslib_define():
     get_64bit.argtypes = [ea_t]
     get_8bit = _libraries['FIXME_STUB'].get_8bit
     get_8bit.restype = uchar
-    get_8bit.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_uint32), ctypes.POINTER(ctypes.c_int32)]
+    get_8bit.argtypes = [ctypes.POINTER(ea_t), ctypes.POINTER(uint32), ctypes.POINTER(ctypes.c_int32)]
     get_abi_name = _libraries['FIXME_STUB'].get_abi_name
     get_abi_name.restype = ssize_t
-    get_abi_name.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_abi_name.argtypes = [ctypes.POINTER(qstring)]
     get_absbase = _libraries['FIXME_STUB'].get_absbase
     get_absbase.restype = ea_t
     get_absbase.argtypes = [ea_t]
@@ -17909,16 +17931,16 @@ def ctypeslib_define():
     get_action_icon.argtypes = [ctypes.c_char_p, ctypes.POINTER(ctypes.c_int32)]
     get_action_label = _libraries['FIXME_STUB'].get_action_label
     get_action_label.restype = ctypes.c_char
-    get_action_label.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p]
+    get_action_label.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p]
     get_action_shortcut = _libraries['FIXME_STUB'].get_action_shortcut
     get_action_shortcut.restype = ctypes.c_char
-    get_action_shortcut.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p]
+    get_action_shortcut.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p]
     get_action_state = _libraries['FIXME_STUB'].get_action_state
     get_action_state.restype = ctypes.c_char
     get_action_state.argtypes = [ctypes.c_char_p, ctypes.POINTER(action_state_t)]
     get_action_tooltip = _libraries['FIXME_STUB'].get_action_tooltip
     get_action_tooltip.restype = ctypes.c_char
-    get_action_tooltip.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p]
+    get_action_tooltip.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p]
     get_action_visibility = _libraries['FIXME_STUB'].get_action_visibility
     get_action_visibility.restype = ctypes.c_char
     get_action_visibility.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
@@ -17942,10 +17964,10 @@ def ctypeslib_define():
     get_alignment.argtypes = [ea_t]
     get_archive_path = _libraries['FIXME_STUB'].get_archive_path
     get_archive_path.restype = ssize_t
-    get_archive_path.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_archive_path.argtypes = [ctypes.POINTER(qstring)]
     get_arg_addrs = _libraries['FIXME_STUB'].get_arg_addrs
     get_arg_addrs.restype = ctypes.c_char
-    get_arg_addrs.argtypes = [ctypes.POINTER(struct_qvector_unsigned_long_long_), ea_t]
+    get_arg_addrs.argtypes = [ctypes.POINTER(eavec_t), ea_t]
     get_arg_align = _libraries['FIXME_STUB'].get_arg_align
     get_arg_align.restype = ctypes.c_int32
     get_arg_align.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.c_int32, cm_t]
@@ -17957,7 +17979,7 @@ def ctypeslib_define():
     get_ash.argtypes = []
     get_asm_inc_file = _libraries['FIXME_STUB'].get_asm_inc_file
     get_asm_inc_file.restype = ssize_t
-    get_asm_inc_file.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_asm_inc_file.argtypes = [ctypes.POINTER(qstring)]
     get_auto_display = _libraries['FIXME_STUB'].get_auto_display
     get_auto_display.restype = ctypes.c_char
     get_auto_display.argtypes = [ctypes.POINTER(struct_auto_display_t)]
@@ -17978,16 +18000,16 @@ def ctypeslib_define():
     get_best_fit_member.argtypes = [ctypes.POINTER(struct_struc_t), asize_t]
     get_bmask_cmt = _libraries['FIXME_STUB'].get_bmask_cmt
     get_bmask_cmt.restype = ssize_t
-    get_bmask_cmt.argtypes = [ctypes.POINTER(struct__qstring_char_), enum_t, bmask_t, ctypes.c_char]
+    get_bmask_cmt.argtypes = [ctypes.POINTER(qstring), enum_t, bmask_t, ctypes.c_char]
     get_bmask_name = _libraries['FIXME_STUB'].get_bmask_name
     get_bmask_name.restype = ssize_t
-    get_bmask_name.argtypes = [ctypes.POINTER(struct__qstring_char_), enum_t, bmask_t]
+    get_bmask_name.argtypes = [ctypes.POINTER(qstring), enum_t, bmask_t]
     get_bpt = _libraries['FIXME_STUB'].get_bpt
     get_bpt.restype = ctypes.c_char
     get_bpt.argtypes = [ea_t, ctypes.POINTER(struct_bpt_t)]
     get_bpt_group = _libraries['FIXME_STUB'].get_bpt_group
     get_bpt_group.restype = ctypes.c_char
-    get_bpt_group.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_bpt_location_t)]
+    get_bpt_group.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_bpt_location_t)]
     get_bpt_qty = _libraries['FIXME_STUB'].get_bpt_qty
     get_bpt_qty.restype = ctypes.c_int32
     get_bpt_qty.argtypes = []
@@ -18005,10 +18027,10 @@ def ctypeslib_define():
     get_bytes.argtypes = [ctypes.POINTER(None), ssize_t, ea_t, ctypes.c_int32, ctypes.POINTER(None)]
     get_c_header_path = _libraries['FIXME_STUB'].get_c_header_path
     get_c_header_path.restype = ssize_t
-    get_c_header_path.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_c_header_path.argtypes = [ctypes.POINTER(qstring)]
     get_c_macros = _libraries['FIXME_STUB'].get_c_macros
     get_c_macros.restype = ssize_t
-    get_c_macros.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_c_macros.argtypes = [ctypes.POINTER(qstring)]
     get_call_tev_callee = _libraries['FIXME_STUB'].get_call_tev_callee
     get_call_tev_callee.restype = ea_t
     get_call_tev_callee.argtypes = [ctypes.c_int32]
@@ -18017,13 +18039,13 @@ def ctypeslib_define():
     get_cc.argtypes = [cm_t]
     get_chooser_data = _libraries['FIXME_STUB'].get_chooser_data
     get_chooser_data.restype = ctypes.c_char
-    get_chooser_data.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__), ctypes.c_char_p, ctypes.c_int32]
+    get_chooser_data.argtypes = [ctypes.POINTER(qstrvec_t), ctypes.c_char_p, ctypes.c_int32]
     get_chooser_obj = _libraries['FIXME_STUB'].get_chooser_obj
     get_chooser_obj.restype = ctypes.POINTER(None)
     get_chooser_obj.argtypes = [ctypes.c_char_p]
     get_cmt = _libraries['FIXME_STUB'].get_cmt
     get_cmt.restype = ssize_t
-    get_cmt.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_char]
+    get_cmt.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_char]
     get_colored_demangled_name = _libraries['FIXME_STUB'].get_colored_demangled_name
     get_colored_demangled_name.restype = qstring
     get_colored_demangled_name.argtypes = [ea_t, int32, ctypes.c_int32, ctypes.c_int32]
@@ -18047,7 +18069,7 @@ def ctypeslib_define():
     get_compiler_name.argtypes = [comp_t]
     get_compilers = _libraries['FIXME_STUB'].get_compilers
     get_compilers.restype = None
-    get_compilers.argtypes = [ctypes.POINTER(struct_qvector_unsigned_char_), ctypes.POINTER(struct_qvector__qstring_char__), ctypes.POINTER(struct_qvector__qstring_char__)]
+    get_compilers.argtypes = [ctypes.POINTER(compvec_t), ctypes.POINTER(qstrvec_t), ctypes.POINTER(qstrvec_t)]
     get_cp_validity = _libraries['FIXME_STUB'].get_cp_validity
     get_cp_validity.restype = ctypes.c_char
     get_cp_validity.argtypes = [ucdr_kind_t, wchar32_t, wchar32_t]
@@ -18062,7 +18084,7 @@ def ctypeslib_define():
     get_current_idasgn.argtypes = []
     get_current_source_file = _libraries['FIXME_STUB'].get_current_source_file
     get_current_source_file.restype = ctypes.c_char
-    get_current_source_file.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_current_source_file.argtypes = [ctypes.POINTER(qstring)]
     get_current_source_line = _libraries['FIXME_STUB'].get_current_source_line
     get_current_source_line.restype = ctypes.c_int32
     get_current_source_line.argtypes = []
@@ -18083,7 +18105,7 @@ def ctypeslib_define():
     get_custom_data_format.argtypes = [ctypes.c_int32]
     get_custom_data_formats = _libraries['FIXME_STUB'].get_custom_data_formats
     get_custom_data_formats.restype = ctypes.c_int32
-    get_custom_data_formats.argtypes = [ctypes.POINTER(struct_qvector_int_), ctypes.c_int32]
+    get_custom_data_formats.argtypes = [ctypes.POINTER(intvec_t), ctypes.c_int32]
     get_custom_data_type = _libraries['FIXME_STUB'].get_custom_data_type
     get_custom_data_type.restype = ctypes.POINTER(struct_data_type_t)
     get_custom_data_type.argtypes = [ctypes.c_int32]
@@ -18092,7 +18114,7 @@ def ctypeslib_define():
     get_custom_data_type_ids.argtypes = [ctypes.POINTER(struct_custom_data_type_ids_t), ea_t]
     get_custom_data_types = _libraries['FIXME_STUB'].get_custom_data_types
     get_custom_data_types.restype = ctypes.c_int32
-    get_custom_data_types.argtypes = [ctypes.POINTER(struct_qvector_int_), asize_t, asize_t]
+    get_custom_data_types.argtypes = [ctypes.POINTER(intvec_t), asize_t, asize_t]
     get_custom_refinfo = _libraries['FIXME_STUB'].get_custom_refinfo
     get_custom_refinfo.restype = ctypes.POINTER(struct_custom_refinfo_handler_t)
     get_custom_refinfo.argtypes = [ctypes.c_int32]
@@ -18116,7 +18138,7 @@ def ctypeslib_define():
     get_data_elsize.argtypes = [ea_t, flags_t, ctypes.POINTER(union_opinfo_t)]
     get_data_value = _libraries['FIXME_STUB'].get_data_value
     get_data_value.restype = ctypes.c_char
-    get_data_value.argtypes = [ctypes.POINTER(ctypes.c_uint64), ea_t, asize_t]
+    get_data_value.argtypes = [ctypes.POINTER(uval_t), ea_t, asize_t]
     get_db_byte = _libraries['FIXME_STUB'].get_db_byte
     get_db_byte.restype = uchar
     get_db_byte.argtypes = [ea_t]
@@ -18128,10 +18150,10 @@ def ctypeslib_define():
     get_dbctx_qty.argtypes = []
     get_dbg_byte = _libraries['FIXME_STUB'].get_dbg_byte
     get_dbg_byte.restype = ctypes.c_char
-    get_dbg_byte.argtypes = [ctypes.POINTER(ctypes.c_uint32), ea_t]
+    get_dbg_byte.argtypes = [ctypes.POINTER(uint32), ea_t]
     get_dbg_memory_info = _libraries['FIXME_STUB'].get_dbg_memory_info
     get_dbg_memory_info.restype = ctypes.c_int32
-    get_dbg_memory_info.argtypes = [ctypes.POINTER(struct_qvector_memory_info_t_)]
+    get_dbg_memory_info.argtypes = [ctypes.POINTER(meminfo_vec_t)]
     get_dbg_reg_info = _libraries['FIXME_STUB'].get_dbg_reg_info
     get_dbg_reg_info.restype = ctypes.c_char
     get_dbg_reg_info.argtypes = [ctypes.c_char_p, ctypes.POINTER(struct_register_info_t)]
@@ -18140,13 +18162,13 @@ def ctypeslib_define():
     get_debug_event.argtypes = []
     get_debug_name = _libraries['FIXME_STUB'].get_debug_name
     get_debug_name.restype = ssize_t
-    get_debug_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(ctypes.c_uint64), debug_name_how_t]
+    get_debug_name.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(ea_t), debug_name_how_t]
     get_debug_name_ea = _libraries['FIXME_STUB'].get_debug_name_ea
     get_debug_name_ea.restype = ea_t
     get_debug_name_ea.argtypes = [ctypes.c_char_p]
     get_debug_names = _libraries['FIXME_STUB'].get_debug_names
     get_debug_names.restype = None
-    get_debug_names.argtypes = [ctypes.POINTER(struct_qvector_ea_name_t_), ea_t, ea_t]
+    get_debug_names.argtypes = [ctypes.POINTER(ea_name_vec_t), ea_t, ea_t]
     get_debugger_event_cond = _libraries['FIXME_STUB'].get_debugger_event_cond
     get_debugger_event_cond.restype = ctypes.c_char_p
     get_debugger_event_cond.argtypes = []
@@ -18185,7 +18207,7 @@ def ctypeslib_define():
     get_dword.argtypes = [ea_t]
     get_ea_name = _libraries['FIXME_STUB'].get_ea_name
     get_ea_name.restype = ssize_t
-    get_ea_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_int32, ctypes.POINTER(struct_getname_info_t)]
+    get_ea_name.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_int32, ctypes.POINTER(struct_getname_info_t)]
     get_ea_viewer_history_info = _libraries['FIXME_STUB'].get_ea_viewer_history_info
     get_ea_viewer_history_info.restype = ctypes.c_char
     get_ea_viewer_history_info.argtypes = [ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(struct_TWidget)]
@@ -18218,10 +18240,10 @@ def ctypeslib_define():
     get_entry.argtypes = [uval_t]
     get_entry_forwarder = _libraries['FIXME_STUB'].get_entry_forwarder
     get_entry_forwarder.restype = ssize_t
-    get_entry_forwarder.argtypes = [ctypes.POINTER(struct__qstring_char_), uval_t]
+    get_entry_forwarder.argtypes = [ctypes.POINTER(qstring), uval_t]
     get_entry_name = _libraries['FIXME_STUB'].get_entry_name
     get_entry_name.restype = ssize_t
-    get_entry_name.argtypes = [ctypes.POINTER(struct__qstring_char_), uval_t]
+    get_entry_name.argtypes = [ctypes.POINTER(qstring), uval_t]
     get_entry_ordinal = _libraries['FIXME_STUB'].get_entry_ordinal
     get_entry_ordinal.restype = uval_t
     get_entry_ordinal.argtypes = [size_t]
@@ -18233,13 +18255,13 @@ def ctypeslib_define():
     get_enum.argtypes = [ctypes.c_char_p]
     get_enum_cmt = _libraries['FIXME_STUB'].get_enum_cmt
     get_enum_cmt.restype = ssize_t
-    get_enum_cmt.argtypes = [ctypes.POINTER(struct__qstring_char_), enum_t, ctypes.c_char]
+    get_enum_cmt.argtypes = [ctypes.POINTER(qstring), enum_t, ctypes.c_char]
     get_enum_flag = _libraries['FIXME_STUB'].get_enum_flag
     get_enum_flag.restype = flags_t
     get_enum_flag.argtypes = [enum_t]
     get_enum_id = _libraries['FIXME_STUB'].get_enum_id
     get_enum_id.restype = enum_t
-    get_enum_id.argtypes = [ctypes.POINTER(ctypes.c_ubyte), ea_t, ctypes.c_int32]
+    get_enum_id.argtypes = [ctypes.POINTER(uchar), ea_t, ctypes.c_int32]
     get_enum_idx = _libraries['FIXME_STUB'].get_enum_idx
     get_enum_idx.restype = uval_t
     get_enum_idx.argtypes = [enum_t]
@@ -18254,16 +18276,16 @@ def ctypeslib_define():
     get_enum_member_by_name.argtypes = [ctypes.c_char_p]
     get_enum_member_cmt = _libraries['FIXME_STUB'].get_enum_member_cmt
     get_enum_member_cmt.restype = ssize_t
-    get_enum_member_cmt.argtypes = [ctypes.POINTER(struct__qstring_char_), const_t, ctypes.c_char]
+    get_enum_member_cmt.argtypes = [ctypes.POINTER(qstring), const_t, ctypes.c_char]
     get_enum_member_enum = _libraries['FIXME_STUB'].get_enum_member_enum
     get_enum_member_enum.restype = enum_t
     get_enum_member_enum.argtypes = [const_t]
     get_enum_member_expr = _libraries['FIXME_STUB'].get_enum_member_expr
     get_enum_member_expr.restype = ctypes.c_char
-    get_enum_member_expr.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_tinfo_t), ctypes.c_int32, uint64]
+    get_enum_member_expr.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_tinfo_t), ctypes.c_int32, uint64]
     get_enum_member_name = _libraries['FIXME_STUB'].get_enum_member_name
     get_enum_member_name.restype = ssize_t
-    get_enum_member_name.argtypes = [ctypes.POINTER(struct__qstring_char_), const_t]
+    get_enum_member_name.argtypes = [ctypes.POINTER(qstring), const_t]
     get_enum_member_serial = _libraries['FIXME_STUB'].get_enum_member_serial
     get_enum_member_serial.restype = uchar
     get_enum_member_serial.argtypes = [const_t]
@@ -18275,7 +18297,7 @@ def ctypeslib_define():
     get_enum_name.argtypes = [tid_t, ctypes.c_int32]
     get_enum_name2 = _libraries['FIXME_STUB'].get_enum_name2
     get_enum_name2.restype = ssize_t
-    get_enum_name2.argtypes = [ctypes.POINTER(struct__qstring_char_), enum_t, ctypes.c_int32]
+    get_enum_name2.argtypes = [ctypes.POINTER(qstring), enum_t, ctypes.c_int32]
     get_enum_qty = _libraries['FIXME_STUB'].get_enum_qty
     get_enum_qty.restype = size_t
     get_enum_qty.argtypes = []
@@ -18302,7 +18324,7 @@ def ctypeslib_define():
     get_extlang.argtypes = []
     get_extra_cmt = _libraries['FIXME_STUB'].get_extra_cmt
     get_extra_cmt.restype = ssize_t
-    get_extra_cmt.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_int32]
+    get_extra_cmt.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_int32]
     get_fchunk = _libraries['FIXME_STUB'].get_fchunk
     get_fchunk.restype = ctypes.POINTER(struct_func_t)
     get_fchunk.argtypes = [ea_t]
@@ -18365,7 +18387,7 @@ def ctypeslib_define():
     get_first_seg.argtypes = []
     get_first_serial_enum_member = _libraries['FIXME_STUB'].get_first_serial_enum_member
     get_first_serial_enum_member.restype = const_t
-    get_first_serial_enum_member.argtypes = [ctypes.POINTER(ctypes.c_ubyte), enum_t, uval_t, bmask_t]
+    get_first_serial_enum_member.argtypes = [ctypes.POINTER(uchar), enum_t, uval_t, bmask_t]
     get_first_struc_idx = _libraries['FIXME_STUB'].get_first_struc_idx
     get_first_struc_idx.restype = uval_t
     get_first_struc_idx.argtypes = []
@@ -18374,7 +18396,7 @@ def ctypeslib_define():
     get_fixup.argtypes = [ctypes.POINTER(struct_fixup_data_t), ea_t]
     get_fixup_desc = _libraries['FIXME_STUB'].get_fixup_desc
     get_fixup_desc.restype = ctypes.c_char_p
-    get_fixup_desc.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.POINTER(struct_fixup_data_t)]
+    get_fixup_desc.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.POINTER(struct_fixup_data_t)]
     get_fixup_handler = _libraries['FIXME_STUB'].get_fixup_handler
     get_fixup_handler.restype = ctypes.POINTER(struct_fixup_handler_t)
     get_fixup_handler.argtypes = [fixup_type_t]
@@ -18383,7 +18405,7 @@ def ctypeslib_define():
     get_fixup_value.argtypes = [ea_t, fixup_type_t]
     get_fixups = _libraries['FIXME_STUB'].get_fixups
     get_fixups.restype = ctypes.c_char
-    get_fixups.argtypes = [ctypes.POINTER(struct_qvector_fixup_info_t_), ea_t, asize_t]
+    get_fixups.argtypes = [ctypes.POINTER(fixups_t), ea_t, asize_t]
     get_flags = _libraries['FIXME_STUB'].get_flags
     get_flags.restype = flags_t
     get_flags.argtypes = [ea_t]
@@ -18395,7 +18417,7 @@ def ctypeslib_define():
     get_flags_ex.argtypes = [ea_t, ctypes.c_int32]
     get_forced_operand = _libraries['FIXME_STUB'].get_forced_operand
     get_forced_operand.restype = ssize_t
-    get_forced_operand.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_int32]
+    get_forced_operand.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_int32]
     get_fpvalue_kind = _libraries['FIXME_STUB'].get_fpvalue_kind
     get_fpvalue_kind.restype = fpvalue_kind_t
     get_fpvalue_kind.argtypes = [ctypes.POINTER(struct_fpvalue_t), uint16]
@@ -18443,10 +18465,10 @@ def ctypeslib_define():
     get_func_chunknum.argtypes = [ctypes.POINTER(struct_func_t), ea_t]
     get_func_cmt = _libraries['FIXME_STUB'].get_func_cmt
     get_func_cmt.restype = ssize_t
-    get_func_cmt.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_func_t), ctypes.c_char]
+    get_func_cmt.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_func_t), ctypes.c_char]
     get_func_name = _libraries['FIXME_STUB'].get_func_name
     get_func_name.restype = ssize_t
-    get_func_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t]
+    get_func_name.argtypes = [ctypes.POINTER(qstring), ea_t]
     get_func_num = _libraries['FIXME_STUB'].get_func_num
     get_func_num.restype = ctypes.c_int32
     get_func_num.argtypes = [ea_t]
@@ -18461,24 +18483,24 @@ def ctypeslib_define():
     get_func_trace_options.argtypes = []
     get_global_var = _libraries['FIXME_STUB'].get_global_var
     get_global_var.restype = ctypes.c_char
-    get_global_var.argtypes = [ctypes.POINTER(struct_srcinfo_provider_t), ea_t, ctypes.c_char_p, ctypes.POINTER(struct_qrefcnt_t_source_item_t_)]
+    get_global_var.argtypes = [ctypes.POINTER(struct_srcinfo_provider_t), ea_t, ctypes.c_char_p, ctypes.POINTER(source_item_ptr)]
     get_gotea = _libraries['FIXME_STUB'].get_gotea
     get_gotea.restype = ea_t
     get_gotea.argtypes = []
     get_graph_viewer = _libraries['FIXME_STUB'].get_graph_viewer
-    get_graph_viewer.restype = ctypes.POINTER(struct_TWidget)
+    get_graph_viewer.restype = ctypes.POINTER(graph_viewer_t)
     get_graph_viewer.argtypes = [ctypes.POINTER(struct_TWidget)]
     get_group_selector = _libraries['FIXME_STUB'].get_group_selector
     get_group_selector.restype = sel_t
     get_group_selector.argtypes = [sel_t]
     get_grp_bpts = _libraries['FIXME_STUB'].get_grp_bpts
     get_grp_bpts.restype = ssize_t
-    get_grp_bpts.argtypes = [ctypes.POINTER(struct_qvector_bpt_t_), ctypes.c_char_p]
+    get_grp_bpts.argtypes = [ctypes.POINTER(bpt_vec_t), ctypes.c_char_p]
     get_hex_string = _libraries['FIXME_STUB'].get_hex_string
     get_hex_string.restype = ssize_t
-    get_hex_string.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.c_ubyte), size_t]
+    get_hex_string.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(uchar), size_t]
     get_hexdsp = _libraries['FIXME_STUB'].get_hexdsp
-    get_hexdsp.restype = ctypes.CFUNCTYPE(ctypes.POINTER(None), ctypes.c_int32)
+    get_hexdsp.restype = hexdsp_t
     get_hexdsp.argtypes = []
     get_hexdump_ea = _libraries['FIXME_STUB'].get_hexdump_ea
     get_hexdump_ea.restype = ea_t
@@ -18494,19 +18516,19 @@ def ctypeslib_define():
     get_hidden_range_qty.argtypes = []
     get_highlight = _libraries['FIXME_STUB'].get_highlight
     get_highlight.restype = ctypes.c_char
-    get_highlight.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_TWidget), ctypes.POINTER(ctypes.c_uint32), uint32]
+    get_highlight.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_TWidget), ctypes.POINTER(uint32), uint32]
     get_ida_notepad_text = _libraries['FIXME_STUB'].get_ida_notepad_text
     get_ida_notepad_text.restype = ssize_t
-    get_ida_notepad_text.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_ida_notepad_text.argtypes = [ctypes.POINTER(qstring)]
     get_ida_subdirs = _libraries['FIXME_STUB'].get_ida_subdirs
     get_ida_subdirs.restype = ctypes.c_int32
-    get_ida_subdirs.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__), ctypes.c_char_p, ctypes.c_int32]
+    get_ida_subdirs.argtypes = [ctypes.POINTER(qstrvec_t), ctypes.c_char_p, ctypes.c_int32]
     get_idainfo_by_type = _libraries['FIXME_STUB'].get_idainfo_by_type
     get_idainfo_by_type.restype = ctypes.c_char
-    get_idainfo_by_type.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_uint32), ctypes.POINTER(union_opinfo_t), ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(ctypes.c_uint64)]
+    get_idainfo_by_type.argtypes = [ctypes.POINTER(size_t), ctypes.POINTER(flags_t), ctypes.POINTER(union_opinfo_t), ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(size_t)]
     get_idasgn_desc = _libraries['FIXME_STUB'].get_idasgn_desc
     get_idasgn_desc.restype = int32
-    get_idasgn_desc.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct__qstring_char_), ctypes.c_int32]
+    get_idasgn_desc.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(qstring), ctypes.c_int32]
     get_idasgn_header_by_short_name = _libraries['FIXME_STUB'].get_idasgn_header_by_short_name
     get_idasgn_header_by_short_name.restype = ctypes.POINTER(struct_idasgn_t)
     get_idasgn_header_by_short_name.argtypes = [ctypes.c_char_p]
@@ -18515,7 +18537,7 @@ def ctypeslib_define():
     get_idasgn_qty.argtypes = []
     get_idasgn_title = _libraries['FIXME_STUB'].get_idasgn_title
     get_idasgn_title.restype = ssize_t
-    get_idasgn_title.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p]
+    get_idasgn_title.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p]
     get_idati = _libraries['FIXME_STUB'].get_idati
     get_idati.restype = ctypes.POINTER(struct_til_t)
     get_idati.argtypes = []
@@ -18533,12 +18555,12 @@ def ctypeslib_define():
     get_idcv_attr.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_idc_value_t), ctypes.c_char_p, ctypes.c_char]
     get_idcv_class_name = _libraries['FIXME_STUB'].get_idcv_class_name
     get_idcv_class_name.restype = error_t
-    get_idcv_class_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_idc_value_t)]
+    get_idcv_class_name.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_idc_value_t)]
     get_idcv_slice = _libraries['FIXME_STUB'].get_idcv_slice
     get_idcv_slice.restype = error_t
     get_idcv_slice.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_idc_value_t), uval_t, uval_t, ctypes.c_int32]
     get_idp_descs = _libraries['FIXME_STUB'].get_idp_descs
-    get_idp_descs.restype = ctypes.POINTER(struct_qvector_idp_desc_t_)
+    get_idp_descs.restype = ctypes.POINTER(idp_descs_t)
     get_idp_descs.argtypes = []
     get_idp_name = _libraries['FIXME_STUB'].get_idp_name
     get_idp_name.restype = ctypes.c_char_p
@@ -18557,10 +18579,10 @@ def ctypeslib_define():
     get_imagebase.argtypes = []
     get_immvals = _libraries['FIXME_STUB'].get_immvals
     get_immvals.restype = size_t
-    get_immvals.argtypes = [ctypes.POINTER(ctypes.c_uint64), ea_t, ctypes.c_int32, flags_t, ctypes.POINTER(struct_insn_t)]
+    get_immvals.argtypes = [ctypes.POINTER(uval_t), ea_t, ctypes.c_int32, flags_t, ctypes.POINTER(struct_insn_t)]
     get_import_module_name = _libraries['FIXME_STUB'].get_import_module_name
     get_import_module_name.restype = ctypes.c_char
-    get_import_module_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_int32]
+    get_import_module_name.argtypes = [ctypes.POINTER(qstring), ctypes.c_int32]
     get_import_module_qty = _libraries['FIXME_STUB'].get_import_module_qty
     get_import_module_qty.restype = uint
     get_import_module_qty.argtypes = []
@@ -18569,31 +18591,31 @@ def ctypeslib_define():
     get_ind_purged.argtypes = [ea_t]
     get_initial_ida_version = _libraries['FIXME_STUB'].get_initial_ida_version
     get_initial_ida_version.restype = ssize_t
-    get_initial_ida_version.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_initial_ida_version.argtypes = [ctypes.POINTER(qstring)]
     get_initial_idb_version = _libraries['FIXME_STUB'].get_initial_idb_version
     get_initial_idb_version.restype = ushort
     get_initial_idb_version.argtypes = []
     get_innermost_member = _libraries['FIXME_STUB'].get_innermost_member
     get_innermost_member.restype = ctypes.POINTER(struct_member_t)
-    get_innermost_member.argtypes = [ctypes.POINTER(ctypes.POINTER(struct_struc_t)), ctypes.POINTER(ctypes.c_uint64)]
+    get_innermost_member.argtypes = [ctypes.POINTER(ctypes.POINTER(struct_struc_t)), ctypes.POINTER(asize_t)]
     get_input_file_path = _libraries['FIXME_STUB'].get_input_file_path
     get_input_file_path.restype = ssize_t
     get_input_file_path.argtypes = [ctypes.c_char_p, size_t]
     get_insn_tev_reg_mem = _libraries['FIXME_STUB'].get_insn_tev_reg_mem
     get_insn_tev_reg_mem.restype = ctypes.c_char
-    get_insn_tev_reg_mem.argtypes = [ctypes.c_int32, ctypes.POINTER(struct_qvector_memreg_info_t_)]
+    get_insn_tev_reg_mem.argtypes = [ctypes.c_int32, ctypes.POINTER(memreg_infos_t)]
     get_insn_tev_reg_result = _libraries['FIXME_STUB'].get_insn_tev_reg_result
     get_insn_tev_reg_result.restype = ctypes.c_char
-    get_insn_tev_reg_result.argtypes = [ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(ctypes.c_uint64)]
+    get_insn_tev_reg_result.argtypes = [ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(uint64)]
     get_insn_tev_reg_val = _libraries['FIXME_STUB'].get_insn_tev_reg_val
     get_insn_tev_reg_val.restype = ctypes.c_char
-    get_insn_tev_reg_val.argtypes = [ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(ctypes.c_uint64)]
+    get_insn_tev_reg_val.argtypes = [ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(uint64)]
     get_insn_trace_options = _libraries['FIXME_STUB'].get_insn_trace_options
     get_insn_trace_options.restype = ctypes.c_int32
     get_insn_trace_options.argtypes = []
     get_ip_val = _libraries['FIXME_STUB'].get_ip_val
     get_ip_val.restype = ctypes.c_char
-    get_ip_val.argtypes = [ctypes.POINTER(ctypes.c_uint64)]
+    get_ip_val.argtypes = [ctypes.POINTER(ea_t)]
     get_item_color = _libraries['FIXME_STUB'].get_item_color
     get_item_color.restype = bgcolor_t
     get_item_color.argtypes = [ea_t]
@@ -18635,7 +18657,7 @@ def ctypeslib_define():
     get_last_seg.argtypes = []
     get_last_serial_enum_member = _libraries['FIXME_STUB'].get_last_serial_enum_member
     get_last_serial_enum_member.restype = const_t
-    get_last_serial_enum_member.argtypes = [ctypes.POINTER(ctypes.c_ubyte), enum_t, uval_t, bmask_t]
+    get_last_serial_enum_member.argtypes = [ctypes.POINTER(uchar), enum_t, uval_t, bmask_t]
     get_last_struc_idx = _libraries['FIXME_STUB'].get_last_struc_idx
     get_last_struc_idx.restype = uval_t
     get_last_struc_idx.argtypes = []
@@ -18644,7 +18666,7 @@ def ctypeslib_define():
     get_linput_type.argtypes = [ctypes.POINTER(struct_linput_t)]
     get_loader_format_name = _libraries['FIXME_STUB'].get_loader_format_name
     get_loader_format_name.restype = ssize_t
-    get_loader_format_name.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_loader_format_name.argtypes = [ctypes.POINTER(qstring)]
     get_loader_name = _libraries['FIXME_STUB'].get_loader_name
     get_loader_name.restype = ssize_t
     get_loader_name.argtypes = [ctypes.c_char_p, size_t]
@@ -18653,10 +18675,10 @@ def ctypeslib_define():
     get_loader_name_from_dll.argtypes = [ctypes.c_char_p]
     get_local_var = _libraries['FIXME_STUB'].get_local_var
     get_local_var.restype = ctypes.c_char
-    get_local_var.argtypes = [ctypes.POINTER(struct_srcinfo_provider_t), ea_t, ctypes.c_char_p, ctypes.POINTER(struct_qrefcnt_t_source_item_t_)]
+    get_local_var.argtypes = [ctypes.POINTER(struct_srcinfo_provider_t), ea_t, ctypes.c_char_p, ctypes.POINTER(source_item_ptr)]
     get_local_vars = _libraries['FIXME_STUB'].get_local_vars
     get_local_vars.restype = ctypes.c_char
-    get_local_vars.argtypes = [ctypes.POINTER(struct_srcinfo_provider_t), ea_t, ctypes.POINTER(struct_qvector_qrefcnt_t_source_item_t__)]
+    get_local_vars.argtypes = [ctypes.POINTER(struct_srcinfo_provider_t), ea_t, ctypes.POINTER(source_items_t)]
     get_long_name = _libraries['FIXME_STUB'].get_long_name
     get_long_name.restype = qstring
     get_long_name.argtypes = [ea_t, ctypes.c_int32]
@@ -18668,13 +18690,13 @@ def ctypeslib_define():
     get_mangled_name_type.argtypes = [ctypes.c_char_p]
     get_manual_insn = _libraries['FIXME_STUB'].get_manual_insn
     get_manual_insn.restype = ssize_t
-    get_manual_insn.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t]
+    get_manual_insn.argtypes = [ctypes.POINTER(qstring), ea_t]
     get_manual_regions = _libraries['FIXME_STUB'].get_manual_regions
     get_manual_regions.restype = None
-    get_manual_regions.argtypes = [ctypes.POINTER(struct_qvector_memory_info_t_)]
+    get_manual_regions.argtypes = [ctypes.POINTER(meminfo_vec_t)]
     get_mapping = _libraries['FIXME_STUB'].get_mapping
     get_mapping.restype = ctypes.c_char
-    get_mapping.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_uint64), size_t]
+    get_mapping.argtypes = [ctypes.POINTER(ea_t), ctypes.POINTER(ea_t), ctypes.POINTER(asize_t), size_t]
     get_mappings_qty = _libraries['FIXME_STUB'].get_mappings_qty
     get_mappings_qty.restype = size_t
     get_mappings_qty.argtypes = []
@@ -18698,10 +18720,10 @@ def ctypeslib_define():
     get_member_by_name.argtypes = [ctypes.POINTER(struct_struc_t), ctypes.c_char_p]
     get_member_cmt = _libraries['FIXME_STUB'].get_member_cmt
     get_member_cmt.restype = ssize_t
-    get_member_cmt.argtypes = [ctypes.POINTER(struct__qstring_char_), tid_t, ctypes.c_char]
+    get_member_cmt.argtypes = [ctypes.POINTER(qstring), tid_t, ctypes.c_char]
     get_member_fullname = _libraries['FIXME_STUB'].get_member_fullname
     get_member_fullname.restype = ssize_t
-    get_member_fullname.argtypes = [ctypes.POINTER(struct__qstring_char_), tid_t]
+    get_member_fullname.argtypes = [ctypes.POINTER(qstring), tid_t]
     get_member_id = _libraries['FIXME_STUB'].get_member_id
     get_member_id.restype = tid_t
     get_member_id.argtypes = [ctypes.POINTER(struct_struc_t), asize_t]
@@ -18740,16 +18762,16 @@ def ctypeslib_define():
     get_name_ea.argtypes = [ea_t, ctypes.c_char_p]
     get_name_expr = _libraries['FIXME_STUB'].get_name_expr
     get_name_expr.restype = ssize_t
-    get_name_expr.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_int32, ea_t, uval_t, ctypes.c_int32]
+    get_name_expr.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_int32, ea_t, uval_t, ctypes.c_int32]
     get_name_value = _libraries['FIXME_STUB'].get_name_value
     get_name_value.restype = ctypes.c_int32
-    get_name_value.argtypes = [ctypes.POINTER(ctypes.c_uint64), ea_t, ctypes.c_char_p]
+    get_name_value.argtypes = [ctypes.POINTER(uval_t), ea_t, ctypes.c_char_p]
     get_named_type = _libraries['FIXME_STUB'].get_named_type
     get_named_type.restype = ctypes.c_int32
-    get_named_type.argtypes = [ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(sclass_t), ctypes.POINTER(ctypes.c_uint32)]
+    get_named_type.argtypes = [ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(ctypes.POINTER(type_t)), ctypes.POINTER(ctypes.POINTER(p_list)), ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.POINTER(p_list)), ctypes.POINTER(sclass_t), ctypes.POINTER(uint32)]
     get_named_type64 = _libraries['FIXME_STUB'].get_named_type64
     get_named_type64.restype = ctypes.c_int32
-    get_named_type64.argtypes = [ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(sclass_t), ctypes.POINTER(ctypes.c_uint64)]
+    get_named_type64.argtypes = [ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(ctypes.POINTER(type_t)), ctypes.POINTER(ctypes.POINTER(p_list)), ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.POINTER(p_list)), ctypes.POINTER(sclass_t), ctypes.POINTER(uint64)]
     get_navband_ea = _libraries['FIXME_STUB'].get_navband_ea
     get_navband_ea.restype = ea_t
     get_navband_ea.argtypes = [ctypes.c_int32]
@@ -18809,13 +18831,13 @@ def ctypeslib_define():
     get_next_seg.argtypes = [ea_t]
     get_next_serial_enum_member = _libraries['FIXME_STUB'].get_next_serial_enum_member
     get_next_serial_enum_member.restype = const_t
-    get_next_serial_enum_member.argtypes = [ctypes.POINTER(ctypes.c_ubyte), const_t]
+    get_next_serial_enum_member.argtypes = [ctypes.POINTER(uchar), const_t]
     get_next_struc_idx = _libraries['FIXME_STUB'].get_next_struc_idx
     get_next_struc_idx.restype = uval_t
     get_next_struc_idx.argtypes = [uval_t]
     get_nice_colored_name = _libraries['FIXME_STUB'].get_nice_colored_name
     get_nice_colored_name.restype = ssize_t
-    get_nice_colored_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_int32]
+    get_nice_colored_name.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_int32]
     get_nlist_ea = _libraries['FIXME_STUB'].get_nlist_ea
     get_nlist_ea.restype = ea_t
     get_nlist_ea.argtypes = [size_t]
@@ -18836,22 +18858,22 @@ def ctypeslib_define():
     get_nsec_stamp.argtypes = []
     get_numbered_type = _libraries['FIXME_STUB'].get_numbered_type
     get_numbered_type.restype = ctypes.c_char
-    get_numbered_type.argtypes = [ctypes.POINTER(struct_til_t), uint32, ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(sclass_t)]
+    get_numbered_type.argtypes = [ctypes.POINTER(struct_til_t), uint32, ctypes.POINTER(ctypes.POINTER(type_t)), ctypes.POINTER(ctypes.POINTER(p_list)), ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.POINTER(p_list)), ctypes.POINTER(sclass_t)]
     get_numbered_type_name = _libraries['FIXME_STUB'].get_numbered_type_name
     get_numbered_type_name.restype = ctypes.c_char_p
     get_numbered_type_name.argtypes = [ctypes.POINTER(struct_til_t), uint32]
     get_octet = _libraries['FIXME_STUB'].get_octet
     get_octet.restype = uchar
-    get_octet.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_int32)]
+    get_octet.argtypes = [ctypes.POINTER(ea_t), ctypes.POINTER(uint64), ctypes.POINTER(ctypes.c_int32)]
     get_offbase = _libraries['FIXME_STUB'].get_offbase
     get_offbase.restype = ea_t
     get_offbase.argtypes = [ea_t, ctypes.c_int32]
     get_offset_expr = _libraries['FIXME_STUB'].get_offset_expr
     get_offset_expr.restype = ctypes.c_int32
-    get_offset_expr.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_int32, ctypes.POINTER(struct_refinfo_t), ea_t, adiff_t, ctypes.c_int32]
+    get_offset_expr.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_int32, ctypes.POINTER(struct_refinfo_t), ea_t, adiff_t, ctypes.c_int32]
     get_offset_expression = _libraries['FIXME_STUB'].get_offset_expression
     get_offset_expression.restype = ctypes.c_int32
-    get_offset_expression.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_int32, ea_t, adiff_t, ctypes.c_int32]
+    get_offset_expression.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_int32, ea_t, adiff_t, ctypes.c_int32]
     get_op_tinfo = _libraries['FIXME_STUB'].get_op_tinfo
     get_op_tinfo.restype = ctypes.c_char
     get_op_tinfo.argtypes = [ctypes.POINTER(struct_tinfo_t), ea_t, ctypes.c_int32]
@@ -18872,7 +18894,7 @@ def ctypeslib_define():
     get_or_guess_member_tinfo.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct_member_t)]
     get_ordinal_from_idb_type = _libraries['FIXME_STUB'].get_ordinal_from_idb_type
     get_ordinal_from_idb_type.restype = ctypes.c_int32
-    get_ordinal_from_idb_type.argtypes = [ctypes.c_char_p, ctypes.POINTER(ctypes.c_ubyte)]
+    get_ordinal_from_idb_type.argtypes = [ctypes.c_char_p, ctypes.POINTER(type_t)]
     get_ordinal_qty = _libraries['FIXME_STUB'].get_ordinal_qty
     get_ordinal_qty.restype = uint32
     get_ordinal_qty.argtypes = [ctypes.POINTER(struct_til_t)]
@@ -18893,13 +18915,13 @@ def ctypeslib_define():
     get_outfile_encoding_idx.argtypes = []
     get_output_curline = _libraries['FIXME_STUB'].get_output_curline
     get_output_curline.restype = ctypes.c_char
-    get_output_curline.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char]
+    get_output_curline.argtypes = [ctypes.POINTER(qstring), ctypes.c_char]
     get_output_cursor = _libraries['FIXME_STUB'].get_output_cursor
     get_output_cursor.restype = ctypes.c_char
     get_output_cursor.argtypes = [ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_int32)]
     get_output_selected_text = _libraries['FIXME_STUB'].get_output_selected_text
     get_output_selected_text.restype = ctypes.c_char
-    get_output_selected_text.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_output_selected_text.argtypes = [ctypes.POINTER(qstring)]
     get_path = _libraries['FIXME_STUB'].get_path
     get_path.restype = ctypes.c_char_p
     get_path.argtypes = [path_type_t]
@@ -18923,7 +18945,7 @@ def ctypeslib_define():
     get_plugins.argtypes = []
     get_predef_insn_cmt = _libraries['FIXME_STUB'].get_predef_insn_cmt
     get_predef_insn_cmt.restype = ssize_t
-    get_predef_insn_cmt.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_insn_t)]
+    get_predef_insn_cmt.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_insn_t)]
     get_prev_bmask = _libraries['FIXME_STUB'].get_prev_bmask
     get_prev_bmask.restype = bmask_t
     get_prev_bmask.argtypes = [enum_t, bmask_t]
@@ -18953,7 +18975,7 @@ def ctypeslib_define():
     get_prev_seg.argtypes = [ea_t]
     get_prev_serial_enum_member = _libraries['FIXME_STUB'].get_prev_serial_enum_member
     get_prev_serial_enum_member.restype = const_t
-    get_prev_serial_enum_member.argtypes = [ctypes.POINTER(ctypes.c_ubyte), const_t]
+    get_prev_serial_enum_member.argtypes = [ctypes.POINTER(uchar), const_t]
     get_prev_sreg_range = _libraries['FIXME_STUB'].get_prev_sreg_range
     get_prev_sreg_range.restype = ctypes.c_char
     get_prev_sreg_range.argtypes = [ctypes.POINTER(struct_sreg_range_t), ea_t, ctypes.c_int32]
@@ -18962,25 +18984,25 @@ def ctypeslib_define():
     get_prev_struc_idx.argtypes = [uval_t]
     get_printable_immvals = _libraries['FIXME_STUB'].get_printable_immvals
     get_printable_immvals.restype = size_t
-    get_printable_immvals.argtypes = [ctypes.POINTER(ctypes.c_uint64), ea_t, ctypes.c_int32, flags_t, ctypes.POINTER(struct_insn_t)]
+    get_printable_immvals.argtypes = [ctypes.POINTER(uval_t), ea_t, ctypes.c_int32, flags_t, ctypes.POINTER(struct_insn_t)]
     get_problem = _libraries['FIXME_STUB'].get_problem
     get_problem.restype = ea_t
     get_problem.argtypes = [problist_id_t, ea_t]
     get_problem_desc = _libraries['FIXME_STUB'].get_problem_desc
     get_problem_desc.restype = ssize_t
-    get_problem_desc.argtypes = [ctypes.POINTER(struct__qstring_char_), problist_id_t, ea_t]
+    get_problem_desc.argtypes = [ctypes.POINTER(qstring), problist_id_t, ea_t]
     get_problem_name = _libraries['FIXME_STUB'].get_problem_name
     get_problem_name.restype = ctypes.c_char_p
     get_problem_name.argtypes = [problist_id_t, ctypes.c_char]
     get_process_options = _libraries['FIXME_STUB'].get_process_options
     get_process_options.restype = None
-    get_process_options.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(ctypes.c_int32)]
+    get_process_options.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(qstring), ctypes.POINTER(qstring), ctypes.POINTER(qstring), ctypes.POINTER(qstring), ctypes.POINTER(ctypes.c_int32)]
     get_process_state = _libraries['FIXME_STUB'].get_process_state
     get_process_state.restype = ctypes.c_int32
     get_process_state.argtypes = []
     get_processes = _libraries['FIXME_STUB'].get_processes
     get_processes.restype = ssize_t
-    get_processes.argtypes = [ctypes.POINTER(struct_qvector_process_info_t_)]
+    get_processes.argtypes = [ctypes.POINTER(procinfo_vec_t)]
     get_qerrno = _libraries['FIXME_STUB'].get_qerrno
     get_qerrno.restype = error_t
     get_qerrno.argtypes = []
@@ -18995,22 +19017,22 @@ def ctypeslib_define():
     get_refinfo.argtypes = [ctypes.POINTER(struct_refinfo_t), ea_t, ctypes.c_int32]
     get_refinfo_descs = _libraries['FIXME_STUB'].get_refinfo_descs
     get_refinfo_descs.restype = None
-    get_refinfo_descs.argtypes = [ctypes.POINTER(struct_qvector_refinfo_desc_t_)]
+    get_refinfo_descs.argtypes = [ctypes.POINTER(refinfo_desc_vec_t)]
     get_reftype_by_size = _libraries['FIXME_STUB'].get_reftype_by_size
     get_reftype_by_size.restype = reftype_t
     get_reftype_by_size.argtypes = [size_t]
     get_reg_name = _libraries['FIXME_STUB'].get_reg_name
     get_reg_name.restype = ssize_t
-    get_reg_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_int32, size_t, ctypes.c_int32]
+    get_reg_name.argtypes = [ctypes.POINTER(qstring), ctypes.c_int32, size_t, ctypes.c_int32]
     get_reg_val = _libraries['FIXME_STUB'].get_reg_val
     get_reg_val.restype = ctypes.c_char
-    get_reg_val.argtypes = [ctypes.c_char_p, ctypes.POINTER(ctypes.c_uint64)]
+    get_reg_val.argtypes = [ctypes.c_char_p, ctypes.POINTER(uint64)]
     get_reg_vals = _libraries['FIXME_STUB'].get_reg_vals
     get_reg_vals.restype = ctypes.c_int32
     get_reg_vals.argtypes = [thid_t, ctypes.c_int32, ctypes.POINTER(struct_regval_t)]
     get_registered_actions = _libraries['FIXME_STUB'].get_registered_actions
     get_registered_actions.restype = None
-    get_registered_actions.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__)]
+    get_registered_actions.argtypes = [ctypes.POINTER(qstrvec_t)]
     get_ret_tev_return = _libraries['FIXME_STUB'].get_ret_tev_return
     get_ret_tev_return.restype = ea_t
     get_ret_tev_return.argtypes = [ctypes.c_int32]
@@ -19037,13 +19059,13 @@ def ctypeslib_define():
     get_segm_by_sel.argtypes = [sel_t]
     get_segm_class = _libraries['FIXME_STUB'].get_segm_class
     get_segm_class.restype = ssize_t
-    get_segm_class.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_segment_t)]
+    get_segm_class.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_segment_t)]
     get_segm_expr = _libraries['FIXME_STUB'].get_segm_expr
     get_segm_expr.restype = ssize_t
-    get_segm_expr.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, sel_t]
+    get_segm_expr.argtypes = [ctypes.POINTER(qstring), ea_t, sel_t]
     get_segm_name = _libraries['FIXME_STUB'].get_segm_name
     get_segm_name.restype = ssize_t
-    get_segm_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_segment_t), ctypes.c_int32]
+    get_segm_name.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_segment_t), ctypes.c_int32]
     get_segm_num = _libraries['FIXME_STUB'].get_segm_num
     get_segm_num.restype = ctypes.c_int32
     get_segm_num.argtypes = [ea_t]
@@ -19058,13 +19080,13 @@ def ctypeslib_define():
     get_segment_alignment.argtypes = [uchar]
     get_segment_cmt = _libraries['FIXME_STUB'].get_segment_cmt
     get_segment_cmt.restype = ssize_t
-    get_segment_cmt.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_segment_t), ctypes.c_char]
+    get_segment_cmt.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_segment_t), ctypes.c_char]
     get_segment_combination = _libraries['FIXME_STUB'].get_segment_combination
     get_segment_combination.restype = ctypes.c_char_p
     get_segment_combination.argtypes = [uchar]
     get_segment_translations = _libraries['FIXME_STUB'].get_segment_translations
     get_segment_translations.restype = ssize_t
-    get_segment_translations.argtypes = [ctypes.POINTER(struct_qvector_unsigned_long_long_), ea_t]
+    get_segment_translations.argtypes = [ctypes.POINTER(eavec_t), ea_t]
     get_selector_qty = _libraries['FIXME_STUB'].get_selector_qty
     get_selector_qty.restype = size_t
     get_selector_qty.argtypes = []
@@ -19082,7 +19104,7 @@ def ctypeslib_define():
     get_sp_delta.argtypes = [ctypes.POINTER(struct_func_t), ea_t]
     get_sp_val = _libraries['FIXME_STUB'].get_sp_val
     get_sp_val.restype = ctypes.c_char
-    get_sp_val.argtypes = [ctypes.POINTER(ctypes.c_uint64)]
+    get_sp_val.argtypes = [ctypes.POINTER(ea_t)]
     get_spd = _libraries['FIXME_STUB'].get_spd
     get_spd.restype = sval_t
     get_spd.argtypes = [ctypes.POINTER(struct_func_t), ea_t]
@@ -19091,16 +19113,16 @@ def ctypeslib_define():
     get_special_folder.argtypes = [ctypes.c_char_p, size_t, ctypes.c_int32]
     get_spoiled_reg = _libraries['FIXME_STUB'].get_spoiled_reg
     get_spoiled_reg.restype = ctypes.c_int32
-    get_spoiled_reg.argtypes = [ctypes.POINTER(struct_insn_t), ctypes.POINTER(ctypes.c_uint32), size_t]
+    get_spoiled_reg.argtypes = [ctypes.POINTER(struct_insn_t), ctypes.POINTER(uint32), size_t]
     get_sptr = _libraries['FIXME_STUB'].get_sptr
     get_sptr.restype = ctypes.POINTER(struct_struc_t)
     get_sptr.argtypes = [ctypes.POINTER(struct_member_t)]
     get_srcdbg_paths = _libraries['FIXME_STUB'].get_srcdbg_paths
     get_srcdbg_paths.restype = ssize_t
-    get_srcdbg_paths.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_srcdbg_paths.argtypes = [ctypes.POINTER(qstring)]
     get_srcdbg_undesired_paths = _libraries['FIXME_STUB'].get_srcdbg_undesired_paths
     get_srcdbg_undesired_paths.restype = ssize_t
-    get_srcdbg_undesired_paths.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    get_srcdbg_undesired_paths.argtypes = [ctypes.POINTER(qstring)]
     get_srcinfo_provider = _libraries['FIXME_STUB'].get_srcinfo_provider
     get_srcinfo_provider.restype = ctypes.POINTER(struct_srcinfo_provider_t)
     get_srcinfo_provider.argtypes = [ctypes.c_char_p]
@@ -19124,7 +19146,7 @@ def ctypeslib_define():
     get_step_trace_options.argtypes = []
     get_stkvar = _libraries['FIXME_STUB'].get_stkvar
     get_stkvar.restype = ctypes.POINTER(struct_member_t)
-    get_stkvar.argtypes = [ctypes.POINTER(ctypes.c_int64), ctypes.POINTER(struct_insn_t), ctypes.POINTER(struct_op_t), sval_t]
+    get_stkvar.argtypes = [ctypes.POINTER(sval_t), ctypes.POINTER(struct_insn_t), ctypes.POINTER(struct_op_t), sval_t]
     get_stock_tinfo = _libraries['FIXME_STUB'].get_stock_tinfo
     get_stock_tinfo.restype = ctypes.c_char
     get_stock_tinfo.argtypes = [ctypes.POINTER(struct_tinfo_t), stock_type_id_t]
@@ -19160,10 +19182,10 @@ def ctypeslib_define():
     get_strlist_qty.argtypes = []
     get_strlit_contents = _libraries['FIXME_STUB'].get_strlit_contents
     get_strlit_contents.restype = ssize_t
-    get_strlit_contents.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, size_t, int32, ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32]
+    get_strlit_contents.argtypes = [ctypes.POINTER(qstring), ea_t, size_t, int32, ctypes.POINTER(size_t), ctypes.c_int32]
     get_stroff_path = _libraries['FIXME_STUB'].get_stroff_path
     get_stroff_path.restype = ctypes.c_int32
-    get_stroff_path.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_int64), ea_t, ctypes.c_int32]
+    get_stroff_path.argtypes = [ctypes.POINTER(tid_t), ctypes.POINTER(adiff_t), ea_t, ctypes.c_int32]
     get_strtype_bpu = _libraries['FIXME_STUB'].get_strtype_bpu
     get_strtype_bpu.restype = ctypes.c_int32
     get_strtype_bpu.argtypes = [int32]
@@ -19175,7 +19197,7 @@ def ctypeslib_define():
     get_struc_by_idx.argtypes = [uval_t]
     get_struc_cmt = _libraries['FIXME_STUB'].get_struc_cmt
     get_struc_cmt.restype = ssize_t
-    get_struc_cmt.argtypes = [ctypes.POINTER(struct__qstring_char_), tid_t, ctypes.c_char]
+    get_struc_cmt.argtypes = [ctypes.POINTER(qstring), tid_t, ctypes.c_char]
     get_struc_first_offset = _libraries['FIXME_STUB'].get_struc_first_offset
     get_struc_first_offset.restype = ea_t
     get_struc_first_offset.argtypes = [ctypes.POINTER(struct_struc_t)]
@@ -19205,7 +19227,7 @@ def ctypeslib_define():
     get_struc_size.argtypes = [tid_t]
     get_struct_operand = _libraries['FIXME_STUB'].get_struct_operand
     get_struct_operand.restype = ctypes.c_int32
-    get_struct_operand.argtypes = [ctypes.POINTER(ctypes.c_int64), ctypes.POINTER(ctypes.c_int64), ctypes.POINTER(ctypes.c_uint64), ea_t, ctypes.c_int32]
+    get_struct_operand.argtypes = [ctypes.POINTER(adiff_t), ctypes.POINTER(adiff_t), ctypes.POINTER(tid_t), ea_t, ctypes.c_int32]
     get_switch_info = _libraries['FIXME_STUB'].get_switch_info
     get_switch_info.restype = ssize_t
     get_switch_info.argtypes = [ctypes.POINTER(struct_switch_info_t), ea_t]
@@ -19232,7 +19254,7 @@ def ctypeslib_define():
     get_tev_info.argtypes = [ctypes.c_int32, ctypes.POINTER(struct_tev_info_t)]
     get_tev_memory_info = _libraries['FIXME_STUB'].get_tev_memory_info
     get_tev_memory_info.restype = ctypes.c_char
-    get_tev_memory_info.argtypes = [ctypes.c_int32, ctypes.POINTER(struct_qvector_memory_info_t_)]
+    get_tev_memory_info.argtypes = [ctypes.c_int32, ctypes.POINTER(meminfo_vec_t)]
     get_tev_qty = _libraries['FIXME_STUB'].get_tev_qty
     get_tev_qty.restype = ctypes.c_int32
     get_tev_qty.argtypes = []
@@ -19250,10 +19272,10 @@ def ctypeslib_define():
     get_tinfo.argtypes = [ctypes.POINTER(struct_tinfo_t), ea_t]
     get_tinfo_attr = _libraries['FIXME_STUB'].get_tinfo_attr
     get_tinfo_attr.restype = ctypes.c_char
-    get_tinfo_attr.argtypes = [uint32, ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_bytevec_t), ctypes.c_char]
+    get_tinfo_attr.argtypes = [uint32, ctypes.POINTER(qstring), ctypes.POINTER(struct_bytevec_t), ctypes.c_char]
     get_tinfo_attrs = _libraries['FIXME_STUB'].get_tinfo_attrs
     get_tinfo_attrs.restype = ctypes.c_char
-    get_tinfo_attrs.argtypes = [uint32, ctypes.POINTER(struct_qvector_type_attr_t_), ctypes.c_char]
+    get_tinfo_attrs.argtypes = [uint32, ctypes.POINTER(type_attrs_t), ctypes.c_char]
     get_tinfo_details = _libraries['FIXME_STUB'].get_tinfo_details
     get_tinfo_details.restype = ctypes.c_char
     get_tinfo_details.argtypes = [uint32, type_t, ctypes.POINTER(None)]
@@ -19265,10 +19287,10 @@ def ctypeslib_define():
     get_tinfo_property.argtypes = [uint32, ctypes.c_int32]
     get_tinfo_size = _libraries['FIXME_STUB'].get_tinfo_size
     get_tinfo_size.restype = size_t
-    get_tinfo_size.argtypes = [ctypes.POINTER(ctypes.c_uint32), uint32, ctypes.c_int32]
+    get_tinfo_size.argtypes = [ctypes.POINTER(uint32), uint32, ctypes.c_int32]
     get_token = _libraries['FIXME_STUB'].get_token
     get_token.restype = ctypes.c_char
-    get_token.argtypes = [ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_qstack_token_t_)]
+    get_token.argtypes = [ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_lexer_t), ctypes.POINTER(tokenstack_t)]
     get_trace_base_address = _libraries['FIXME_STUB'].get_trace_base_address
     get_trace_base_address.restype = ea_t
     get_trace_base_address.argtypes = []
@@ -19277,13 +19299,13 @@ def ctypeslib_define():
     get_trace_dynamic_register_set.argtypes = [ctypes.POINTER(struct_dynamic_register_set_t)]
     get_trace_file_desc = _libraries['FIXME_STUB'].get_trace_file_desc
     get_trace_file_desc.restype = ctypes.c_char
-    get_trace_file_desc.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p]
+    get_trace_file_desc.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p]
     get_trace_platform = _libraries['FIXME_STUB'].get_trace_platform
     get_trace_platform.restype = ctypes.c_char_p
     get_trace_platform.argtypes = []
     get_tryblks = _libraries['FIXME_STUB'].get_tryblks
     get_tryblks.restype = size_t
-    get_tryblks.argtypes = [ctypes.POINTER(struct_qvector_tryblk_t_), ctypes.POINTER(struct_range_t)]
+    get_tryblks.argtypes = [ctypes.POINTER(tryblks_t), ctypes.POINTER(struct_range_t)]
     get_type_flags = _libraries['FIXME_STUB'].get_type_flags
     get_type_flags.restype = type_t
     get_type_flags.argtypes = [type_t]
@@ -19319,7 +19341,7 @@ def ctypeslib_define():
     get_view_renderer_type.argtypes = [ctypes.POINTER(struct_TWidget)]
     get_viewer_graph = _libraries['FIXME_STUB'].get_viewer_graph
     get_viewer_graph.restype = ctypes.POINTER(struct_mutable_graph_t)
-    get_viewer_graph.argtypes = [ctypes.POINTER(struct_TWidget)]
+    get_viewer_graph.argtypes = [ctypes.POINTER(graph_viewer_t)]
     get_viewer_place_type = _libraries['FIXME_STUB'].get_viewer_place_type
     get_viewer_place_type.restype = tcc_place_type_t
     get_viewer_place_type.argtypes = [ctypes.POINTER(struct_TWidget)]
@@ -19331,7 +19353,7 @@ def ctypeslib_define():
     get_visible_name.argtypes = [ea_t, ctypes.c_int32]
     get_visible_segm_name = _libraries['FIXME_STUB'].get_visible_segm_name
     get_visible_segm_name.restype = ssize_t
-    get_visible_segm_name.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_segment_t)]
+    get_visible_segm_name.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_segment_t)]
     get_wide_byte = _libraries['FIXME_STUB'].get_wide_byte
     get_wide_byte.restype = uint64
     get_wide_byte.argtypes = [ea_t]
@@ -19343,7 +19365,7 @@ def ctypeslib_define():
     get_wide_word.argtypes = [ea_t]
     get_widget_title = _libraries['FIXME_STUB'].get_widget_title
     get_widget_title.restype = ctypes.c_char
-    get_widget_title.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_TWidget)]
+    get_widget_title.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_TWidget)]
     get_widget_type = _libraries['FIXME_STUB'].get_widget_type
     get_widget_type.restype = twidget_type_t
     get_widget_type.argtypes = [ctypes.POINTER(struct_TWidget)]
@@ -19361,7 +19383,7 @@ def ctypeslib_define():
     get_zero_ranges.argtypes = [ctypes.POINTER(struct_rangeset_t), ctypes.POINTER(struct_range_t)]
     getc = _libraries['FIXME_STUB'].getc
     getc.restype = ctypes.c_int32
-    getc.argtypes = [ctypes.POINTER(struct__iobuf)]
+    getc.argtypes = [ctypes.POINTER(FILE)]
     getchar = _libraries['FIXME_STUB'].getchar
     getchar.restype = ctypes.c_int32
     getchar.argtypes = []
@@ -19373,7 +19395,7 @@ def ctypeslib_define():
     getenv.argtypes = [ctypes.c_char_p]
     getenv_s = _libraries['FIXME_STUB'].getenv_s
     getenv_s.restype = errno_t
-    getenv_s.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p, rsize_t, ctypes.c_char_p]
+    getenv_s.argtypes = [ctypes.POINTER(size_t), ctypes.c_char_p, rsize_t, ctypes.c_char_p]
     getinf = _libraries['FIXME_STUB'].getinf
     getinf.restype = size_t
     getinf.argtypes = [inftag_t]
@@ -19385,7 +19407,7 @@ def ctypeslib_define():
     getinf_flag.argtypes = [inftag_t, uint32]
     getinf_str = _libraries['FIXME_STUB'].getinf_str
     getinf_str.restype = ssize_t
-    getinf_str.argtypes = [ctypes.POINTER(struct__qstring_char_), inftag_t]
+    getinf_str.argtypes = [ctypes.POINTER(qstring), inftag_t]
     getn_bpt = _libraries['FIXME_STUB'].getn_bpt
     getn_bpt.restype = ctypes.c_char
     getn_bpt.argtypes = [ctypes.c_int32, ctypes.POINTER(struct_bpt_t)]
@@ -19403,7 +19425,7 @@ def ctypeslib_define():
     getn_hidden_range.argtypes = [ctypes.c_int32]
     getn_selector = _libraries['FIXME_STUB'].getn_selector
     getn_selector.restype = ctypes.c_char
-    getn_selector.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32]
+    getn_selector.argtypes = [ctypes.POINTER(sel_t), ctypes.POINTER(ea_t), ctypes.c_int32]
     getn_sreg_range = _libraries['FIXME_STUB'].getn_sreg_range
     getn_sreg_range.restype = ctypes.c_char
     getn_sreg_range.argtypes = [ctypes.POINTER(struct_sreg_range_t), ctypes.c_int32, ctypes.c_int32]
@@ -19430,10 +19452,10 @@ def ctypeslib_define():
     getsysfile.argtypes = [ctypes.c_char_p, size_t, ctypes.c_char_p, ctypes.c_char_p]
     getw = _libraries['FIXME_STUB'].getw
     getw.restype = ctypes.c_int32
-    getw.argtypes = [ctypes.POINTER(struct__iobuf)]
+    getw.argtypes = [ctypes.POINTER(FILE)]
     getwc = _libraries['FIXME_STUB'].getwc
     getwc.restype = wint_t
-    getwc.argtypes = [ctypes.POINTER(struct__iobuf)]
+    getwc.argtypes = [ctypes.POINTER(FILE)]
     getwchar = _libraries['FIXME_STUB'].getwchar
     getwchar.restype = wint_t
     getwchar.argtypes = []
@@ -19451,7 +19473,7 @@ def ctypeslib_define():
     guess_tinfo.argtypes = [ctypes.POINTER(struct_tinfo_t), tid_t]
     h2ti = _libraries['FIXME_STUB'].h2ti
     h2ti.restype = ctypes.c_int32
-    h2ti.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(struct_lexer_t), ctypes.c_char_p, ctypes.c_int32, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p, ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(None)), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p, ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(None)), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_char_p), ctypes.POINTER(None), abs_t]
+    h2ti.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(struct_lexer_t), ctypes.c_char_p, ctypes.c_int32, h2ti_type_cb, h2ti_type_cb, printer_t, ctypes.POINTER(None), abs_t]
     handle_debug_event = _libraries['FIXME_STUB'].handle_debug_event
     handle_debug_event.restype = ctypes.c_int32
     handle_debug_event.argtypes = [ctypes.POINTER(struct_debug_event_t), ctypes.c_int32]
@@ -19559,7 +19581,7 @@ def ctypeslib_define():
     hexplace_t__copyfrom.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(struct_place_t)]
     hexplace_t__deserialize = _libraries['FIXME_STUB'].hexplace_t__deserialize
     hexplace_t__deserialize.restype = ctypes.c_char
-    hexplace_t__deserialize.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    hexplace_t__deserialize.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     hexplace_t__ea2str = _libraries['FIXME_STUB'].hexplace_t__ea2str
     hexplace_t__ea2str.restype = size_t
     hexplace_t__ea2str.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(struct_hexplace_gen_t), ea_t]
@@ -19568,10 +19590,10 @@ def ctypeslib_define():
     hexplace_t__ending.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(None)]
     hexplace_t__enter = _libraries['FIXME_STUB'].hexplace_t__enter
     hexplace_t__enter.restype = ctypes.POINTER(struct_place_t)
-    hexplace_t__enter.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(ctypes.c_uint32)]
+    hexplace_t__enter.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(uint32)]
     hexplace_t__generate = _libraries['FIXME_STUB'].hexplace_t__generate
     hexplace_t__generate.restype = ctypes.c_int32
-    hexplace_t__generate.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(struct_qvector__qstring_char__), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_uint32), ctypes.POINTER(None), ctypes.c_int32]
+    hexplace_t__generate.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(qstrvec_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(color_t), ctypes.POINTER(bgcolor_t), ctypes.POINTER(None), ctypes.c_int32]
     hexplace_t__id = _libraries['FIXME_STUB'].hexplace_t__id
     hexplace_t__id.restype = ctypes.c_int32
     hexplace_t__id.argtypes = [ctypes.POINTER(struct_hexplace_t)]
@@ -19589,13 +19611,13 @@ def ctypeslib_define():
     hexplace_t__next.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(None)]
     hexplace_t__out_one_item = _libraries['FIXME_STUB'].hexplace_t__out_one_item
     hexplace_t__out_one_item.restype = None
-    hexplace_t__out_one_item.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(struct_outctx_base_t), ctypes.POINTER(struct_hexplace_gen_t), ctypes.c_int32, ctypes.POINTER(ctypes.c_ubyte), color_t]
+    hexplace_t__out_one_item.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(struct_outctx_base_t), ctypes.POINTER(struct_hexplace_gen_t), ctypes.c_int32, ctypes.POINTER(color_t), color_t]
     hexplace_t__prev = _libraries['FIXME_STUB'].hexplace_t__prev
     hexplace_t__prev.restype = ctypes.c_char
     hexplace_t__prev.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(None)]
     hexplace_t__print = _libraries['FIXME_STUB'].hexplace_t__print
     hexplace_t__print.restype = None
-    hexplace_t__print.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(None)]
+    hexplace_t__print.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(qstring), ctypes.POINTER(None)]
     hexplace_t__rebase = _libraries['FIXME_STUB'].hexplace_t__rebase
     hexplace_t__rebase.restype = ctypes.c_char
     hexplace_t__rebase.argtypes = [ctypes.POINTER(struct_hexplace_t), ctypes.POINTER(struct_segm_move_infos_t)]
@@ -19625,13 +19647,13 @@ def ctypeslib_define():
     hide_wait_box.argtypes = []
     high = _libraries['FIXME_STUB'].high
     high.restype = int32
-    high.argtypes = [ctypes.POINTER(ctypes.c_int64)]
+    high.argtypes = [ctypes.POINTER(longlong)]
     hook_event_listener = _libraries['FIXME_STUB'].hook_event_listener
     hook_event_listener.restype = ctypes.c_char
     hook_event_listener.argtypes = [hook_type_t, ctypes.POINTER(struct_event_listener_t), ctypes.POINTER(None), ctypes.c_int32]
     hook_to_notification_point = _libraries['FIXME_STUB'].hook_to_notification_point
     hook_to_notification_point.restype = ctypes.c_char
-    hook_to_notification_point.argtypes = [hook_type_t, ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.c_char_p), ctypes.POINTER(None)]
+    hook_to_notification_point.argtypes = [hook_type_t, hook_cb_t, ctypes.POINTER(None)]
     hypot = _libraries['FIXME_STUB'].hypot
     hypot.restype = ctypes.c_double
     hypot.argtypes = [ctypes.c_double, ctypes.c_double]
@@ -19670,16 +19692,16 @@ def ctypeslib_define():
     idaplace_t__copyfrom.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(struct_place_t)]
     idaplace_t__deserialize = _libraries['FIXME_STUB'].idaplace_t__deserialize
     idaplace_t__deserialize.restype = ctypes.c_char
-    idaplace_t__deserialize.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    idaplace_t__deserialize.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     idaplace_t__ending = _libraries['FIXME_STUB'].idaplace_t__ending
     idaplace_t__ending.restype = ctypes.c_char
     idaplace_t__ending.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(None)]
     idaplace_t__enter = _libraries['FIXME_STUB'].idaplace_t__enter
     idaplace_t__enter.restype = ctypes.POINTER(struct_place_t)
-    idaplace_t__enter.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(ctypes.c_uint32)]
+    idaplace_t__enter.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(uint32)]
     idaplace_t__generate = _libraries['FIXME_STUB'].idaplace_t__generate
     idaplace_t__generate.restype = ctypes.c_int32
-    idaplace_t__generate.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(struct_qvector__qstring_char__), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_uint32), ctypes.POINTER(None), ctypes.c_int32]
+    idaplace_t__generate.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(qstrvec_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(color_t), ctypes.POINTER(bgcolor_t), ctypes.POINTER(None), ctypes.c_int32]
     idaplace_t__id = _libraries['FIXME_STUB'].idaplace_t__id
     idaplace_t__id.restype = ctypes.c_int32
     idaplace_t__id.argtypes = [ctypes.POINTER(struct_idaplace_t)]
@@ -19700,7 +19722,7 @@ def ctypeslib_define():
     idaplace_t__prev.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(None)]
     idaplace_t__print = _libraries['FIXME_STUB'].idaplace_t__print
     idaplace_t__print.restype = None
-    idaplace_t__print.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(None)]
+    idaplace_t__print.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(qstring), ctypes.POINTER(None)]
     idaplace_t__rebase = _libraries['FIXME_STUB'].idaplace_t__rebase
     idaplace_t__rebase.restype = ctypes.c_char
     idaplace_t__rebase.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(struct_segm_move_infos_t)]
@@ -19715,7 +19737,7 @@ def ctypeslib_define():
     idaplace_t__touval.argtypes = [ctypes.POINTER(struct_idaplace_t), ctypes.POINTER(None)]
     idb_utf8 = _libraries['FIXME_STUB'].idb_utf8
     idb_utf8.restype = ctypes.c_char
-    idb_utf8.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32]
+    idb_utf8.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32]
     idcv_float = _libraries['FIXME_STUB'].idcv_float
     idcv_float.restype = error_t
     idcv_float.argtypes = [ctypes.POINTER(struct_idc_value_t)]
@@ -19758,7 +19780,7 @@ def ctypeslib_define():
     ilogbl.argtypes = [ctypes.c_double]
     import_module = _libraries['FIXME_STUB'].import_module
     import_module.restype = None
-    import_module.argtypes = [ctypes.c_char_p, ctypes.c_char_p, uval_t, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_linput_t), ctypes.POINTER(struct_impinfo_t)), ctypes.c_char_p]
+    import_module.argtypes = [ctypes.c_char_p, ctypes.c_char_p, uval_t, importer_t, ctypes.c_char_p]
     import_type = _libraries['FIXME_STUB'].import_type
     import_type.restype = tid_t
     import_type.argtypes = [ctypes.POINTER(struct_til_t), ctypes.c_int32, ctypes.c_char_p, ctypes.c_int32]
@@ -20857,10 +20879,10 @@ def ctypeslib_define():
     internal_cleanup_appcall.argtypes = [thid_t]
     internal_get_sreg_base = _libraries['FIXME_STUB'].internal_get_sreg_base
     internal_get_sreg_base.restype = ctypes.c_int32
-    internal_get_sreg_base.argtypes = [ctypes.POINTER(ctypes.c_uint64), thid_t, ctypes.c_int32]
+    internal_get_sreg_base.argtypes = [ctypes.POINTER(ea_t), thid_t, ctypes.c_int32]
     internal_ioctl = _libraries['FIXME_STUB'].internal_ioctl
     internal_ioctl.restype = ctypes.c_int32
-    internal_ioctl.argtypes = [ctypes.c_int32, ctypes.POINTER(None), size_t, ctypes.POINTER(ctypes.POINTER(None)), ctypes.POINTER(ctypes.c_int64)]
+    internal_ioctl.argtypes = [ctypes.c_int32, ctypes.POINTER(None), size_t, ctypes.POINTER(ctypes.POINTER(None)), ctypes.POINTER(ssize_t)]
     internal_register_place_class = _libraries['FIXME_STUB'].internal_register_place_class
     internal_register_place_class.restype = ctypes.c_int32
     internal_register_place_class.argtypes = [ctypes.POINTER(struct_place_t), ctypes.c_int32, ctypes.POINTER(struct_plugin_t), ctypes.c_int32]
@@ -21330,7 +21352,7 @@ def ctypeslib_define():
     is_one_bit_mask.argtypes = [bmask_t]
     is_ordinal_name = _libraries['FIXME_STUB'].is_ordinal_name
     is_ordinal_name.restype = ctypes.c_char
-    is_ordinal_name.argtypes = [ctypes.c_char_p, ctypes.POINTER(ctypes.c_uint32)]
+    is_ordinal_name.argtypes = [ctypes.c_char_p, ctypes.POINTER(uint32)]
     is_oword = _libraries['FIXME_STUB'].is_oword
     is_oword.restype = ctypes.c_char
     is_oword.argtypes = [flags_t]
@@ -21378,16 +21400,16 @@ def ctypeslib_define():
     is_request_running.argtypes = []
     is_restype_enum = _libraries['FIXME_STUB'].is_restype_enum
     is_restype_enum.restype = ctypes.c_char
-    is_restype_enum.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(ctypes.c_ubyte)]
+    is_restype_enum.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(type_t)]
     is_restype_struct = _libraries['FIXME_STUB'].is_restype_struct
     is_restype_struct.restype = ctypes.c_char
-    is_restype_struct.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(ctypes.c_ubyte)]
+    is_restype_struct.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(type_t)]
     is_restype_struni = _libraries['FIXME_STUB'].is_restype_struni
     is_restype_struni.restype = ctypes.c_char
-    is_restype_struni.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(ctypes.c_ubyte)]
+    is_restype_struni.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(type_t)]
     is_restype_void = _libraries['FIXME_STUB'].is_restype_void
     is_restype_void.restype = ctypes.c_char
-    is_restype_void.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(ctypes.c_ubyte)]
+    is_restype_void.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(type_t)]
     is_ret_block = _libraries['FIXME_STUB'].is_ret_block
     is_ret_block.restype = ctypes.c_char
     is_ret_block.argtypes = [fc_block_type_t]
@@ -21444,7 +21466,7 @@ def ctypeslib_define():
     is_strlit.argtypes = [flags_t]
     is_strlit_cp = _libraries['FIXME_STUB'].is_strlit_cp
     is_strlit_cp.restype = ctypes.c_char
-    is_strlit_cp.argtypes = [wchar32_t, ctypes.POINTER(struct_qvector_const_rangeset_t__P_)]
+    is_strlit_cp.argtypes = [wchar32_t, ctypes.POINTER(rangeset_crefvec_t)]
     is_stroff = _libraries['FIXME_STUB'].is_stroff
     is_stroff.restype = ctypes.c_char
     is_stroff.argtypes = [flags_t, ctypes.c_int32]
@@ -21657,7 +21679,7 @@ def ctypeslib_define():
     is_varmember.argtypes = [ctypes.POINTER(struct_member_t)]
     is_varsize_item = _libraries['FIXME_STUB'].is_varsize_item
     is_varsize_item.restype = ctypes.c_int32
-    is_varsize_item.argtypes = [ea_t, flags_t, ctypes.POINTER(union_opinfo_t), ctypes.POINTER(ctypes.c_uint64)]
+    is_varsize_item.argtypes = [ea_t, flags_t, ctypes.POINTER(union_opinfo_t), ctypes.POINTER(asize_t)]
     is_varstr = _libraries['FIXME_STUB'].is_varstr
     is_varstr.restype = ctypes.c_char
     is_varstr.argtypes = [tid_t]
@@ -21780,7 +21802,7 @@ def ctypeslib_define():
     isxdigit.argtypes = [ctypes.c_int32]
     iterate_func_chunks = _libraries['FIXME_STUB'].iterate_func_chunks
     iterate_func_chunks.restype = None
-    iterate_func_chunks.argtypes = [ctypes.POINTER(struct_func_t), ctypes.CFUNCTYPE(None, ctypes.c_uint64, ctypes.c_uint64, ctypes.POINTER(None)), ctypes.POINTER(None), ctypes.c_char]
+    iterate_func_chunks.argtypes = [ctypes.POINTER(struct_func_t), ctypes.CFUNCTYPE(None, ea_t, ea_t, ctypes.POINTER(None)), ctypes.POINTER(None), ctypes.c_char]
     itext = _libraries['FIXME_STUB'].itext
     itext.restype = ctypes.c_char_p
     itext.argtypes = [help_t]
@@ -21825,7 +21847,7 @@ def ctypeslib_define():
     last_idcv_attr.argtypes = [ctypes.POINTER(struct_idc_value_t)]
     launch_process = _libraries['FIXME_STUB'].launch_process
     launch_process.restype = ctypes.POINTER(None)
-    launch_process.argtypes = [ctypes.POINTER(struct_launch_process_params_t), ctypes.POINTER(struct__qstring_char_)]
+    launch_process.argtypes = [ctypes.POINTER(struct_launch_process_params_t), ctypes.POINTER(qstring)]
     ldexp = _libraries['FIXME_STUB'].ldexp
     ldexp.restype = ctypes.c_double
     ldexp.argtypes = [ctypes.c_double, ctypes.c_int32]
@@ -21847,13 +21869,13 @@ def ctypeslib_define():
     lex_define_macro.argtypes = [ctypes.POINTER(struct_lexer_t), ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32, ctypes.c_char]
     lex_get_file_line = _libraries['FIXME_STUB'].lex_get_file_line
     lex_get_file_line.restype = ctypes.c_char_p
-    lex_get_file_line.argtypes = [ctypes.POINTER(struct_lexer_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_char_p), ctypes.c_int32]
+    lex_get_file_line.argtypes = [ctypes.POINTER(struct_lexer_t), ctypes.POINTER(int32), ctypes.POINTER(ctypes.c_char_p), ctypes.c_int32]
     lex_get_token = _libraries['FIXME_STUB'].lex_get_token
     lex_get_token.restype = error_t
     lex_get_token.argtypes = [ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t)]
     lex_get_token2 = _libraries['FIXME_STUB'].lex_get_token2
     lex_get_token2.restype = error_t
-    lex_get_token2.argtypes = [ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(ctypes.c_int32)]
+    lex_get_token2.argtypes = [ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(int32)]
     lex_init_file = _libraries['FIXME_STUB'].lex_init_file
     lex_init_file.restype = error_t
     lex_init_file.argtypes = [ctypes.POINTER(struct_lexer_t), ctypes.c_char_p]
@@ -21862,7 +21884,7 @@ def ctypeslib_define():
     lex_init_string.argtypes = [ctypes.POINTER(struct_lexer_t), ctypes.c_char_p, ctypes.POINTER(None)]
     lex_print_token = _libraries['FIXME_STUB'].lex_print_token
     lex_print_token.restype = ctypes.c_char_p
-    lex_print_token.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_token_t)]
+    lex_print_token.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_token_t)]
     lex_set_options = _libraries['FIXME_STUB'].lex_set_options
     lex_set_options.restype = ctypes.c_int32
     lex_set_options.argtypes = [ctypes.POINTER(struct_lexer_t), ctypes.c_int32]
@@ -21894,7 +21916,7 @@ def ctypeslib_define():
     linearray_t_ctr.restype = None
     linearray_t_ctr.argtypes = [ctypes.POINTER(struct_linearray_t), ctypes.POINTER(None)]
     linearray_t_down = _libraries['FIXME_STUB'].linearray_t_down
-    linearray_t_down.restype = ctypes.POINTER(struct__qstring_char_)
+    linearray_t_down.restype = ctypes.POINTER(qstring)
     linearray_t_down.argtypes = [ctypes.POINTER(struct_linearray_t)]
     linearray_t_dtr = _libraries['FIXME_STUB'].linearray_t_dtr
     linearray_t_dtr.restype = None
@@ -21906,11 +21928,11 @@ def ctypeslib_define():
     linearray_t_set_place.restype = ctypes.c_int32
     linearray_t_set_place.argtypes = [ctypes.POINTER(struct_linearray_t), ctypes.POINTER(struct_place_t)]
     linearray_t_up = _libraries['FIXME_STUB'].linearray_t_up
-    linearray_t_up.restype = ctypes.POINTER(struct__qstring_char_)
+    linearray_t_up.restype = ctypes.POINTER(qstring)
     linearray_t_up.argtypes = [ctypes.POINTER(struct_linearray_t)]
     list_bptgrps = _libraries['FIXME_STUB'].list_bptgrps
     list_bptgrps.restype = size_t
-    list_bptgrps.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__)]
+    list_bptgrps.argtypes = [ctypes.POINTER(qstrvec_t)]
     llabs = _libraries['FIXME_STUB'].llabs
     llabs.restype = ctypes.c_int64
     llabs.argtypes = [ctypes.c_int64]
@@ -21973,19 +21995,19 @@ def ctypeslib_define():
     load_plugin.argtypes = [ctypes.c_char_p]
     load_til = _libraries['FIXME_STUB'].load_til
     load_til.restype = ctypes.POINTER(struct_til_t)
-    load_til.argtypes = [ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p]
+    load_til.argtypes = [ctypes.c_char_p, ctypes.POINTER(qstring), ctypes.c_char_p]
     load_til_header = _libraries['FIXME_STUB'].load_til_header
     load_til_header.restype = ctypes.POINTER(struct_til_t)
-    load_til_header.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_)]
+    load_til_header.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.POINTER(qstring)]
     load_trace_file = _libraries['FIXME_STUB'].load_trace_file
     load_trace_file.restype = ctypes.c_char
-    load_trace_file.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p]
+    load_trace_file.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p]
     loader_failure = _libraries['FIXME_STUB'].loader_failure
     loader_failure.restype = None
     loader_failure.argtypes = [ctypes.c_char_p]
     lochist_entry_t_deserialize = _libraries['FIXME_STUB'].lochist_entry_t_deserialize
     lochist_entry_t_deserialize.restype = ctypes.c_char
-    lochist_entry_t_deserialize.argtypes = [ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(struct_place_t)]
+    lochist_entry_t_deserialize.argtypes = [ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar), ctypes.POINTER(struct_place_t)]
     lochist_entry_t_serialize = _libraries['FIXME_STUB'].lochist_entry_t_serialize
     lochist_entry_t_serialize.restype = None
     lochist_entry_t_serialize.argtypes = [ctypes.POINTER(struct_bytevec_t), ctypes.POINTER(struct_lochist_entry_t)]
@@ -22098,11 +22120,11 @@ def ctypeslib_define():
     lookup_key_code.restype = ushort
     lookup_key_code.argtypes = [ctypes.c_int32, ctypes.c_int32, ctypes.c_char]
     lookup_loc_converter2 = _libraries['FIXME_STUB'].lookup_loc_converter2
-    lookup_loc_converter2.restype = ctypes.CFUNCTYPE(lecvt_code_t, ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_TWidget), ctypes.c_uint32)
+    lookup_loc_converter2.restype = lochist_entry_cvt2_t
     lookup_loc_converter2.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     low = _libraries['FIXME_STUB'].low
     low.restype = uint32
-    low.argtypes = [ctypes.POINTER(ctypes.c_int64)]
+    low.argtypes = [ctypes.POINTER(longlong)]
     lower_type = _libraries['FIXME_STUB'].lower_type
     lower_type.restype = ctypes.c_int32
     lower_type.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p, ctypes.POINTER(struct_lowertype_helper_t)]
@@ -22111,13 +22133,13 @@ def ctypeslib_define():
     lread.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.POINTER(None), size_t]
     lread2bytes = _libraries['FIXME_STUB'].lread2bytes
     lread2bytes.restype = ctypes.c_int32
-    lread2bytes.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.POINTER(ctypes.c_uint16), ctypes.c_char]
+    lread2bytes.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.POINTER(uint16), ctypes.c_char]
     lread4bytes = _libraries['FIXME_STUB'].lread4bytes
     lread4bytes.restype = ctypes.c_int32
-    lread4bytes.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.POINTER(ctypes.c_uint32), ctypes.c_char]
+    lread4bytes.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.POINTER(uint32), ctypes.c_char]
     lread8bytes = _libraries['FIXME_STUB'].lread8bytes
     lread8bytes.restype = ctypes.c_int32
-    lread8bytes.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.POINTER(ctypes.c_uint64), ctypes.c_char]
+    lread8bytes.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.POINTER(uint64), ctypes.c_char]
     lreadbytes = _libraries['FIXME_STUB'].lreadbytes
     lreadbytes.restype = ctypes.c_int32
     lreadbytes.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.POINTER(None), size_t, ctypes.c_char]
@@ -22156,7 +22178,7 @@ def ctypeslib_define():
     make_int128.argtypes = [ulonglong, longlong]
     make_linput = _libraries['FIXME_STUB'].make_linput
     make_linput.restype = ctypes.POINTER(struct_linput_t)
-    make_linput.argtypes = [ctypes.POINTER(struct__iobuf)]
+    make_linput.argtypes = [ctypes.POINTER(FILE)]
     make_longlong = _libraries['FIXME_STUB'].make_longlong
     make_longlong.restype = longlong
     make_longlong.argtypes = [uint32, int32]
@@ -22238,25 +22260,25 @@ def ctypeslib_define():
     mblen.argtypes = [ctypes.c_char_p, size_t]
     mbrlen = _libraries['FIXME_STUB'].mbrlen
     mbrlen.restype = size_t
-    mbrlen.argtypes = [ctypes.c_char_p, size_t, ctypes.c_char_p]
+    mbrlen.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(mbstate_t)]
     mbrtowc = _libraries['FIXME_STUB'].mbrtowc
     mbrtowc.restype = size_t
-    mbrtowc.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.c_char_p, size_t, ctypes.c_char_p]
+    mbrtowc.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.c_char_p, size_t, ctypes.POINTER(mbstate_t)]
     mbsinit = _libraries['FIXME_STUB'].mbsinit
     mbsinit.restype = ctypes.c_int32
-    mbsinit.argtypes = [ctypes.c_char_p]
+    mbsinit.argtypes = [ctypes.POINTER(mbstate_t)]
     mbsrtowcs = _libraries['FIXME_STUB'].mbsrtowcs
     mbsrtowcs.restype = size_t
-    mbsrtowcs.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_char_p), size_t, ctypes.c_char_p]
+    mbsrtowcs.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_char_p), size_t, ctypes.POINTER(mbstate_t)]
     mbsrtowcs_s = _libraries['FIXME_STUB'].mbsrtowcs_s
     mbsrtowcs_s.restype = errno_t
-    mbsrtowcs_s.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_int16), size_t, ctypes.POINTER(ctypes.c_char_p), size_t, ctypes.c_char_p]
+    mbsrtowcs_s.argtypes = [ctypes.POINTER(size_t), ctypes.POINTER(ctypes.c_int16), size_t, ctypes.POINTER(ctypes.c_char_p), size_t, ctypes.POINTER(mbstate_t)]
     mbstowcs = _libraries['FIXME_STUB'].mbstowcs
     mbstowcs.restype = size_t
     mbstowcs.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.c_char_p, size_t]
     mbstowcs_s = _libraries['FIXME_STUB'].mbstowcs_s
     mbstowcs_s.restype = errno_t
-    mbstowcs_s.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_int16), size_t, ctypes.c_char_p, size_t]
+    mbstowcs_s.argtypes = [ctypes.POINTER(size_t), ctypes.POINTER(ctypes.c_int16), size_t, ctypes.c_char_p, size_t]
     mbtowc = _libraries['FIXME_STUB'].mbtowc
     mbtowc.restype = ctypes.c_int32
     mbtowc.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.c_char_p, size_t]
@@ -22322,13 +22344,13 @@ def ctypeslib_define():
     msg_clear.argtypes = []
     msg_get_lines = _libraries['FIXME_STUB'].msg_get_lines
     msg_get_lines.restype = None
-    msg_get_lines.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__), ctypes.c_int32]
+    msg_get_lines.argtypes = [ctypes.POINTER(qstrvec_t), ctypes.c_int32]
     msg_save = _libraries['FIXME_STUB'].msg_save
     msg_save.restype = ctypes.c_char
-    msg_save.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    msg_save.argtypes = [ctypes.POINTER(qstring)]
     name_requires_qualifier = _libraries['FIXME_STUB'].name_requires_qualifier
     name_requires_qualifier.restype = ctypes.c_char
-    name_requires_qualifier.argtypes = [ctypes.POINTER(struct__qstring_char_), uint32, ctypes.c_char_p, uint64]
+    name_requires_qualifier.argtypes = [ctypes.POINTER(qstring), uint32, ctypes.c_char_p, uint64]
     nan = _libraries['FIXME_STUB'].nan
     nan.restype = ctypes.c_double
     nan.argtypes = [ctypes.c_char_p]
@@ -22352,7 +22374,7 @@ def ctypeslib_define():
     nearbyintl.argtypes = [ctypes.c_double]
     netnode_altadjust = _libraries['FIXME_STUB'].netnode_altadjust
     netnode_altadjust.restype = None
-    netnode_altadjust.argtypes = [nodeidx_t, nodeidx_t, nodeidx_t, nodeidx_t, ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint64)]
+    netnode_altadjust.argtypes = [nodeidx_t, nodeidx_t, nodeidx_t, nodeidx_t, ctypes.CFUNCTYPE(ctypes.c_char, nodeidx_t)]
     netnode_altadjust2 = _libraries['FIXME_STUB'].netnode_altadjust2
     netnode_altadjust2.restype = None
     netnode_altadjust2.argtypes = [nodeidx_t, nodeidx_t, nodeidx_t, nodeidx_t, ctypes.POINTER(struct_altadjust_visitor_t)]
@@ -22397,10 +22419,10 @@ def ctypeslib_define():
     netnode_exist.argtypes = [ctypes.POINTER(struct_netnode)]
     netnode_get_name = _libraries['FIXME_STUB'].netnode_get_name
     netnode_get_name.restype = ssize_t
-    netnode_get_name.argtypes = [nodeidx_t, ctypes.POINTER(struct__qstring_char_)]
+    netnode_get_name.argtypes = [nodeidx_t, ctypes.POINTER(qstring)]
     netnode_getblob = _libraries['FIXME_STUB'].netnode_getblob
     netnode_getblob.restype = ctypes.POINTER(None)
-    netnode_getblob.argtypes = [nodeidx_t, ctypes.POINTER(None), ctypes.POINTER(ctypes.c_uint64), nodeidx_t, ctypes.c_int32]
+    netnode_getblob.argtypes = [nodeidx_t, ctypes.POINTER(None), ctypes.POINTER(size_t), nodeidx_t, ctypes.c_int32]
     netnode_hashdel = _libraries['FIXME_STUB'].netnode_hashdel
     netnode_hashdel.restype = ctypes.c_char
     netnode_hashdel.argtypes = [nodeidx_t, ctypes.c_char_p, ctypes.c_int32]
@@ -22454,28 +22476,28 @@ def ctypeslib_define():
     netnode_qgetblob.argtypes = [nodeidx_t, ctypes.POINTER(struct_bytevec_t), size_t, nodeidx_t, ctypes.c_int32]
     netnode_qhashfirst = _libraries['FIXME_STUB'].netnode_qhashfirst
     netnode_qhashfirst.restype = ssize_t
-    netnode_qhashfirst.argtypes = [nodeidx_t, ctypes.POINTER(struct__qstring_char_), ctypes.c_int32]
+    netnode_qhashfirst.argtypes = [nodeidx_t, ctypes.POINTER(qstring), ctypes.c_int32]
     netnode_qhashlast = _libraries['FIXME_STUB'].netnode_qhashlast
     netnode_qhashlast.restype = ssize_t
-    netnode_qhashlast.argtypes = [nodeidx_t, ctypes.POINTER(struct__qstring_char_), ctypes.c_int32]
+    netnode_qhashlast.argtypes = [nodeidx_t, ctypes.POINTER(qstring), ctypes.c_int32]
     netnode_qhashnext = _libraries['FIXME_STUB'].netnode_qhashnext
     netnode_qhashnext.restype = ssize_t
-    netnode_qhashnext.argtypes = [nodeidx_t, ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_int32]
+    netnode_qhashnext.argtypes = [nodeidx_t, ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_int32]
     netnode_qhashprev = _libraries['FIXME_STUB'].netnode_qhashprev
     netnode_qhashprev.restype = ssize_t
-    netnode_qhashprev.argtypes = [nodeidx_t, ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_int32]
+    netnode_qhashprev.argtypes = [nodeidx_t, ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_int32]
     netnode_qhashstr = _libraries['FIXME_STUB'].netnode_qhashstr
     netnode_qhashstr.restype = ssize_t
-    netnode_qhashstr.argtypes = [nodeidx_t, ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_int32]
+    netnode_qhashstr.argtypes = [nodeidx_t, ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_int32]
     netnode_qsupstr = _libraries['FIXME_STUB'].netnode_qsupstr
     netnode_qsupstr.restype = ssize_t
-    netnode_qsupstr.argtypes = [nodeidx_t, ctypes.POINTER(struct__qstring_char_), nodeidx_t, ctypes.c_int32]
+    netnode_qsupstr.argtypes = [nodeidx_t, ctypes.POINTER(qstring), nodeidx_t, ctypes.c_int32]
     netnode_qsupstr_idx8 = _libraries['FIXME_STUB'].netnode_qsupstr_idx8
     netnode_qsupstr_idx8.restype = ssize_t
-    netnode_qsupstr_idx8.argtypes = [nodeidx_t, ctypes.POINTER(struct__qstring_char_), uchar, ctypes.c_int32]
+    netnode_qsupstr_idx8.argtypes = [nodeidx_t, ctypes.POINTER(qstring), uchar, ctypes.c_int32]
     netnode_qvalstr = _libraries['FIXME_STUB'].netnode_qvalstr
     netnode_qvalstr.restype = ssize_t
-    netnode_qvalstr.argtypes = [nodeidx_t, ctypes.POINTER(struct__qstring_char_)]
+    netnode_qvalstr.argtypes = [nodeidx_t, ctypes.POINTER(qstring)]
     netnode_rename = _libraries['FIXME_STUB'].netnode_rename
     netnode_rename.restype = ctypes.c_char
     netnode_rename.argtypes = [nodeidx_t, ctypes.c_char_p, size_t]
@@ -22583,7 +22605,7 @@ def ctypeslib_define():
     next_not_tail.argtypes = [ea_t]
     next_that = _libraries['FIXME_STUB'].next_that
     next_that.restype = ea_t
-    next_that.argtypes = [ea_t, ea_t, ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint32, ctypes.POINTER(None)), ctypes.POINTER(None)]
+    next_that.argtypes = [ea_t, ea_t, testf_t, ctypes.POINTER(None)]
     next_unknown = _libraries['FIXME_STUB'].next_unknown
     next_unknown.restype = ea_t
     next_unknown.argtypes = [ea_t, ea_t]
@@ -22686,18 +22708,18 @@ def ctypeslib_define():
     op_stkvar.argtypes = [ea_t, ctypes.c_int32]
     op_stroff = _libraries['FIXME_STUB'].op_stroff
     op_stroff.restype = ctypes.c_char
-    op_stroff.argtypes = [ctypes.POINTER(struct_insn_t), ctypes.c_int32, ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32, adiff_t]
+    op_stroff.argtypes = [ctypes.POINTER(struct_insn_t), ctypes.c_int32, ctypes.POINTER(tid_t), ctypes.c_int32, adiff_t]
     open = _libraries['FIXME_STUB'].open
     open.restype = ctypes.c_int32
     open.argtypes = [ctypes.c_char_p, ctypes.c_int32]
     openM = _libraries['FIXME_STUB'].openM
-    openM.restype = ctypes.POINTER(struct__iobuf)
+    openM.restype = ctypes.POINTER(FILE)
     openM.argtypes = [ctypes.c_char_p]
     openR = _libraries['FIXME_STUB'].openR
-    openR.restype = ctypes.POINTER(struct__iobuf)
+    openR.restype = ctypes.POINTER(FILE)
     openR.argtypes = [ctypes.c_char_p]
     openRT = _libraries['FIXME_STUB'].openRT
-    openRT.restype = ctypes.POINTER(struct__iobuf)
+    openRT.restype = ctypes.POINTER(FILE)
     openRT.argtypes = [ctypes.c_char_p]
     open_bookmarks_window = _libraries['FIXME_STUB'].open_bookmarks_window
     open_bookmarks_window.restype = ctypes.POINTER(struct_TWidget)
@@ -22799,23 +22821,23 @@ def ctypeslib_define():
     oword_flag.restype = flags_t
     oword_flag.argtypes = []
     pack_db = _libraries['FIXME_STUB'].pack_db
-    pack_db.restype = ctypes.POINTER(ctypes.c_ubyte)
-    pack_db.argtypes = [ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), uchar]
+    pack_db.restype = ctypes.POINTER(uchar)
+    pack_db.argtypes = [ctypes.POINTER(uchar), ctypes.POINTER(uchar), uchar]
     pack_dd = _libraries['FIXME_STUB'].pack_dd
-    pack_dd.restype = ctypes.POINTER(ctypes.c_ubyte)
-    pack_dd.argtypes = [ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), uint32]
+    pack_dd.restype = ctypes.POINTER(uchar)
+    pack_dd.argtypes = [ctypes.POINTER(uchar), ctypes.POINTER(uchar), uint32]
     pack_dq = _libraries['FIXME_STUB'].pack_dq
-    pack_dq.restype = ctypes.POINTER(ctypes.c_ubyte)
-    pack_dq.argtypes = [ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), uint64]
+    pack_dq.restype = ctypes.POINTER(uchar)
+    pack_dq.argtypes = [ctypes.POINTER(uchar), ctypes.POINTER(uchar), uint64]
     pack_ds = _libraries['FIXME_STUB'].pack_ds
-    pack_ds.restype = ctypes.POINTER(ctypes.c_ubyte)
-    pack_ds.argtypes = [ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), ctypes.c_char_p, size_t]
+    pack_ds.restype = ctypes.POINTER(uchar)
+    pack_ds.argtypes = [ctypes.POINTER(uchar), ctypes.POINTER(uchar), ctypes.c_char_p, size_t]
     pack_dw = _libraries['FIXME_STUB'].pack_dw
-    pack_dw.restype = ctypes.POINTER(ctypes.c_ubyte)
-    pack_dw.argtypes = [ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), uint16]
+    pack_dw.restype = ctypes.POINTER(uchar)
+    pack_dw.argtypes = [ctypes.POINTER(uchar), ctypes.POINTER(uchar), uint16]
     pack_ea = _libraries['FIXME_STUB'].pack_ea
-    pack_ea.restype = ctypes.POINTER(ctypes.c_ubyte)
-    pack_ea.argtypes = [ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), ea_t]
+    pack_ea.restype = ctypes.POINTER(uchar)
+    pack_ea.argtypes = [ctypes.POINTER(uchar), ctypes.POINTER(uchar), ea_t]
     pack_idcobj_to_bv = _libraries['FIXME_STUB'].pack_idcobj_to_bv
     pack_idcobj_to_bv.restype = error_t
     pack_idcobj_to_bv.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct_relobj_t), ctypes.POINTER(None), ctypes.c_int32]
@@ -22827,10 +22849,10 @@ def ctypeslib_define():
     packreal_flag.argtypes = []
     parse_binpat_str = _libraries['FIXME_STUB'].parse_binpat_str
     parse_binpat_str.restype = ctypes.c_char
-    parse_binpat_str.argtypes = [ctypes.POINTER(struct_qvector_compiled_binpat_t_), ea_t, ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(struct__qstring_char_)]
+    parse_binpat_str.argtypes = [ctypes.POINTER(compiled_binpat_vec_t), ea_t, ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(qstring)]
     parse_command_line = _libraries['FIXME_STUB'].parse_command_line
     parse_command_line.restype = size_t
-    parse_command_line.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__), ctypes.POINTER(struct_qvector_channel_redir_t_), ctypes.c_char_p, ctypes.c_int32]
+    parse_command_line.argtypes = [ctypes.POINTER(qstrvec_t), ctypes.POINTER(channel_redirs_t), ctypes.c_char_p, ctypes.c_int32]
     parse_config_value = _libraries['FIXME_STUB'].parse_config_value
     parse_config_value.restype = ctypes.c_char
     parse_config_value.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t)]
@@ -22839,13 +22861,13 @@ def ctypeslib_define():
     parse_dbgopts.argtypes = [ctypes.POINTER(struct_instant_dbgopts_t), ctypes.c_char_p]
     parse_decl = _libraries['FIXME_STUB'].parse_decl
     parse_decl.restype = ctypes.c_char
-    parse_decl.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.c_int32]
+    parse_decl.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(qstring), ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.c_int32]
     parse_decls = _libraries['FIXME_STUB'].parse_decls
     parse_decls.restype = ctypes.c_int32
-    parse_decls.argtypes = [ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_char_p), ctypes.c_int32]
+    parse_decls.argtypes = [ctypes.POINTER(struct_til_t), ctypes.c_char_p, printer_t, ctypes.c_int32]
     parse_json = _libraries['FIXME_STUB'].parse_json
     parse_json.restype = error_t
-    parse_json.argtypes = [ctypes.POINTER(struct_jvalue_t), ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_qstack_token_t_)]
+    parse_json.argtypes = [ctypes.POINTER(struct_jvalue_t), ctypes.POINTER(struct_lexer_t), ctypes.POINTER(tokenstack_t)]
     parse_json_string = _libraries['FIXME_STUB'].parse_json_string
     parse_json_string.restype = error_t
     parse_json_string.argtypes = [ctypes.POINTER(struct_jvalue_t), ctypes.c_char_p]
@@ -22879,7 +22901,7 @@ def ctypeslib_define():
     ph = (struct_processor_t).in_dll(_libraries['FIXME_STUB'], 'ph') if getattr(_libraries['FIXME_STUB'], 'ph', None) else None
     place_t__deserialize = _libraries['FIXME_STUB'].place_t__deserialize
     place_t__deserialize.restype = ctypes.c_char
-    place_t__deserialize.argtypes = [ctypes.POINTER(struct_place_t), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    place_t__deserialize.argtypes = [ctypes.POINTER(struct_place_t), ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     place_t__serialize = _libraries['FIXME_STUB'].place_t__serialize
     place_t__serialize.restype = None
     place_t__serialize.argtypes = [ctypes.POINTER(struct_place_t), ctypes.POINTER(struct_bytevec_t)]
@@ -22924,13 +22946,13 @@ def ctypeslib_define():
     prev_not_tail.argtypes = [ea_t]
     prev_that = _libraries['FIXME_STUB'].prev_that
     prev_that.restype = ea_t
-    prev_that.argtypes = [ea_t, ea_t, ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint32, ctypes.POINTER(None)), ctypes.POINTER(None)]
+    prev_that.argtypes = [ea_t, ea_t, testf_t, ctypes.POINTER(None)]
     prev_unknown = _libraries['FIXME_STUB'].prev_unknown
     prev_unknown.restype = ea_t
     prev_unknown.argtypes = [ea_t, ea_t]
     prev_utf8_char = _libraries['FIXME_STUB'].prev_utf8_char
     prev_utf8_char.restype = ctypes.c_char
-    prev_utf8_char.argtypes = [ctypes.POINTER(ctypes.c_uint32), ctypes.POINTER(ctypes.c_char_p), ctypes.c_char_p]
+    prev_utf8_char.argtypes = [ctypes.POINTER(wchar32_t), ctypes.POINTER(ctypes.c_char_p), ctypes.c_char_p]
     prev_visea = _libraries['FIXME_STUB'].prev_visea
     prev_visea.restype = ea_t
     prev_visea.argtypes = [ea_t]
@@ -22945,28 +22967,28 @@ def ctypeslib_define():
     print_charlit.argtypes = [ctypes.c_char_p, ctypes.POINTER(None), ctypes.c_int32]
     print_decls = _libraries['FIXME_STUB'].print_decls
     print_decls.restype = ctypes.c_int32
-    print_decls.argtypes = [ctypes.POINTER(struct_text_sink_t), ctypes.POINTER(struct_til_t), ctypes.POINTER(struct_qvector_unsigned_int_), uint32]
+    print_decls.argtypes = [ctypes.POINTER(struct_text_sink_t), ctypes.POINTER(struct_til_t), ctypes.POINTER(ordvec_t), uint32]
     print_fpval = _libraries['FIXME_STUB'].print_fpval
     print_fpval.restype = ctypes.c_char
     print_fpval.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(None), ctypes.c_int32]
     print_idcv = _libraries['FIXME_STUB'].print_idcv
     print_idcv.restype = ctypes.c_char
-    print_idcv.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_idc_value_t), ctypes.c_char_p, ctypes.c_int32]
+    print_idcv.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_idc_value_t), ctypes.c_char_p, ctypes.c_int32]
     print_insn_mnem = _libraries['FIXME_STUB'].print_insn_mnem
     print_insn_mnem.restype = ctypes.c_char
-    print_insn_mnem.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t]
+    print_insn_mnem.argtypes = [ctypes.POINTER(qstring), ea_t]
     print_operand = _libraries['FIXME_STUB'].print_operand
     print_operand.restype = ctypes.c_char
-    print_operand.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(struct_printop_t)]
+    print_operand.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(struct_printop_t)]
     print_strlit_type = _libraries['FIXME_STUB'].print_strlit_type
     print_strlit_type.restype = ctypes.c_char
-    print_strlit_type.argtypes = [ctypes.POINTER(struct__qstring_char_), int32, ctypes.POINTER(struct__qstring_char_), ctypes.c_int32]
+    print_strlit_type.argtypes = [ctypes.POINTER(qstring), int32, ctypes.POINTER(qstring), ctypes.c_int32]
     print_tinfo = _libraries['FIXME_STUB'].print_tinfo
     print_tinfo.restype = ctypes.c_char
-    print_tinfo.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p, ctypes.c_char_p]
+    print_tinfo.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p, ctypes.c_char_p]
     print_type = _libraries['FIXME_STUB'].print_type
     print_type.restype = ctypes.c_char
-    print_type.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_int32]
+    print_type.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_int32]
     printf = _libraries['FIXME_STUB'].printf
     printf.restype = ctypes.c_int32
     printf.argtypes = [ctypes.c_char_p]
@@ -22975,19 +22997,19 @@ def ctypeslib_define():
     printf_s.argtypes = [ctypes.c_char_p]
     process_archive = _libraries['FIXME_STUB'].process_archive
     process_archive.restype = ctypes.c_int32
-    process_archive.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_linput_t), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(ctypes.c_uint16), ctypes.c_char_p, ctypes.POINTER(struct_load_info_t), ctypes.POINTER(struct__qstring_char_)]
+    process_archive.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_linput_t), ctypes.POINTER(qstring), ctypes.POINTER(ushort), ctypes.c_char_p, ctypes.POINTER(struct_load_info_t), ctypes.POINTER(qstring)]
     process_ui_action = _libraries['FIXME_STUB'].process_ui_action
     process_ui_action.restype = ctypes.c_char
     process_ui_action.argtypes = [ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(None)]
     process_zip_linput = _libraries['FIXME_STUB'].process_zip_linput
     process_zip_linput.restype = ctypes.c_int32
-    process_zip_linput.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_int64, ctypes.c_int32, ctypes.c_uint64, ctypes.c_uint64, ctypes.c_uint32, ctypes.c_char_p), ctypes.POINTER(None)]
+    process_zip_linput.argtypes = [ctypes.POINTER(struct_linput_t), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), int64, ctypes.c_int32, uint64, uint64, uint32, ctypes.c_char_p), ctypes.POINTER(None)]
     process_zipfile = _libraries['FIXME_STUB'].process_zipfile
     process_zipfile.restype = ctypes.c_int32
-    process_zipfile.argtypes = [ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_int64, ctypes.c_int32, ctypes.c_uint64, ctypes.c_uint64, ctypes.c_uint32, ctypes.c_char_p), ctypes.POINTER(None)]
+    process_zipfile.argtypes = [ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), int64, ctypes.c_int32, uint64, uint64, uint32, ctypes.c_char_p), ctypes.POINTER(None)]
     process_zipfile_entry = _libraries['FIXME_STUB'].process_zipfile_entry
     process_zipfile_entry.restype = ctypes.c_int32
-    process_zipfile_entry.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), ctypes.c_int64, ctypes.c_int32, ctypes.c_uint64, ctypes.c_uint64, ctypes.c_uint32, ctypes.c_char_p), ctypes.POINTER(None), ctypes.c_char]
+    process_zipfile_entry.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None), int64, ctypes.c_int32, uint64, uint64, uint32, ctypes.c_char_p), ctypes.POINTER(None), ctypes.c_char]
     put_byte = _libraries['FIXME_STUB'].put_byte
     put_byte.restype = ctypes.c_char
     put_byte.argtypes = [ea_t, uint64]
@@ -23011,7 +23033,7 @@ def ctypeslib_define():
     put_word.argtypes = [ea_t, uint64]
     putc = _libraries['FIXME_STUB'].putc
     putc.restype = ctypes.c_int32
-    putc.argtypes = [ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    putc.argtypes = [ctypes.c_int32, ctypes.POINTER(FILE)]
     putchar = _libraries['FIXME_STUB'].putchar
     putchar.restype = ctypes.c_int32
     putchar.argtypes = [ctypes.c_int32]
@@ -23023,10 +23045,10 @@ def ctypeslib_define():
     puts.argtypes = [ctypes.c_char_p]
     putw = _libraries['FIXME_STUB'].putw
     putw.restype = ctypes.c_int32
-    putw.argtypes = [ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    putw.argtypes = [ctypes.c_int32, ctypes.POINTER(FILE)]
     putwc = _libraries['FIXME_STUB'].putwc
     putwc.restype = wint_t
-    putwc.argtypes = [ctypes.c_int16, ctypes.POINTER(struct__iobuf)]
+    putwc.argtypes = [ctypes.c_int16, ctypes.POINTER(FILE)]
     putwchar = _libraries['FIXME_STUB'].putwchar
     putwchar.restype = wint_t
     putwchar.argtypes = [ctypes.c_int16]
@@ -23059,7 +23081,7 @@ def ctypeslib_define():
     qchsize.argtypes = [ctypes.c_int32, uint64]
     qcleanline = _libraries['FIXME_STUB'].qcleanline
     qcleanline.restype = ssize_t
-    qcleanline.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char, uint32]
+    qcleanline.argtypes = [ctypes.POINTER(qstring), ctypes.c_char, uint32]
     qclose = _libraries['FIXME_STUB'].qclose
     qclose.restype = ctypes.c_int32
     qclose.argtypes = [ctypes.c_int32]
@@ -23068,7 +23090,7 @@ def ctypeslib_define():
     qcontrol_tty.argtypes = []
     qcopyfile = _libraries['FIXME_STUB'].qcopyfile
     qcopyfile.restype = ctypes.c_int32
-    qcopyfile.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char, ctypes.CFUNCTYPE(ctypes.c_char, ctypes.c_uint64, ctypes.c_uint64, ctypes.POINTER(None)), ctypes.POINTER(None), ctypes.c_int32]
+    qcopyfile.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char, ctypes.CFUNCTYPE(ctypes.c_char, uint64, uint64, ctypes.POINTER(None)), ctypes.POINTER(None), ctypes.c_int32]
     qcreate = _libraries['FIXME_STUB'].qcreate
     qcreate.restype = ctypes.c_int32
     qcreate.argtypes = [ctypes.c_char_p, ctypes.c_int32]
@@ -23101,13 +23123,13 @@ def ctypeslib_define():
     qexit.argtypes = [ctypes.c_int32]
     qfclose = _libraries['FIXME_STUB'].qfclose
     qfclose.restype = ctypes.c_int32
-    qfclose.argtypes = [ctypes.POINTER(struct__iobuf)]
+    qfclose.argtypes = [ctypes.POINTER(FILE)]
     qfgetc = _libraries['FIXME_STUB'].qfgetc
     qfgetc.restype = ctypes.c_int32
-    qfgetc.argtypes = [ctypes.POINTER(struct__iobuf)]
+    qfgetc.argtypes = [ctypes.POINTER(FILE)]
     qfgets = _libraries['FIXME_STUB'].qfgets
     qfgets.restype = ctypes.c_char_p
-    qfgets.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(struct__iobuf)]
+    qfgets.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(FILE)]
     qfileexist = _libraries['FIXME_STUB'].qfileexist
     qfileexist.restype = ctypes.c_char
     qfileexist.argtypes = [ctypes.c_char_p]
@@ -23128,34 +23150,34 @@ def ctypeslib_define():
     qfindnext.argtypes = [ctypes.POINTER(struct_qffblk64_t)]
     qflush = _libraries['FIXME_STUB'].qflush
     qflush.restype = ctypes.c_int32
-    qflush.argtypes = [ctypes.POINTER(struct__iobuf)]
+    qflush.argtypes = [ctypes.POINTER(FILE)]
     qfopen = _libraries['FIXME_STUB'].qfopen
-    qfopen.restype = ctypes.POINTER(struct__iobuf)
+    qfopen.restype = ctypes.POINTER(FILE)
     qfopen.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     qfprintf = _libraries['FIXME_STUB'].qfprintf
     qfprintf.restype = ctypes.c_int32
-    qfprintf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p]
+    qfprintf.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p]
     qfputc = _libraries['FIXME_STUB'].qfputc
     qfputc.restype = ctypes.c_int32
-    qfputc.argtypes = [ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    qfputc.argtypes = [ctypes.c_int32, ctypes.POINTER(FILE)]
     qfputs = _libraries['FIXME_STUB'].qfputs
     qfputs.restype = ctypes.c_int32
-    qfputs.argtypes = [ctypes.c_char_p, ctypes.POINTER(struct__iobuf)]
+    qfputs.argtypes = [ctypes.c_char_p, ctypes.POINTER(FILE)]
     qfread = _libraries['FIXME_STUB'].qfread
     qfread.restype = ssize_t
-    qfread.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(None), size_t]
+    qfread.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(None), size_t]
     qfree = _libraries['FIXME_STUB'].qfree
     qfree.restype = None
     qfree.argtypes = [ctypes.POINTER(None)]
     qfscanf = _libraries['FIXME_STUB'].qfscanf
     qfscanf.restype = ctypes.c_int32
-    qfscanf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p]
+    qfscanf.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p]
     qfseek = _libraries['FIXME_STUB'].qfseek
     qfseek.restype = ctypes.c_int32
-    qfseek.argtypes = [ctypes.POINTER(struct__iobuf), int64, ctypes.c_int32]
+    qfseek.argtypes = [ctypes.POINTER(FILE), int64, ctypes.c_int32]
     qfsize = _libraries['FIXME_STUB'].qfsize
     qfsize.restype = uint64
-    qfsize.argtypes = [ctypes.POINTER(struct__iobuf)]
+    qfsize.argtypes = [ctypes.POINTER(FILE)]
     qfstat = _libraries['FIXME_STUB'].qfstat
     qfstat.restype = ctypes.c_int32
     qfstat.argtypes = [ctypes.c_int32, ctypes.POINTER(struct_qstatbuf)]
@@ -23164,19 +23186,19 @@ def ctypeslib_define():
     qfsync.argtypes = [ctypes.c_int32]
     qftell = _libraries['FIXME_STUB'].qftell
     qftell.restype = int64
-    qftell.argtypes = [ctypes.POINTER(struct__iobuf)]
+    qftell.argtypes = [ctypes.POINTER(FILE)]
     qfwrite = _libraries['FIXME_STUB'].qfwrite
     qfwrite.restype = ssize_t
-    qfwrite.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(None), size_t]
+    qfwrite.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(None), size_t]
     qgetcwd = _libraries['FIXME_STUB'].qgetcwd
     qgetcwd.restype = None
     qgetcwd.argtypes = [ctypes.c_char_p, size_t]
     qgetenv = _libraries['FIXME_STUB'].qgetenv
     qgetenv.restype = ctypes.c_char
-    qgetenv.argtypes = [ctypes.c_char_p, ctypes.POINTER(struct__qstring_char_)]
+    qgetenv.argtypes = [ctypes.c_char_p, ctypes.POINTER(qstring)]
     qgetline = _libraries['FIXME_STUB'].qgetline
     qgetline.restype = ssize_t
-    qgetline.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct__iobuf)]
+    qgetline.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(FILE)]
     qgets = _libraries['FIXME_STUB'].qgets
     qgets.restype = ctypes.c_char_p
     qgets.argtypes = [ctypes.c_char_p, size_t]
@@ -23223,7 +23245,7 @@ def ctypeslib_define():
     qisxdigit.restype = ctypes.c_char
     qisxdigit.argtypes = [ctypes.c_char]
     qlfile = _libraries['FIXME_STUB'].qlfile
-    qlfile.restype = ctypes.POINTER(struct__iobuf)
+    qlfile.restype = ctypes.POINTER(FILE)
     qlfile.argtypes = [ctypes.POINTER(struct_linput_t)]
     qlgetc = _libraries['FIXME_STUB'].qlgetc
     qlgetc.restype = ctypes.c_int32
@@ -23374,13 +23396,13 @@ def ctypeslib_define():
     qstpncpy.argtypes = [ctypes.c_char_p, ctypes.c_char_p, size_t]
     qstr2user = _libraries['FIXME_STUB'].qstr2user
     qstr2user.restype = None
-    qstr2user.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct__qstring_char_)]
+    qstr2user.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(qstring)]
     qstrchr = _libraries['FIXME_STUB'].qstrchr
-    qstrchr.restype = ctypes.POINTER(ctypes.c_int16)
-    qstrchr.argtypes = [ctypes.POINTER(ctypes.c_int16), wchar16_t]
+    qstrchr.restype = ctypes.POINTER(wchar16_t)
+    qstrchr.argtypes = [ctypes.POINTER(wchar16_t), wchar16_t]
     qstrcmp = _libraries['FIXME_STUB'].qstrcmp
     qstrcmp.restype = ctypes.c_int32
-    qstrcmp.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16)]
+    qstrcmp.argtypes = [ctypes.POINTER(wchar16_t), ctypes.POINTER(wchar16_t)]
     qstrdup = _libraries['FIXME_STUB'].qstrdup
     qstrdup.restype = ctypes.c_char_p
     qstrdup.argtypes = [ctypes.c_char_p]
@@ -23395,7 +23417,7 @@ def ctypeslib_define():
     qstrftime64.argtypes = [ctypes.c_char_p, size_t, ctypes.c_char_p, qtime64_t]
     qstrlen = _libraries['FIXME_STUB'].qstrlen
     qstrlen.restype = size_t
-    qstrlen.argtypes = [ctypes.POINTER(ctypes.c_int16)]
+    qstrlen.argtypes = [ctypes.POINTER(wchar16_t)]
     qstrlwr = _libraries['FIXME_STUB'].qstrlwr
     qstrlwr.restype = ctypes.c_char_p
     qstrlwr.argtypes = [ctypes.c_char_p]
@@ -23406,11 +23428,11 @@ def ctypeslib_define():
     qstrncpy.restype = ctypes.c_char_p
     qstrncpy.argtypes = [ctypes.c_char_p, ctypes.c_char_p, size_t]
     qstrrchr = _libraries['FIXME_STUB'].qstrrchr
-    qstrrchr.restype = ctypes.POINTER(ctypes.c_int16)
-    qstrrchr.argtypes = [ctypes.POINTER(ctypes.c_int16), wchar16_t]
+    qstrrchr.restype = ctypes.POINTER(wchar16_t)
+    qstrrchr.argtypes = [ctypes.POINTER(wchar16_t), wchar16_t]
     qstrstr = _libraries['FIXME_STUB'].qstrstr
-    qstrstr.restype = ctypes.POINTER(ctypes.c_ubyte)
-    qstrstr.argtypes = [ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte)]
+    qstrstr.restype = ctypes.POINTER(uchar)
+    qstrstr.argtypes = [ctypes.POINTER(uchar), ctypes.POINTER(uchar)]
     qstrtok = _libraries['FIXME_STUB'].qstrtok
     qstrtok.restype = ctypes.c_char_p
     qstrtok.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.POINTER(ctypes.c_char_p)]
@@ -23422,7 +23444,7 @@ def ctypeslib_define():
     qtell.argtypes = [ctypes.c_int32]
     qthread_create = _libraries['FIXME_STUB'].qthread_create
     qthread_create.restype = qthread_t
-    qthread_create.argtypes = [ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(None)), ctypes.POINTER(None)]
+    qthread_create.argtypes = [qthread_cb_t, ctypes.POINTER(None)]
     qthread_equal = _libraries['FIXME_STUB'].qthread_equal
     qthread_equal.restype = ctypes.c_char
     qthread_equal.argtypes = [qthread_t, qthread_t]
@@ -23448,7 +23470,7 @@ def ctypeslib_define():
     qtimegm.restype = qtime32_t
     qtimegm.argtypes = [ctypes.POINTER(struct_tm)]
     qtmpfile = _libraries['FIXME_STUB'].qtmpfile
-    qtmpfile.restype = ctypes.POINTER(struct__iobuf)
+    qtmpfile.restype = ctypes.POINTER(FILE)
     qtmpfile.argtypes = []
     qtmpnam = _libraries['FIXME_STUB'].qtmpnam
     qtmpnam.restype = ctypes.c_char_p
@@ -23467,7 +23489,7 @@ def ctypeslib_define():
     qunlink.argtypes = [ctypes.c_char_p]
     quote_cmdline_arg = _libraries['FIXME_STUB'].quote_cmdline_arg
     quote_cmdline_arg.restype = ctypes.c_char
-    quote_cmdline_arg.argtypes = [ctypes.POINTER(struct__qstring_char_)]
+    quote_cmdline_arg.argtypes = [ctypes.POINTER(qstring)]
     qustrlen = _libraries['FIXME_STUB'].qustrlen
     qustrlen.restype = size_t
     qustrlen.argtypes = [ctypes.c_char_p]
@@ -23482,10 +23504,10 @@ def ctypeslib_define():
     qveprintf.argtypes = [ctypes.c_char_p, va_list]
     qvfprintf = _libraries['FIXME_STUB'].qvfprintf
     qvfprintf.restype = ctypes.c_int32
-    qvfprintf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, va_list]
+    qvfprintf.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, va_list]
     qvfscanf = _libraries['FIXME_STUB'].qvfscanf
     qvfscanf.restype = ctypes.c_int32
-    qvfscanf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, va_list]
+    qvfscanf.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, va_list]
     qvprintf = _libraries['FIXME_STUB'].qvprintf
     qvprintf.restype = ctypes.c_int32
     qvprintf.argtypes = [ctypes.c_char_p, va_list]
@@ -23497,7 +23519,7 @@ def ctypeslib_define():
     qvsscanf.argtypes = [ctypes.c_char_p, ctypes.c_char_p, va_list]
     qwait_for_handles = _libraries['FIXME_STUB'].qwait_for_handles
     qwait_for_handles.restype = ctypes.c_int32
-    qwait_for_handles.argtypes = [ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.POINTER(None)), ctypes.c_int32, uint32, ctypes.c_int32]
+    qwait_for_handles.argtypes = [ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(qhandle_t), ctypes.c_int32, uint32, ctypes.c_int32]
     qwait_timed = _libraries['FIXME_STUB'].qwait_timed
     qwait_timed.restype = ctypes.c_int32
     qwait_timed.argtypes = [ctypes.POINTER(ctypes.c_int32), ctypes.c_int32, ctypes.c_int32, ctypes.c_int32]
@@ -23509,7 +23531,7 @@ def ctypeslib_define():
     qwrite.argtypes = [ctypes.c_int32, ctypes.POINTER(None), size_t]
     r50_to_asc = _libraries['FIXME_STUB'].r50_to_asc
     r50_to_asc.restype = ctypes.c_int32
-    r50_to_asc.argtypes = [ctypes.c_char_p, ctypes.POINTER(ctypes.c_uint16), ctypes.c_int32]
+    r50_to_asc.argtypes = [ctypes.c_char_p, ctypes.POINTER(ushort), ctypes.c_int32]
     rand = _libraries['FIXME_STUB'].rand
     rand.restype = ctypes.c_int32
     rand.argtypes = []
@@ -23573,34 +23595,34 @@ def ctypeslib_define():
     read.argtypes = [ctypes.c_int32, ctypes.POINTER(None), ctypes.c_uint32]
     read2bytes = _libraries['FIXME_STUB'].read2bytes
     read2bytes.restype = ctypes.c_int32
-    read2bytes.argtypes = [ctypes.c_int32, ctypes.POINTER(ctypes.c_uint16), ctypes.c_char]
+    read2bytes.argtypes = [ctypes.c_int32, ctypes.POINTER(uint16), ctypes.c_char]
     read_config = _libraries['FIXME_STUB'].read_config
     read_config.restype = ctypes.c_char
-    read_config.argtypes = [ctypes.c_char_p, ctypes.c_char, struct_cfgopt_t * 0, size_t, ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t)), ctypes.POINTER(ctypes.c_char_p), size_t]
+    read_config.argtypes = [ctypes.c_char_p, ctypes.c_char, struct_cfgopt_t * 0, size_t, cfgopt_handler_t, ctypes.POINTER(ctypes.c_char_p), size_t]
     read_config2 = _libraries['FIXME_STUB'].read_config2
     read_config2.restype = ctypes.c_char
-    read_config2.argtypes = [ctypes.c_char_p, ctypes.c_char, struct_cfgopt_t * 0, size_t, ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t)), ctypes.POINTER(ctypes.c_char_p), size_t, ctypes.POINTER(None)]
+    read_config2.argtypes = [ctypes.c_char_p, ctypes.c_char, struct_cfgopt_t * 0, size_t, cfgopt_handler_t, ctypes.POINTER(ctypes.c_char_p), size_t, ctypes.POINTER(None)]
     read_config_file = _libraries['FIXME_STUB'].read_config_file
     read_config_file.restype = ctypes.c_char
-    read_config_file.argtypes = [ctypes.c_char_p, struct_cfgopt_t * 0, size_t, ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t)), ctypes.POINTER(ctypes.c_char_p), size_t]
+    read_config_file.argtypes = [ctypes.c_char_p, struct_cfgopt_t * 0, size_t, cfgopt_handler_t, ctypes.POINTER(ctypes.c_char_p), size_t]
     read_config_file2 = _libraries['FIXME_STUB'].read_config_file2
     read_config_file2.restype = ctypes.c_char
-    read_config_file2.argtypes = [ctypes.c_char_p, struct_cfgopt_t * 0, size_t, ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t)), ctypes.POINTER(ctypes.c_char_p), size_t, ctypes.POINTER(None)]
+    read_config_file2.argtypes = [ctypes.c_char_p, struct_cfgopt_t * 0, size_t, cfgopt_handler_t, ctypes.POINTER(ctypes.c_char_p), size_t, ctypes.POINTER(None)]
     read_config_string = _libraries['FIXME_STUB'].read_config_string
     read_config_string.restype = ctypes.c_char
-    read_config_string.argtypes = [ctypes.c_char_p, struct_cfgopt_t * 0, size_t, ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_lexer_t), ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_token_t)), ctypes.POINTER(ctypes.c_char_p), size_t]
+    read_config_string.argtypes = [ctypes.c_char_p, struct_cfgopt_t * 0, size_t, cfgopt_handler_t, ctypes.POINTER(ctypes.c_char_p), size_t]
     read_dbg_memory = _libraries['FIXME_STUB'].read_dbg_memory
     read_dbg_memory.restype = ssize_t
     read_dbg_memory.argtypes = [ea_t, ctypes.POINTER(None), size_t]
     read_ioports = _libraries['FIXME_STUB'].read_ioports
     read_ioports.restype = ssize_t
-    read_ioports.argtypes = [ctypes.POINTER(struct_qvector_ioport_t_), ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(struct_qvector_ioport_t_), ctypes.c_char_p)]
+    read_ioports.argtypes = [ctypes.POINTER(ioports_t), ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.POINTER(ioports_t), ctypes.c_char_p)]
     read_ioports2 = _libraries['FIXME_STUB'].read_ioports2
     read_ioports2.restype = ssize_t
-    read_ioports2.argtypes = [ctypes.POINTER(struct_qvector_ioport_t_), ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.POINTER(struct_ioports_fallback_t)]
+    read_ioports2.argtypes = [ctypes.POINTER(ioports_t), ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.POINTER(struct_ioports_fallback_t)]
     read_range_selection = _libraries['FIXME_STUB'].read_range_selection
     read_range_selection.restype = ctypes.c_char
-    read_range_selection.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_uint64)]
+    read_range_selection.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(ea_t), ctypes.POINTER(ea_t)]
     read_regargs = _libraries['FIXME_STUB'].read_regargs
     read_regargs.restype = None
     read_regargs.argtypes = [ctypes.POINTER(struct_func_t)]
@@ -23609,13 +23631,13 @@ def ctypeslib_define():
     read_selection.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_twinpos_t), ctypes.POINTER(struct_twinpos_t)]
     read_struc_path = _libraries['FIXME_STUB'].read_struc_path
     read_struc_path.restype = ctypes.c_int32
-    read_struc_path.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_int64), ea_t, ctypes.c_int32]
+    read_struc_path.argtypes = [ctypes.POINTER(tid_t), ctypes.POINTER(adiff_t), ea_t, ctypes.c_int32]
     read_tinfo_bitfield_value = _libraries['FIXME_STUB'].read_tinfo_bitfield_value
     read_tinfo_bitfield_value.restype = uint64
     read_tinfo_bitfield_value.argtypes = [uint32, uint64, ctypes.c_int32]
     readbytes = _libraries['FIXME_STUB'].readbytes
     readbytes.restype = ctypes.c_int32
-    readbytes.argtypes = [ctypes.c_int32, ctypes.POINTER(ctypes.c_uint32), ctypes.c_int32, ctypes.c_char]
+    readbytes.argtypes = [ctypes.c_int32, ctypes.POINTER(uint32), ctypes.c_int32, ctypes.c_char]
     realcvt = _libraries['FIXME_STUB'].realcvt
     realcvt.restype = fpvalue_error_t
     realcvt.argtypes = [ctypes.POINTER(None), ctypes.POINTER(struct_fpvalue_t), uint16]
@@ -23660,7 +23682,7 @@ def ctypeslib_define():
     refresh_navband.argtypes = [ctypes.c_char]
     refresh_viewer = _libraries['FIXME_STUB'].refresh_viewer
     refresh_viewer.restype = None
-    refresh_viewer.argtypes = [ctypes.POINTER(struct_TWidget)]
+    refresh_viewer.argtypes = [ctypes.POINTER(graph_viewer_t)]
     reg_bin_op = _libraries['FIXME_STUB'].reg_bin_op
     reg_bin_op.restype = ctypes.c_char
     reg_bin_op.argtypes = [ctypes.c_char_p, ctypes.c_char, ctypes.POINTER(None), size_t, ctypes.c_char_p, ctypes.c_int32]
@@ -23705,28 +23727,28 @@ def ctypeslib_define():
     reg_read_int.argtypes = [ctypes.c_char_p, ctypes.c_int32, ctypes.c_char_p]
     reg_read_string = _libraries['FIXME_STUB'].reg_read_string
     reg_read_string.restype = ctypes.c_char
-    reg_read_string.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_char_p]
+    reg_read_string.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_char_p]
     reg_read_strlist = _libraries['FIXME_STUB'].reg_read_strlist
     reg_read_strlist.restype = None
-    reg_read_strlist.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__), ctypes.c_char_p]
+    reg_read_strlist.argtypes = [ctypes.POINTER(qstrvec_t), ctypes.c_char_p]
     reg_str_get = _libraries['FIXME_STUB'].reg_str_get
     reg_str_get.restype = ctypes.c_char
-    reg_str_get.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_char_p]
+    reg_str_get.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_char_p]
     reg_str_set = _libraries['FIXME_STUB'].reg_str_set
     reg_str_set.restype = None
     reg_str_set.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
     reg_subkey_children = _libraries['FIXME_STUB'].reg_subkey_children
     reg_subkey_children.restype = ctypes.c_char
-    reg_subkey_children.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__), ctypes.c_char_p, ctypes.c_char]
+    reg_subkey_children.argtypes = [ctypes.POINTER(qstrvec_t), ctypes.c_char_p, ctypes.c_char]
     reg_subkey_exists = _libraries['FIXME_STUB'].reg_subkey_exists
     reg_subkey_exists.restype = ctypes.c_char
     reg_subkey_exists.argtypes = [ctypes.c_char_p]
     reg_subkey_subkeys = _libraries['FIXME_STUB'].reg_subkey_subkeys
     reg_subkey_subkeys.restype = ctypes.c_char
-    reg_subkey_subkeys.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__), ctypes.c_char_p]
+    reg_subkey_subkeys.argtypes = [ctypes.POINTER(qstrvec_t), ctypes.c_char_p]
     reg_subkey_values = _libraries['FIXME_STUB'].reg_subkey_values
     reg_subkey_values.restype = ctypes.c_char
-    reg_subkey_values.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__), ctypes.c_char_p]
+    reg_subkey_values.argtypes = [ctypes.POINTER(qstrvec_t), ctypes.c_char_p]
     reg_update_filestrlist = _libraries['FIXME_STUB'].reg_update_filestrlist
     reg_update_filestrlist.restype = None
     reg_update_filestrlist.argtypes = [ctypes.c_char_p, ctypes.c_char_p, size_t, ctypes.c_char_p]
@@ -23765,7 +23787,7 @@ def ctypeslib_define():
     regfree.argtypes = [ctypes.POINTER(struct_regex_t)]
     regget_history = _libraries['FIXME_STUB'].regget_history
     regget_history.restype = None
-    regget_history.argtypes = [ctypes.POINTER(struct_qvector__qstring_char__)]
+    regget_history.argtypes = [ctypes.POINTER(qstrvec_t)]
     register_action = _libraries['FIXME_STUB'].register_action
     register_action.restype = ctypes.c_char
     register_action.argtypes = [ctypes.POINTER(struct_action_desc_t)]
@@ -23775,6 +23797,9 @@ def ctypeslib_define():
     register_and_attach_to_menu = _libraries['FIXME_STUB'].register_and_attach_to_menu
     register_and_attach_to_menu.restype = ctypes.c_char
     register_and_attach_to_menu.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(struct_action_handler_t), ctypes.POINTER(None), ctypes.c_int32]
+    register_cfgopts = _libraries['FIXME_STUB'].register_cfgopts
+    register_cfgopts.restype = ctypes.c_char
+    register_cfgopts.argtypes = [struct_cfgopt_t * 0, size_t, config_changed_cb_t, ctypes.POINTER(None)]
     register_custom_data_format = _libraries['FIXME_STUB'].register_custom_data_format
     register_custom_data_format.restype = ctypes.c_int32
     register_custom_data_format.argtypes = [ctypes.POINTER(struct_data_format_t)]
@@ -23789,7 +23814,7 @@ def ctypeslib_define():
     register_custom_refinfo.argtypes = [ctypes.POINTER(struct_custom_refinfo_handler_t)]
     register_loc_converter2 = _libraries['FIXME_STUB'].register_loc_converter2
     register_loc_converter2.restype = None
-    register_loc_converter2.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.CFUNCTYPE(lecvt_code_t, ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_lochist_entry_t), ctypes.POINTER(struct_TWidget), ctypes.c_uint32)]
+    register_loc_converter2.argtypes = [ctypes.c_char_p, ctypes.c_char_p, lochist_entry_cvt2_t]
     register_place_class = _libraries['FIXME_STUB'].register_place_class
     register_place_class.restype = ctypes.c_int32
     register_place_class.argtypes = [ctypes.POINTER(struct_place_t), ctypes.c_int32, ctypes.POINTER(struct_plugin_t)]
@@ -23885,7 +23910,7 @@ def ctypeslib_define():
     replace_ordinal_typerefs.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(struct_tinfo_t)]
     replace_tabs = _libraries['FIXME_STUB'].replace_tabs
     replace_tabs.restype = ctypes.c_char
-    replace_tabs.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_char_p, ctypes.c_int32]
+    replace_tabs.argtypes = [ctypes.POINTER(qstring), ctypes.c_char_p, ctypes.c_int32]
     replace_wait_box = _libraries['FIXME_STUB'].replace_wait_box
     replace_wait_box.restype = None
     replace_wait_box.argtypes = [ctypes.c_char_p]
@@ -23995,11 +24020,11 @@ def ctypeslib_define():
     reset_dirtree.restype = None
     reset_dirtree.argtypes = [ctypes.POINTER(struct_dirtree_impl_t)]
     resolve_typedef = _libraries['FIXME_STUB'].resolve_typedef
-    resolve_typedef.restype = ctypes.POINTER(ctypes.c_ubyte)
-    resolve_typedef.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(ctypes.c_ubyte)]
+    resolve_typedef.restype = ctypes.POINTER(type_t)
+    resolve_typedef.argtypes = [ctypes.POINTER(struct_til_t), ctypes.POINTER(type_t)]
     restore_database_snapshot = _libraries['FIXME_STUB'].restore_database_snapshot
     restore_database_snapshot.restype = ctypes.c_char
-    restore_database_snapshot.argtypes = [ctypes.POINTER(struct_snapshot_t), ctypes.CFUNCTYPE(None, ctypes.c_char_p, ctypes.POINTER(None)), ctypes.POINTER(None)]
+    restore_database_snapshot.argtypes = [ctypes.POINTER(struct_snapshot_t), ss_restore_cb_t, ctypes.POINTER(None)]
     resume_thread = _libraries['FIXME_STUB'].resume_thread
     resume_thread.restype = ctypes.c_int32
     resume_thread.argtypes = [thid_t]
@@ -24010,7 +24035,7 @@ def ctypeslib_define():
     retrieve_custom_argloc.restype = ctypes.POINTER(struct_custloc_desc_t)
     retrieve_custom_argloc.argtypes = [ctypes.c_int32]
     retrieve_exceptions = _libraries['FIXME_STUB'].retrieve_exceptions
-    retrieve_exceptions.restype = ctypes.POINTER(struct_qvector_exception_info_t_)
+    retrieve_exceptions.restype = ctypes.POINTER(excvec_t)
     retrieve_exceptions.argtypes = []
     retrieve_input_file_crc32 = _libraries['FIXME_STUB'].retrieve_input_file_crc32
     retrieve_input_file_crc32.restype = uint32
@@ -24035,7 +24060,7 @@ def ctypeslib_define():
     revert_ida_decisions.argtypes = [ea_t, ea_t]
     rewind = _libraries['FIXME_STUB'].rewind
     rewind.restype = None
-    rewind.argtypes = [ctypes.POINTER(struct__iobuf)]
+    rewind.argtypes = [ctypes.POINTER(FILE)]
     rint = _libraries['FIXME_STUB'].rint
     rint.restype = ctypes.c_double
     rint.argtypes = [ctypes.c_double]
@@ -24171,10 +24196,10 @@ def ctypeslib_define():
     serialize_dynamic_register_set.argtypes = [ctypes.POINTER(struct_bytevec_t), ctypes.POINTER(struct_dynamic_register_set_t)]
     serialize_json = _libraries['FIXME_STUB'].serialize_json
     serialize_json.restype = ctypes.c_char
-    serialize_json.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct_jobj_t), uint32]
+    serialize_json.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(struct_jobj_t), uint32]
     serialize_tinfo = _libraries['FIXME_STUB'].serialize_tinfo
     serialize_tinfo.restype = ctypes.c_char
-    serialize_tinfo.argtypes = [ctypes.POINTER(struct__qstring_unsigned_char_), ctypes.POINTER(struct__qstring_unsigned_char_), ctypes.POINTER(struct__qstring_unsigned_char_), ctypes.POINTER(struct_tinfo_t), ctypes.c_int32]
+    serialize_tinfo.argtypes = [ctypes.POINTER(qtype), ctypes.POINTER(qtype), ctypes.POINTER(qtype), ctypes.POINTER(struct_tinfo_t), ctypes.c_int32]
     set__bnot0 = _libraries['FIXME_STUB'].set__bnot0
     set__bnot0.restype = None
     set__bnot0.argtypes = [ea_t]
@@ -24207,7 +24232,7 @@ def ctypeslib_define():
     set_alignment.argtypes = [ea_t, uint32]
     set_all_bits = _libraries['FIXME_STUB'].set_all_bits
     set_all_bits.restype = None
-    set_all_bits.argtypes = [ctypes.POINTER(ctypes.c_ubyte), size_t]
+    set_all_bits.argtypes = [ctypes.POINTER(uchar), size_t]
     set_archive_path = _libraries['FIXME_STUB'].set_archive_path
     set_archive_path.restype = ctypes.c_char
     set_archive_path.argtypes = [ctypes.c_char_p]
@@ -24225,10 +24250,10 @@ def ctypeslib_define():
     set_bblk_trace_options.argtypes = [ctypes.c_int32]
     set_bit = _libraries['FIXME_STUB'].set_bit
     set_bit.restype = None
-    set_bit.argtypes = [ctypes.POINTER(ctypes.c_ubyte), size_t]
+    set_bit.argtypes = [ctypes.POINTER(uchar), size_t]
     set_bits = _libraries['FIXME_STUB'].set_bits
     set_bits.restype = None
-    set_bits.argtypes = [ctypes.POINTER(ctypes.c_ubyte), size_t, size_t]
+    set_bits.argtypes = [ctypes.POINTER(uchar), size_t, size_t]
     set_bmask_cmt = _libraries['FIXME_STUB'].set_bmask_cmt
     set_bmask_cmt.restype = ctypes.c_char
     set_bmask_cmt.argtypes = [enum_t, bmask_t, ctypes.c_char_p, ctypes.c_char]
@@ -24264,7 +24289,7 @@ def ctypeslib_define():
     set_code_viewer_is_source.argtypes = [ctypes.POINTER(struct_TWidget)]
     set_code_viewer_line_handlers = _libraries['FIXME_STUB'].set_code_viewer_line_handlers
     set_code_viewer_line_handlers.restype = None
-    set_code_viewer_line_handlers.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(None)), ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(None)), ctypes.CFUNCTYPE(None, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(None)), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(None)), ctypes.CFUNCTYPE(ctypes.c_char, ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_place_t), ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(None))]
+    set_code_viewer_line_handlers.argtypes = [ctypes.POINTER(struct_TWidget), code_viewer_lines_click_t, code_viewer_lines_click_t, code_viewer_lines_click_t, code_viewer_lines_icon_t, code_viewer_lines_linenum_t]
     set_code_viewer_lines_alignment = _libraries['FIXME_STUB'].set_code_viewer_lines_alignment
     set_code_viewer_lines_alignment.restype = ctypes.c_char
     set_code_viewer_lines_alignment.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.c_int32]
@@ -24321,7 +24346,7 @@ def ctypeslib_define():
     set_dbg_options.argtypes = [ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(None)]
     set_dbgmem_source = _libraries['FIXME_STUB'].set_dbgmem_source
     set_dbgmem_source.restype = None
-    set_dbgmem_source.argtypes = [ctypes.CFUNCTYPE(ctypes.POINTER(struct_range_t), ctypes.POINTER(ctypes.c_int32)), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint64, ctypes.POINTER(None), ctypes.c_int32), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint64, ctypes.POINTER(None), ctypes.c_int32)]
+    set_dbgmem_source.argtypes = [ctypes.CFUNCTYPE(ctypes.POINTER(struct_range_t), ctypes.POINTER(ctypes.c_int32)), ctypes.CFUNCTYPE(ctypes.c_int32, ea_t, ctypes.POINTER(None), ctypes.c_int32), ctypes.CFUNCTYPE(ctypes.c_int32, ea_t, ctypes.POINTER(None), ctypes.c_int32)]
     set_debug_event_code = _libraries['FIXME_STUB'].set_debug_event_code
     set_debug_event_code.restype = None
     set_debug_event_code.argtypes = [ctypes.POINTER(struct_debug_event_t), event_id_t]
@@ -24330,7 +24355,7 @@ def ctypeslib_define():
     set_debug_name.argtypes = [ea_t, ctypes.c_char_p]
     set_debug_names = _libraries['FIXME_STUB'].set_debug_names
     set_debug_names.restype = ctypes.c_int32
-    set_debug_names.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.POINTER(ctypes.c_char_p), ctypes.c_int32]
+    set_debug_names.argtypes = [ctypes.POINTER(ea_t), ctypes.POINTER(ctypes.c_char_p), ctypes.c_int32]
     set_debugger_event_cond = _libraries['FIXME_STUB'].set_debugger_event_cond
     set_debugger_event_cond.restype = None
     set_debugger_event_cond.argtypes = [ctypes.c_char_p]
@@ -24537,7 +24562,7 @@ def ctypeslib_define():
     set_manual_insn.argtypes = [ea_t, ctypes.c_char_p]
     set_manual_regions = _libraries['FIXME_STUB'].set_manual_regions
     set_manual_regions.restype = None
-    set_manual_regions.argtypes = [ctypes.POINTER(struct_qvector_memory_info_t_)]
+    set_manual_regions.argtypes = [ctypes.POINTER(meminfo_vec_t)]
     set_member_cmt = _libraries['FIXME_STUB'].set_member_cmt
     set_member_cmt.restype = ctypes.c_char
     set_member_cmt.argtypes = [ctypes.POINTER(struct_member_t), ctypes.c_char_p, ctypes.c_char]
@@ -24555,13 +24580,13 @@ def ctypeslib_define():
     set_module_data.argtypes = [ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(None)]
     set_moved_jpt = _libraries['FIXME_STUB'].set_moved_jpt
     set_moved_jpt.restype = ctypes.c_char
-    set_moved_jpt.argtypes = [ctypes.POINTER(struct_jump_pattern_t), ctypes.POINTER(struct_op_t), ctypes.POINTER(struct_op_t), ctypes.POINTER(struct_qvector_op_t_), op_dtype_t, op_dtype_t]
+    set_moved_jpt.argtypes = [ctypes.POINTER(struct_jump_pattern_t), ctypes.POINTER(struct_op_t), ctypes.POINTER(struct_op_t), ctypes.POINTER(tracked_regs_t), op_dtype_t, op_dtype_t]
     set_name = _libraries['FIXME_STUB'].set_name
     set_name.restype = ctypes.c_char
     set_name.argtypes = [ea_t, ctypes.c_char_p, ctypes.c_int32]
     set_nav_colorizer = _libraries['FIXME_STUB'].set_nav_colorizer
     set_nav_colorizer.restype = None
-    set_nav_colorizer.argtypes = [ctypes.POINTER(ctypes.CFUNCTYPE(ctypes.c_uint32, ctypes.c_uint64, ctypes.c_uint64, ctypes.POINTER(None))), ctypes.POINTER(ctypes.POINTER(None)), ctypes.CFUNCTYPE(ctypes.c_uint32, ctypes.c_uint64, ctypes.c_uint64, ctypes.POINTER(None)), ctypes.POINTER(None)]
+    set_nav_colorizer.argtypes = [ctypes.POINTER(nav_colorizer_t), ctypes.POINTER(ctypes.POINTER(None)), nav_colorizer_t, ctypes.POINTER(None)]
     set_new_handler = _libraries['FIXME_STUB'].set_new_handler
     set_new_handler.restype = std__new_handler
     set_new_handler.argtypes = [std__new_handler]
@@ -24582,7 +24607,7 @@ def ctypeslib_define():
     set_notproc.argtypes = [ea_t]
     set_numbered_type = _libraries['FIXME_STUB'].set_numbered_type
     set_numbered_type.restype = tinfo_code_t
-    set_numbered_type.argtypes = [ctypes.POINTER(struct_til_t), uint32, ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), ctypes.c_char_p, ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(sclass_t)]
+    set_numbered_type.argtypes = [ctypes.POINTER(struct_til_t), uint32, ctypes.c_int32, ctypes.c_char_p, ctypes.POINTER(type_t), ctypes.POINTER(p_list), ctypes.c_char_p, ctypes.POINTER(p_list), ctypes.POINTER(sclass_t)]
     set_op_tinfo = _libraries['FIXME_STUB'].set_op_tinfo
     set_op_tinfo.restype = ctypes.c_char
     set_op_tinfo.argtypes = [ea_t, ctypes.c_int32, ctypes.POINTER(struct_tinfo_t)]
@@ -24603,7 +24628,7 @@ def ctypeslib_define():
     set_process_options.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32]
     set_process_state = _libraries['FIXME_STUB'].set_process_state
     set_process_state.restype = ctypes.c_int32
-    set_process_state.argtypes = [ctypes.c_int32, ctypes.POINTER(ctypes.c_int32), ctypes.c_int32]
+    set_process_state.argtypes = [ctypes.c_int32, ctypes.POINTER(thid_t), ctypes.c_int32]
     set_processor_type = _libraries['FIXME_STUB'].set_processor_type
     set_processor_type.restype = ctypes.c_char
     set_processor_type.argtypes = [ctypes.c_char_p, setproc_level_t]
@@ -24660,7 +24685,7 @@ def ctypeslib_define():
     set_segment_cmt.argtypes = [ctypes.POINTER(struct_segment_t), ctypes.c_char_p, ctypes.c_char]
     set_segment_translations = _libraries['FIXME_STUB'].set_segment_translations
     set_segment_translations.restype = ctypes.c_char
-    set_segment_translations.argtypes = [ea_t, ctypes.POINTER(struct_qvector_unsigned_long_long_)]
+    set_segment_translations.argtypes = [ea_t, ctypes.POINTER(eavec_t)]
     set_selector = _libraries['FIXME_STUB'].set_selector
     set_selector.restype = ctypes.c_int32
     set_selector.argtypes = [sel_t, ea_t]
@@ -24732,7 +24757,7 @@ def ctypeslib_define():
     set_tinfo_attr.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct_type_attr_t), ctypes.c_char]
     set_tinfo_attrs = _libraries['FIXME_STUB'].set_tinfo_attrs
     set_tinfo_attrs.restype = ctypes.c_char
-    set_tinfo_attrs.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct_qvector_type_attr_t_)]
+    set_tinfo_attrs.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(type_attrs_t)]
     set_tinfo_property = _libraries['FIXME_STUB'].set_tinfo_property
     set_tinfo_property.restype = size_t
     set_tinfo_property.argtypes = [ctypes.POINTER(struct_tinfo_t), ctypes.c_int32, size_t]
@@ -24768,7 +24793,7 @@ def ctypeslib_define():
     set_usemodsp.argtypes = [ea_t]
     set_user_defined_prefix = _libraries['FIXME_STUB'].set_user_defined_prefix
     set_user_defined_prefix.restype = None
-    set_user_defined_prefix.argtypes = [size_t, ctypes.CFUNCTYPE(None, ctypes.POINTER(struct__qstring_char_), ctypes.c_uint64, ctypes.c_int32, ctypes.c_int32, ctypes.c_char_p)]
+    set_user_defined_prefix.argtypes = [size_t, ctypes.CFUNCTYPE(None, ctypes.POINTER(qstring), ea_t, ctypes.c_int32, ctypes.c_int32, ctypes.c_char_p)]
     set_usersp = _libraries['FIXME_STUB'].set_usersp
     set_usersp.restype = None
     set_usersp.argtypes = [ea_t]
@@ -24783,7 +24808,7 @@ def ctypeslib_define():
     set_view_renderer_type.argtypes = [ctypes.POINTER(struct_TWidget), tcc_renderer_type_t]
     set_viewer_graph = _libraries['FIXME_STUB'].set_viewer_graph
     set_viewer_graph.restype = None
-    set_viewer_graph.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_mutable_graph_t)]
+    set_viewer_graph.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.POINTER(struct_mutable_graph_t)]
     set_visible_func = _libraries['FIXME_STUB'].set_visible_func
     set_visible_func.restype = None
     set_visible_func.argtypes = [ctypes.POINTER(struct_func_t), ctypes.c_char]
@@ -24801,7 +24826,7 @@ def ctypeslib_define():
     set_zstroff.argtypes = [ea_t]
     setbuf = _libraries['FIXME_STUB'].setbuf
     setbuf.restype = None
-    setbuf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p]
+    setbuf.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p]
     setinf = _libraries['FIXME_STUB'].setinf
     setinf.restype = ctypes.c_char
     setinf.argtypes = [inftag_t, ssize_t]
@@ -24816,10 +24841,10 @@ def ctypeslib_define():
     setmode.argtypes = [ctypes.c_int32, ctypes.c_int32]
     setup_graph_subsystem = _libraries['FIXME_STUB'].setup_graph_subsystem
     setup_graph_subsystem.restype = None
-    setup_graph_subsystem.argtypes = [ctypes.c_char_p, ctypes.CFUNCTYPE(ctypes.c_uint32, ctypes.c_int32)]
+    setup_graph_subsystem.argtypes = [ctypes.c_char_p, ctypes.CFUNCTYPE(bgcolor_t, ctypes.c_int32)]
     setup_lowcnd_regfuncs = _libraries['FIXME_STUB'].setup_lowcnd_regfuncs
     setup_lowcnd_regfuncs.restype = None
-    setup_lowcnd_regfuncs.argtypes = [ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_idc_value_t)), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_idc_value_t))]
+    setup_lowcnd_regfuncs.argtypes = [idc_func_t, idc_func_t]
     setup_range_marker = _libraries['FIXME_STUB'].setup_range_marker
     setup_range_marker.restype = None
     setup_range_marker.argtypes = []
@@ -24828,7 +24853,7 @@ def ctypeslib_define():
     setup_selector.argtypes = [ea_t]
     setvbuf = _libraries['FIXME_STUB'].setvbuf
     setvbuf.restype = ctypes.c_int32
-    setvbuf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, ctypes.c_int32, size_t]
+    setvbuf.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, ctypes.c_int32, size_t]
     should_ignore_micro = _libraries['FIXME_STUB'].should_ignore_micro
     should_ignore_micro.restype = ctypes.c_char
     should_ignore_micro.argtypes = [ea_t]
@@ -24876,16 +24901,16 @@ def ctypeslib_define():
     simpleline_place_t__copyfrom.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(struct_place_t)]
     simpleline_place_t__deserialize = _libraries['FIXME_STUB'].simpleline_place_t__deserialize
     simpleline_place_t__deserialize.restype = ctypes.c_char
-    simpleline_place_t__deserialize.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    simpleline_place_t__deserialize.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     simpleline_place_t__ending = _libraries['FIXME_STUB'].simpleline_place_t__ending
     simpleline_place_t__ending.restype = ctypes.c_char
     simpleline_place_t__ending.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(None)]
     simpleline_place_t__enter = _libraries['FIXME_STUB'].simpleline_place_t__enter
     simpleline_place_t__enter.restype = ctypes.POINTER(struct_place_t)
-    simpleline_place_t__enter.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(ctypes.c_uint32)]
+    simpleline_place_t__enter.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(uint32)]
     simpleline_place_t__generate = _libraries['FIXME_STUB'].simpleline_place_t__generate
     simpleline_place_t__generate.restype = ctypes.c_int32
-    simpleline_place_t__generate.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(struct_qvector__qstring_char__), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_uint32), ctypes.POINTER(None), ctypes.c_int32]
+    simpleline_place_t__generate.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(qstrvec_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(color_t), ctypes.POINTER(bgcolor_t), ctypes.POINTER(None), ctypes.c_int32]
     simpleline_place_t__id = _libraries['FIXME_STUB'].simpleline_place_t__id
     simpleline_place_t__id.restype = ctypes.c_int32
     simpleline_place_t__id.argtypes = [ctypes.POINTER(struct_simpleline_place_t)]
@@ -24906,7 +24931,7 @@ def ctypeslib_define():
     simpleline_place_t__prev.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(None)]
     simpleline_place_t__print = _libraries['FIXME_STUB'].simpleline_place_t__print
     simpleline_place_t__print.restype = None
-    simpleline_place_t__print.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(None)]
+    simpleline_place_t__print.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(qstring), ctypes.POINTER(None)]
     simpleline_place_t__rebase = _libraries['FIXME_STUB'].simpleline_place_t__rebase
     simpleline_place_t__rebase.restype = ctypes.c_char
     simpleline_place_t__rebase.argtypes = [ctypes.POINTER(struct_simpleline_place_t), ctypes.POINTER(struct_segm_move_infos_t)]
@@ -25020,25 +25045,25 @@ def ctypeslib_define():
     stkvar_flag.argtypes = []
     stoa = _libraries['FIXME_STUB'].stoa
     stoa.restype = size_t
-    stoa.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, sel_t]
+    stoa.argtypes = [ctypes.POINTER(qstring), ea_t, sel_t]
     stod = _libraries['FIXME_STUB'].stod
     stod.restype = ctypes.c_double
-    stod.argtypes = [ctypes.POINTER(struct_std__basic_string_wchar_t_), ctypes.POINTER(ctypes.c_uint64)]
+    stod.argtypes = [ctypes.POINTER(std__wstring), ctypes.POINTER(size_t)]
     stof = _libraries['FIXME_STUB'].stof
     stof.restype = ctypes.c_float
-    stof.argtypes = [ctypes.POINTER(struct_std__basic_string_wchar_t_), ctypes.POINTER(ctypes.c_uint64)]
+    stof.argtypes = [ctypes.POINTER(std__wstring), ctypes.POINTER(size_t)]
     stoi = _libraries['FIXME_STUB'].stoi
     stoi.restype = ctypes.c_int32
-    stoi.argtypes = [ctypes.POINTER(struct_std__basic_string_wchar_t_), ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32]
+    stoi.argtypes = [ctypes.POINTER(std__wstring), ctypes.POINTER(size_t), ctypes.c_int32]
     stol = _libraries['FIXME_STUB'].stol
     stol.restype = ctypes.c_int32
-    stol.argtypes = [ctypes.POINTER(struct_std__basic_string_wchar_t_), ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32]
+    stol.argtypes = [ctypes.POINTER(std__wstring), ctypes.POINTER(size_t), ctypes.c_int32]
     stold = _libraries['FIXME_STUB'].stold
     stold.restype = ctypes.c_double
-    stold.argtypes = [ctypes.POINTER(struct_std__basic_string_wchar_t_), ctypes.POINTER(ctypes.c_uint64)]
+    stold.argtypes = [ctypes.POINTER(std__wstring), ctypes.POINTER(size_t)]
     stoll = _libraries['FIXME_STUB'].stoll
     stoll.restype = ctypes.c_int64
-    stoll.argtypes = [ctypes.POINTER(struct_std__basic_string_wchar_t_), ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32]
+    stoll.argtypes = [ctypes.POINTER(std__wstring), ctypes.POINTER(size_t), ctypes.c_int32]
     store_exceptions = _libraries['FIXME_STUB'].store_exceptions
     store_exceptions.restype = ctypes.c_char
     store_exceptions.argtypes = []
@@ -25047,16 +25072,16 @@ def ctypeslib_define():
     store_til.argtypes = [ctypes.POINTER(struct_til_t), ctypes.c_char_p, ctypes.c_char_p]
     stoul = _libraries['FIXME_STUB'].stoul
     stoul.restype = ctypes.c_uint32
-    stoul.argtypes = [ctypes.POINTER(struct_std__basic_string_wchar_t_), ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32]
+    stoul.argtypes = [ctypes.POINTER(std__wstring), ctypes.POINTER(size_t), ctypes.c_int32]
     stoull = _libraries['FIXME_STUB'].stoull
     stoull.restype = ctypes.c_uint64
-    stoull.argtypes = [ctypes.POINTER(struct_std__basic_string_wchar_t_), ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32]
+    stoull.argtypes = [ctypes.POINTER(std__wstring), ctypes.POINTER(size_t), ctypes.c_int32]
     str2ea = _libraries['FIXME_STUB'].str2ea
     str2ea.restype = ctypes.c_char
-    str2ea.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p, ea_t]
+    str2ea.argtypes = [ctypes.POINTER(ea_t), ctypes.c_char_p, ea_t]
     str2ea_ex = _libraries['FIXME_STUB'].str2ea_ex
     str2ea_ex.restype = ctypes.c_char
-    str2ea_ex.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p, ea_t, ctypes.c_int32]
+    str2ea_ex.argtypes = [ctypes.POINTER(ea_t), ctypes.c_char_p, ea_t, ctypes.c_int32]
     str2reg = _libraries['FIXME_STUB'].str2reg
     str2reg.restype = ctypes.c_int32
     str2reg.argtypes = [ctypes.c_char_p]
@@ -25221,16 +25246,16 @@ def ctypeslib_define():
     structplace_t__copyfrom.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(struct_place_t)]
     structplace_t__deserialize = _libraries['FIXME_STUB'].structplace_t__deserialize
     structplace_t__deserialize.restype = ctypes.c_char
-    structplace_t__deserialize.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    structplace_t__deserialize.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     structplace_t__ending = _libraries['FIXME_STUB'].structplace_t__ending
     structplace_t__ending.restype = ctypes.c_char
     structplace_t__ending.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(None)]
     structplace_t__enter = _libraries['FIXME_STUB'].structplace_t__enter
     structplace_t__enter.restype = ctypes.POINTER(struct_place_t)
-    structplace_t__enter.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(ctypes.c_uint32)]
+    structplace_t__enter.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(uint32)]
     structplace_t__generate = _libraries['FIXME_STUB'].structplace_t__generate
     structplace_t__generate.restype = ctypes.c_int32
-    structplace_t__generate.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(struct_qvector__qstring_char__), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_uint32), ctypes.POINTER(None), ctypes.c_int32]
+    structplace_t__generate.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(qstrvec_t), ctypes.POINTER(ctypes.c_int32), ctypes.POINTER(color_t), ctypes.POINTER(bgcolor_t), ctypes.POINTER(None), ctypes.c_int32]
     structplace_t__id = _libraries['FIXME_STUB'].structplace_t__id
     structplace_t__id.restype = ctypes.c_int32
     structplace_t__id.argtypes = [ctypes.POINTER(struct_structplace_t)]
@@ -25251,7 +25276,7 @@ def ctypeslib_define():
     structplace_t__prev.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(None)]
     structplace_t__print = _libraries['FIXME_STUB'].structplace_t__print
     structplace_t__print.restype = None
-    structplace_t__print.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(None)]
+    structplace_t__print.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(qstring), ctypes.POINTER(None)]
     structplace_t__rebase = _libraries['FIXME_STUB'].structplace_t__rebase
     structplace_t__rebase.restype = ctypes.c_char
     structplace_t__rebase.argtypes = [ctypes.POINTER(struct_structplace_t), ctypes.POINTER(struct_segm_move_infos_t)]
@@ -25326,13 +25351,13 @@ def ctypeslib_define():
     system.argtypes = [ctypes.c_char_p]
     tag_addr = _libraries['FIXME_STUB'].tag_addr
     tag_addr.restype = None
-    tag_addr.argtypes = [ctypes.POINTER(struct__qstring_char_), ea_t, ctypes.c_char]
+    tag_addr.argtypes = [ctypes.POINTER(qstring), ea_t, ctypes.c_char]
     tag_advance = _libraries['FIXME_STUB'].tag_advance
     tag_advance.restype = ctypes.c_char_p
     tag_advance.argtypes = [ctypes.c_char_p, ctypes.c_int32]
     tag_remove = _libraries['FIXME_STUB'].tag_remove
     tag_remove.restype = ssize_t
-    tag_remove.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_int32]
+    tag_remove.argtypes = [ctypes.POINTER(qstring), ctypes.c_int32]
     tag_skipcode = _libraries['FIXME_STUB'].tag_skipcode
     tag_skipcode.restype = ctypes.c_char_p
     tag_skipcode.argtypes = [ctypes.c_char_p]
@@ -25347,7 +25372,7 @@ def ctypeslib_define():
     tail.argtypes = [ctypes.c_char_p]
     take_database_snapshot = _libraries['FIXME_STUB'].take_database_snapshot
     take_database_snapshot.restype = ctypes.c_char
-    take_database_snapshot.argtypes = [ctypes.POINTER(struct_snapshot_t), ctypes.POINTER(struct__qstring_char_)]
+    take_database_snapshot.argtypes = [ctypes.POINTER(struct_snapshot_t), ctypes.POINTER(qstring)]
     take_memory_snapshot = _libraries['FIXME_STUB'].take_memory_snapshot
     take_memory_snapshot.restype = ctypes.c_char
     take_memory_snapshot.argtypes = [ctypes.c_char]
@@ -25395,7 +25420,7 @@ def ctypeslib_define():
     terminate.argtypes = []
     test_bit = _libraries['FIXME_STUB'].test_bit
     test_bit.restype = ctypes.c_char
-    test_bit.argtypes = [ctypes.POINTER(ctypes.c_ubyte), size_t]
+    test_bit.argtypes = [ctypes.POINTER(uchar), size_t]
     tgamma = _libraries['FIXME_STUB'].tgamma
     tgamma.restype = ctypes.c_double
     tgamma.argtypes = [ctypes.c_double]
@@ -25409,11 +25434,11 @@ def ctypeslib_define():
     throw_idc_exception.restype = error_t
     throw_idc_exception.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.c_char_p]
     tmpfile = _libraries['FIXME_STUB'].tmpfile
-    tmpfile.restype = ctypes.POINTER(struct__iobuf)
+    tmpfile.restype = ctypes.POINTER(FILE)
     tmpfile.argtypes = []
     tmpfile_s = _libraries['FIXME_STUB'].tmpfile_s
     tmpfile_s.restype = errno_t
-    tmpfile_s.argtypes = [ctypes.POINTER(ctypes.POINTER(struct__iobuf))]
+    tmpfile_s.argtypes = [ctypes.POINTER(ctypes.POINTER(FILE))]
     tmpnam = _libraries['FIXME_STUB'].tmpnam
     tmpnam.restype = ctypes.c_char_p
     tmpnam.argtypes = [ctypes.c_char_p]
@@ -25476,7 +25501,7 @@ def ctypeslib_define():
     tzset.argtypes = []
     ui_load_new_file = _libraries['FIXME_STUB'].ui_load_new_file
     ui_load_new_file.restype = ctypes.c_char
-    ui_load_new_file.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(ctypes.POINTER(struct_linput_t)), ushort, ctypes.POINTER(ctypes.POINTER(struct_load_info_t))]
+    ui_load_new_file.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(qstring), ctypes.POINTER(ctypes.POINTER(struct_linput_t)), ushort, ctypes.POINTER(ctypes.POINTER(struct_load_info_t))]
     ui_run_debugger = _libraries['FIXME_STUB'].ui_run_debugger
     ui_run_debugger.restype = ctypes.c_char
     ui_run_debugger.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32, ctypes.POINTER(ctypes.c_char_p)]
@@ -25498,13 +25523,13 @@ def ctypeslib_define():
     unexpected.argtypes = []
     unget_token = _libraries['FIXME_STUB'].unget_token
     unget_token.restype = None
-    unget_token.argtypes = [ctypes.POINTER(struct_token_t), ctypes.POINTER(struct_qstack_token_t_)]
+    unget_token.argtypes = [ctypes.POINTER(struct_token_t), ctypes.POINTER(tokenstack_t)]
     ungetc = _libraries['FIXME_STUB'].ungetc
     ungetc.restype = ctypes.c_int32
-    ungetc.argtypes = [ctypes.c_int32, ctypes.POINTER(struct__iobuf)]
+    ungetc.argtypes = [ctypes.c_int32, ctypes.POINTER(FILE)]
     ungetwc = _libraries['FIXME_STUB'].ungetwc
     ungetwc.restype = wint_t
-    ungetwc.argtypes = [wint_t, ctypes.POINTER(struct__iobuf)]
+    ungetwc.argtypes = [wint_t, ctypes.POINTER(FILE)]
     unhide_border = _libraries['FIXME_STUB'].unhide_border
     unhide_border.restype = None
     unhide_border.argtypes = [ea_t]
@@ -25516,7 +25541,7 @@ def ctypeslib_define():
     unhook_event_listener.argtypes = [hook_type_t, ctypes.POINTER(struct_event_listener_t)]
     unhook_from_notification_point = _libraries['FIXME_STUB'].unhook_from_notification_point
     unhook_from_notification_point.restype = ctypes.c_int32
-    unhook_from_notification_point.argtypes = [hook_type_t, ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.c_int32, ctypes.c_char_p), ctypes.POINTER(None)]
+    unhook_from_notification_point.argtypes = [hook_type_t, hook_cb_t, ctypes.POINTER(None)]
     unlink = _libraries['FIXME_STUB'].unlink
     unlink.restype = ctypes.c_int32
     unlink.argtypes = [ctypes.c_char_p]
@@ -25531,40 +25556,40 @@ def ctypeslib_define():
     unmark_selection.argtypes = []
     unpack_buf = _libraries['FIXME_STUB'].unpack_buf
     unpack_buf.restype = ctypes.POINTER(None)
-    unpack_buf.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_buf.argtypes = [ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_buf_inplace = _libraries['FIXME_STUB'].unpack_buf_inplace
     unpack_buf_inplace.restype = ctypes.POINTER(None)
-    unpack_buf_inplace.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_buf_inplace.argtypes = [ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_bytevec = _libraries['FIXME_STUB'].unpack_bytevec
     unpack_bytevec.restype = ctypes.c_char
-    unpack_bytevec.argtypes = [ctypes.POINTER(struct_bytevec_t), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_bytevec.argtypes = [ctypes.POINTER(struct_bytevec_t), ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_db = _libraries['FIXME_STUB'].unpack_db
     unpack_db.restype = uchar
-    unpack_db.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_db.argtypes = [ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_dd = _libraries['FIXME_STUB'].unpack_dd
     unpack_dd.restype = uint32
-    unpack_dd.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_dd.argtypes = [ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_dq = _libraries['FIXME_STUB'].unpack_dq
     unpack_dq.restype = uint64
-    unpack_dq.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_dq.argtypes = [ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_ds = _libraries['FIXME_STUB'].unpack_ds
     unpack_ds.restype = ctypes.c_char_p
-    unpack_ds.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte), ctypes.c_char]
+    unpack_ds.argtypes = [ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar), ctypes.c_char]
     unpack_ds_to_buf = _libraries['FIXME_STUB'].unpack_ds_to_buf
     unpack_ds_to_buf.restype = ctypes.c_char
-    unpack_ds_to_buf.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_ds_to_buf.argtypes = [ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_dw = _libraries['FIXME_STUB'].unpack_dw
     unpack_dw.restype = ushort
-    unpack_dw.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_dw.argtypes = [ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_ea = _libraries['FIXME_STUB'].unpack_ea
     unpack_ea.restype = ea_t
-    unpack_ea.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_ea.argtypes = [ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_ea64 = _libraries['FIXME_STUB'].unpack_ea64
     unpack_ea64.restype = ea64_t
-    unpack_ea64.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_ea64.argtypes = [ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_eavec = _libraries['FIXME_STUB'].unpack_eavec
     unpack_eavec.restype = None
-    unpack_eavec.argtypes = [ctypes.POINTER(struct_qvector_unsigned_long_long_), ea_t, ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_eavec.argtypes = [ctypes.POINTER(eavec_t), ea_t, ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_idcobj_from_bv = _libraries['FIXME_STUB'].unpack_idcobj_from_bv
     unpack_idcobj_from_bv.restype = error_t
     unpack_idcobj_from_bv.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_tinfo_t), ctypes.POINTER(struct_bytevec_t), ctypes.c_int32]
@@ -25573,22 +25598,22 @@ def ctypeslib_define():
     unpack_idcobj_from_idb.argtypes = [ctypes.POINTER(struct_idc_value_t), ctypes.POINTER(struct_tinfo_t), ea_t, ctypes.POINTER(struct_bytevec_t), ctypes.c_int32]
     unpack_memory = _libraries['FIXME_STUB'].unpack_memory
     unpack_memory.restype = ctypes.c_char
-    unpack_memory.argtypes = [ctypes.POINTER(None), size_t, ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_memory.argtypes = [ctypes.POINTER(None), size_t, ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_obj = _libraries['FIXME_STUB'].unpack_obj
     unpack_obj.restype = ctypes.POINTER(None)
-    unpack_obj.argtypes = [ctypes.POINTER(None), size_t, ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_obj.argtypes = [ctypes.POINTER(None), size_t, ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_obj_inplace = _libraries['FIXME_STUB'].unpack_obj_inplace
     unpack_obj_inplace.restype = ctypes.POINTER(None)
-    unpack_obj_inplace.argtypes = [ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte), size_t]
+    unpack_obj_inplace.argtypes = [ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar), size_t]
     unpack_regvals = _libraries['FIXME_STUB'].unpack_regvals
     unpack_regvals.restype = None
-    unpack_regvals.argtypes = [ctypes.POINTER(struct_regval_t), ctypes.c_int32, ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(struct_memory_deserializer_t)]
+    unpack_regvals.argtypes = [ctypes.POINTER(struct_regval_t), ctypes.c_int32, ctypes.POINTER(uchar), ctypes.POINTER(struct_memory_deserializer_t)]
     unpack_str = _libraries['FIXME_STUB'].unpack_str
     unpack_str.restype = ctypes.c_char
-    unpack_str.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_str.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unpack_xleb128 = _libraries['FIXME_STUB'].unpack_xleb128
     unpack_xleb128.restype = ctypes.c_char
-    unpack_xleb128.argtypes = [ctypes.POINTER(None), ctypes.c_int32, ctypes.c_char, ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte)), ctypes.POINTER(ctypes.c_ubyte)]
+    unpack_xleb128.argtypes = [ctypes.POINTER(None), ctypes.c_int32, ctypes.c_char, ctypes.POINTER(ctypes.POINTER(uchar)), ctypes.POINTER(uchar)]
     unregister_action = _libraries['FIXME_STUB'].unregister_action
     unregister_action.restype = ctypes.c_char
     unregister_action.argtypes = [ctypes.c_char_p]
@@ -25669,10 +25694,10 @@ def ctypeslib_define():
     use_mapping.argtypes = [ea_t]
     user2bin = _libraries['FIXME_STUB'].user2bin
     user2bin.restype = ctypes.c_int32
-    user2bin.argtypes = [ctypes.POINTER(ctypes.c_ubyte), ctypes.POINTER(ctypes.c_ubyte), ea_t, ctypes.c_char_p, ctypes.c_int32, ctypes.c_char]
+    user2bin.argtypes = [ctypes.POINTER(uchar), ctypes.POINTER(uchar), ea_t, ctypes.c_char_p, ctypes.c_int32, ctypes.c_char]
     user2qstr = _libraries['FIXME_STUB'].user2qstr
     user2qstr.restype = None
-    user2qstr.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(struct__qstring_char_)]
+    user2qstr.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(qstring)]
     user2str = _libraries['FIXME_STUB'].user2str
     user2str.restype = ctypes.c_char_p
     user2str.argtypes = [ctypes.c_char_p, ctypes.c_char_p, size_t]
@@ -25690,10 +25715,10 @@ def ctypeslib_define():
     utf16_surrogates_to_cp.argtypes = [wchar16_t, wchar16_t]
     utf16_utf8 = _libraries['FIXME_STUB'].utf16_utf8
     utf16_utf8.restype = ctypes.c_char
-    utf16_utf8.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.POINTER(ctypes.c_int16), ctypes.c_int32]
+    utf16_utf8.argtypes = [ctypes.POINTER(qstring), ctypes.POINTER(wchar16_t), ctypes.c_int32]
     utf8_utf16 = _libraries['FIXME_STUB'].utf8_utf16
     utf8_utf16.restype = ctypes.c_char
-    utf8_utf16.argtypes = [ctypes.POINTER(struct__qstring_wchar_t_), ctypes.c_char_p, ctypes.c_int32]
+    utf8_utf16.argtypes = [ctypes.POINTER(qwstring), ctypes.c_char_p, ctypes.c_int32]
     utf8_wchar16 = _libraries['FIXME_STUB'].utf8_wchar16
     utf8_wchar16.restype = wchar16_t
     utf8_wchar16.argtypes = [uchar, uchar, uchar]
@@ -25711,7 +25736,7 @@ def ctypeslib_define():
     validate_idb_names2.argtypes = [ctypes.c_char]
     validate_name = _libraries['FIXME_STUB'].validate_name
     validate_name.restype = ctypes.c_char
-    validate_name.argtypes = [ctypes.POINTER(struct__qstring_char_), nametype_t, ctypes.c_int32]
+    validate_name.argtypes = [ctypes.POINTER(qstring), nametype_t, ctypes.c_int32]
     vask_buttons = _libraries['FIXME_STUB'].vask_buttons
     vask_buttons.restype = ctypes.c_int32
     vask_buttons.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int32, ctypes.c_char_p, va_list]
@@ -25723,10 +25748,10 @@ def ctypeslib_define():
     vask_form.argtypes = [ctypes.c_char_p, va_list]
     vask_str = _libraries['FIXME_STUB'].vask_str
     vask_str.restype = ctypes.c_char
-    vask_str.argtypes = [ctypes.POINTER(struct__qstring_char_), ctypes.c_int32, ctypes.c_char_p, va_list]
+    vask_str.argtypes = [ctypes.POINTER(qstring), ctypes.c_int32, ctypes.c_char_p, va_list]
     vask_text = _libraries['FIXME_STUB'].vask_text
     vask_text.restype = ctypes.c_char
-    vask_text.argtypes = [ctypes.POINTER(struct__qstring_char_), size_t, ctypes.c_char_p, ctypes.c_char_p, va_list]
+    vask_text.argtypes = [ctypes.POINTER(qstring), size_t, ctypes.c_char_p, ctypes.c_char_p, va_list]
     vask_yn = _libraries['FIXME_STUB'].vask_yn
     vask_yn.restype = ctypes.c_int32
     vask_yn.argtypes = [ctypes.c_int32, help_t, va_list]
@@ -25741,82 +25766,82 @@ def ctypeslib_define():
     verror.argtypes = [ctypes.c_char_p, va_list]
     vfprintf = _libraries['FIXME_STUB'].vfprintf
     vfprintf.restype = ctypes.c_int32
-    vfprintf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, va_list]
+    vfprintf.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, va_list]
     vfprintf_s = _libraries['FIXME_STUB'].vfprintf_s
     vfprintf_s.restype = ctypes.c_int32
-    vfprintf_s.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, va_list]
+    vfprintf_s.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, va_list]
     vfscanf = _libraries['FIXME_STUB'].vfscanf
     vfscanf.restype = ctypes.c_int32
-    vfscanf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, va_list]
+    vfscanf.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, va_list]
     vfscanf_s = _libraries['FIXME_STUB'].vfscanf_s
     vfscanf_s.restype = ctypes.c_int32
-    vfscanf_s.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.c_char_p, va_list]
+    vfscanf_s.argtypes = [ctypes.POINTER(FILE), ctypes.c_char_p, va_list]
     vfwprintf = _libraries['FIXME_STUB'].vfwprintf
     vfwprintf.restype = ctypes.c_int32
-    vfwprintf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), va_list]
+    vfwprintf.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), va_list]
     vfwprintf_s = _libraries['FIXME_STUB'].vfwprintf_s
     vfwprintf_s.restype = ctypes.c_int32
-    vfwprintf_s.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), va_list]
+    vfwprintf_s.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), va_list]
     vfwscanf = _libraries['FIXME_STUB'].vfwscanf
     vfwscanf.restype = ctypes.c_int32
-    vfwscanf.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), va_list]
+    vfwscanf.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), va_list]
     vfwscanf_s = _libraries['FIXME_STUB'].vfwscanf_s
     vfwscanf_s.restype = ctypes.c_int32
-    vfwscanf_s.argtypes = [ctypes.POINTER(struct__iobuf), ctypes.POINTER(ctypes.c_int16), va_list]
+    vfwscanf_s.argtypes = [ctypes.POINTER(FILE), ctypes.POINTER(ctypes.c_int16), va_list]
     viewer_attach_menu_item = _libraries['FIXME_STUB'].viewer_attach_menu_item
     viewer_attach_menu_item.restype = ctypes.c_char
-    viewer_attach_menu_item.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.c_char_p]
+    viewer_attach_menu_item.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.c_char_p]
     viewer_center_on = _libraries['FIXME_STUB'].viewer_center_on
     viewer_center_on.restype = None
-    viewer_center_on.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.c_int32]
+    viewer_center_on.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.c_int32]
     viewer_create_groups = _libraries['FIXME_STUB'].viewer_create_groups
     viewer_create_groups.restype = ctypes.c_char
-    viewer_create_groups.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_qvector_int_), ctypes.POINTER(struct_qvector_group_crinfo_t_)]
+    viewer_create_groups.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.POINTER(intvec_t), ctypes.POINTER(groups_crinfos_t)]
     viewer_del_node_info = _libraries['FIXME_STUB'].viewer_del_node_info
     viewer_del_node_info.restype = None
-    viewer_del_node_info.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.c_int32]
+    viewer_del_node_info.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.c_int32]
     viewer_delete_groups = _libraries['FIXME_STUB'].viewer_delete_groups
     viewer_delete_groups.restype = ctypes.c_char
-    viewer_delete_groups.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_qvector_int_), ctypes.c_int32]
+    viewer_delete_groups.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.POINTER(intvec_t), ctypes.c_int32]
     viewer_fit_window = _libraries['FIXME_STUB'].viewer_fit_window
     viewer_fit_window.restype = None
-    viewer_fit_window.argtypes = [ctypes.POINTER(struct_TWidget)]
+    viewer_fit_window.argtypes = [ctypes.POINTER(graph_viewer_t)]
     viewer_get_curnode = _libraries['FIXME_STUB'].viewer_get_curnode
     viewer_get_curnode.restype = ctypes.c_int32
-    viewer_get_curnode.argtypes = [ctypes.POINTER(struct_TWidget)]
+    viewer_get_curnode.argtypes = [ctypes.POINTER(graph_viewer_t)]
     viewer_get_gli = _libraries['FIXME_STUB'].viewer_get_gli
     viewer_get_gli.restype = ctypes.c_char
-    viewer_get_gli.argtypes = [ctypes.POINTER(struct_graph_location_info_t), ctypes.POINTER(struct_TWidget), uint32]
+    viewer_get_gli.argtypes = [ctypes.POINTER(struct_graph_location_info_t), ctypes.POINTER(graph_viewer_t), uint32]
     viewer_get_node_info = _libraries['FIXME_STUB'].viewer_get_node_info
     viewer_get_node_info.restype = ctypes.c_char
-    viewer_get_node_info.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_node_info_t), ctypes.c_int32]
+    viewer_get_node_info.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.POINTER(struct_node_info_t), ctypes.c_int32]
     viewer_get_selection = _libraries['FIXME_STUB'].viewer_get_selection
     viewer_get_selection.restype = ctypes.c_char
-    viewer_get_selection.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_screen_graph_selection_t)]
+    viewer_get_selection.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.POINTER(struct_screen_graph_selection_t)]
     viewer_set_gli = _libraries['FIXME_STUB'].viewer_set_gli
     viewer_set_gli.restype = None
-    viewer_set_gli.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_graph_location_info_t), uint32]
+    viewer_set_gli.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.POINTER(struct_graph_location_info_t), uint32]
     viewer_set_groups_visibility = _libraries['FIXME_STUB'].viewer_set_groups_visibility
     viewer_set_groups_visibility.restype = ctypes.c_char
-    viewer_set_groups_visibility.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.POINTER(struct_qvector_int_), ctypes.c_char, ctypes.c_int32]
+    viewer_set_groups_visibility.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.POINTER(intvec_t), ctypes.c_char, ctypes.c_int32]
     viewer_set_node_info = _libraries['FIXME_STUB'].viewer_set_node_info
     viewer_set_node_info.restype = None
-    viewer_set_node_info.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.c_int32, ctypes.POINTER(struct_node_info_t), uint32]
+    viewer_set_node_info.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.c_int32, ctypes.POINTER(struct_node_info_t), uint32]
     viewer_set_titlebar_height = _libraries['FIXME_STUB'].viewer_set_titlebar_height
     viewer_set_titlebar_height.restype = ctypes.c_int32
-    viewer_set_titlebar_height.argtypes = [ctypes.POINTER(struct_TWidget), ctypes.c_int32]
+    viewer_set_titlebar_height.argtypes = [ctypes.POINTER(graph_viewer_t), ctypes.c_int32]
     vinfo = _libraries['FIXME_STUB'].vinfo
     vinfo.restype = None
     vinfo.argtypes = [ctypes.c_char_p, va_list]
     visit_patched_bytes = _libraries['FIXME_STUB'].visit_patched_bytes
     visit_patched_bytes.restype = ctypes.c_int32
-    visit_patched_bytes.argtypes = [ea_t, ea_t, ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.c_uint64, ctypes.c_int64, ctypes.c_uint64, ctypes.c_uint64, ctypes.POINTER(None)), ctypes.POINTER(None)]
+    visit_patched_bytes.argtypes = [ea_t, ea_t, ctypes.CFUNCTYPE(ctypes.c_int32, ea_t, int64, uint64, uint64, ctypes.POINTER(None)), ctypes.POINTER(None)]
     visit_snapshot_tree = _libraries['FIXME_STUB'].visit_snapshot_tree
     visit_snapshot_tree.restype = ctypes.c_int32
     visit_snapshot_tree.argtypes = [ctypes.POINTER(struct_snapshot_t), ctypes.CFUNCTYPE(ctypes.c_int32, ctypes.POINTER(struct_snapshot_t), ctypes.POINTER(None)), ctypes.POINTER(None)]
     visit_stroff_fields = _libraries['FIXME_STUB'].visit_stroff_fields
     visit_stroff_fields.restype = flags_t
-    visit_stroff_fields.argtypes = [ctypes.POINTER(struct_struct_field_visitor_t), ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32, ctypes.POINTER(ctypes.c_int64), ctypes.c_char]
+    visit_stroff_fields.argtypes = [ctypes.POINTER(struct_struct_field_visitor_t), ctypes.POINTER(tid_t), ctypes.c_int32, ctypes.POINTER(adiff_t), ctypes.c_char]
     visit_subtypes = _libraries['FIXME_STUB'].visit_subtypes
     visit_subtypes.restype = ctypes.c_int32
     visit_subtypes.argtypes = [ctypes.POINTER(struct_tinfo_visitor_t), ctypes.POINTER(struct_type_mods_t), ctypes.POINTER(struct_tinfo_t), ctypes.c_char_p, ctypes.c_char_p]
@@ -25912,10 +25937,10 @@ def ctypeslib_define():
     was_ida_decision.argtypes = [ea_t]
     wcrtomb = _libraries['FIXME_STUB'].wcrtomb
     wcrtomb.restype = size_t
-    wcrtomb.argtypes = [ctypes.c_char_p, ctypes.c_int16, ctypes.c_char_p]
+    wcrtomb.argtypes = [ctypes.c_char_p, ctypes.c_int16, ctypes.POINTER(mbstate_t)]
     wcrtomb_s = _libraries['FIXME_STUB'].wcrtomb_s
     wcrtomb_s.restype = errno_t
-    wcrtomb_s.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p, size_t, ctypes.c_int16, ctypes.c_char_p]
+    wcrtomb_s.argtypes = [ctypes.POINTER(size_t), ctypes.c_char_p, size_t, ctypes.c_int16, ctypes.POINTER(mbstate_t)]
     wcscat = _libraries['FIXME_STUB'].wcscat
     wcscat.restype = ctypes.POINTER(ctypes.c_int16)
     wcscat.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.c_int16)]
@@ -25993,10 +26018,10 @@ def ctypeslib_define():
     wcsrev.argtypes = [ctypes.POINTER(ctypes.c_int16)]
     wcsrtombs = _libraries['FIXME_STUB'].wcsrtombs
     wcsrtombs.restype = size_t
-    wcsrtombs.argtypes = [ctypes.c_char_p, ctypes.POINTER(ctypes.POINTER(ctypes.c_int16)), size_t, ctypes.c_char_p]
+    wcsrtombs.argtypes = [ctypes.c_char_p, ctypes.POINTER(ctypes.POINTER(ctypes.c_int16)), size_t, ctypes.POINTER(mbstate_t)]
     wcsrtombs_s = _libraries['FIXME_STUB'].wcsrtombs_s
     wcsrtombs_s.restype = errno_t
-    wcsrtombs_s.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.POINTER(ctypes.c_int16)), size_t, ctypes.c_char_p]
+    wcsrtombs_s.argtypes = [ctypes.POINTER(size_t), ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.POINTER(ctypes.c_int16)), size_t, ctypes.POINTER(mbstate_t)]
     wcsset = _libraries['FIXME_STUB'].wcsset
     wcsset.restype = ctypes.POINTER(ctypes.c_int16)
     wcsset.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.c_int16]
@@ -26032,7 +26057,7 @@ def ctypeslib_define():
     wcstombs.argtypes = [ctypes.c_char_p, ctypes.POINTER(ctypes.c_int16), size_t]
     wcstombs_s = _libraries['FIXME_STUB'].wcstombs_s
     wcstombs_s.restype = errno_t
-    wcstombs_s.argtypes = [ctypes.POINTER(ctypes.c_uint64), ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.c_int16), size_t]
+    wcstombs_s.argtypes = [ctypes.POINTER(size_t), ctypes.c_char_p, size_t, ctypes.POINTER(ctypes.c_int16), size_t]
     wcstoul = _libraries['FIXME_STUB'].wcstoul
     wcstoul.restype = ctypes.c_uint32
     wcstoul.argtypes = [ctypes.POINTER(ctypes.c_int16), ctypes.POINTER(ctypes.POINTER(ctypes.c_int16)), ctypes.c_int32]
@@ -26098,7 +26123,7 @@ def ctypeslib_define():
     write_dbg_memory.argtypes = [ea_t, ctypes.POINTER(None), size_t]
     write_struc_path = _libraries['FIXME_STUB'].write_struc_path
     write_struc_path.restype = None
-    write_struc_path.argtypes = [ea_t, ctypes.c_int32, ctypes.POINTER(ctypes.c_uint64), ctypes.c_int32, adiff_t]
+    write_struc_path.argtypes = [ea_t, ctypes.c_int32, ctypes.POINTER(tid_t), ctypes.c_int32, adiff_t]
     write_tinfo_bitfield_value = _libraries['FIXME_STUB'].write_tinfo_bitfield_value
     write_tinfo_bitfield_value.restype = uint64
     write_tinfo_bitfield_value.argtypes = [uint32, uint64, uint64, ctypes.c_int32]
@@ -26140,10 +26165,10 @@ def ctypeslib_define():
     yword_flag.argtypes = []
     zip_deflate = _libraries['FIXME_STUB'].zip_deflate
     zip_deflate.restype = ctypes.c_int32
-    zip_deflate.argtypes = [ctypes.POINTER(None), ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.POINTER(None), ctypes.c_uint64), ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.POINTER(None), ctypes.c_uint64)]
+    zip_deflate.argtypes = [ctypes.POINTER(None), ctypes.CFUNCTYPE(ssize_t, ctypes.POINTER(None), ctypes.POINTER(None), size_t), ctypes.CFUNCTYPE(ssize_t, ctypes.POINTER(None), ctypes.POINTER(None), size_t)]
     zip_inflate = _libraries['FIXME_STUB'].zip_inflate
     zip_inflate.restype = ctypes.c_int32
-    zip_inflate.argtypes = [ctypes.POINTER(None), ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.POINTER(None), ctypes.c_uint64), ctypes.CFUNCTYPE(ctypes.c_int64, ctypes.POINTER(None), ctypes.POINTER(None), ctypes.c_uint64)]
+    zip_inflate.argtypes = [ctypes.POINTER(None), ctypes.CFUNCTYPE(ssize_t, ctypes.POINTER(None), ctypes.POINTER(None), size_t), ctypes.CFUNCTYPE(ssize_t, ctypes.POINTER(None), ctypes.POINTER(None), size_t)]
     zword_flag = _libraries['FIXME_STUB'].zword_flag
     zword_flag.restype = flags_t
     zword_flag.argtypes = []
@@ -26274,74 +26299,34 @@ def ctypeslib_define():
         'VME_LEFT_BUTTON', 'VME_MID_BUTTON', 'VME_RIGHT_BUTTON',
         'VME_UNKNOWN', 'VNT_IDENT', 'VNT_STRLIT', 'VNT_TYPE',
         'VNT_UDTMEM', 'VNT_VISIBLE', 'WRITE_ACCESS', 'Warn',
-        '_0425F8F1A3AE8F87FA89CDE6305293FE',
-        '_06ACCA0CDDC5718C62D5A4485E2E115D',
-        '_0F4B5B224EF598EAC96C9D985A235D75',
-        '_12B695DC843A94285F7310A143C8C434',
-        '_13DEA147606768949B8709A1F27A1AE6',
-        '_223DCB884574D5DE586AD2D6B7376847',
-        '_2B5C0BD264F9291D6A7F6F791424403F',
-        '_2C0E99206E7908236DCABCB2B91A8D4F',
-        '_403A3450421E1FA417431FD6F5C6B815',
-        '_40A15942B64B468D028A9EDC3BF273C3',
-        '_47EB95A8857FB680635907AB7DCDCDE8',
-        '_47FFB0B1AABFAE006217B68E4FFCB4B3',
-        '_486A9EF9057A4F79C352527BA63EDFD3',
-        '_492C834E753BED590AB0BAB80BEB78E7',
-        '_5199E2C0DF2CA3E7E8DCA56464B8E928',
-        '_53B156155FBE7E40597743DACE3276C6',
-        '_5D6657710F2FD348305D4B59534642C3',
-        '_5DBD8E863343736E5AD8CF23F5B72447',
-        '_6748483DB9EEBDB64F2EA25B987191DF',
         '_7014156F94AE1B7FC5F5E3560392A8C4',
-        '_7148FF134A2561D170DBC235C372E12B',
-        '_77081ABAD94FC9A5EE14B650E0DBF110',
-        '_776C644986E1218BAA015F499D7289A7',
-        '_79278B08C9A02D276B5400213E6E8772',
-        '_7A67CD558302B3EA29FC91F77D84E941',
-        '_7C51D3F4B871613F1BA7F83DBEBC3FD5',
-        '_94760D3F2768AB73DF4E13DC5B377508',
         '_94D4D585A38CDA12BD4A7F760DAFD340',
-        '_9E76F4EBF8BA4D34546A573D2A95E8EF',
-        '_9F642B09C10686E3843EA25A959506D5',
-        '_A2117BA638E63C1EAFEA64D9666358AE',
         '_A32948CF266C727D9CC1D79F2B35CC28',
-        '_A6F93F8BAFF0D1A2AF75D768A5FCB062',
-        '_AF4ED28A64411848F4EED41572FA4CE1',
-        '_Adjust_manually_vector_aligned',
-        '_B4F266B0568ADA5794EA29B6B9D8A3FE',
-        '_B583FC0ED2D81EF34EE9B85011DA3455',
-        '_BCFAB6CAE5EB6A58B72F2C0C12D28D2B', '_BitScanForward',
+        '_Adjust_manually_vector_aligned', '_BitScanForward',
         '_BitScanForward64', '_BitScanReverse', '_BitScanReverse64',
-        '_C09AF1331CFCFC509FB4233AA5230FB3',
-        '_C7C212E52085C0E483DB7F2B4EDAB218',
-        '_C9E14A82B8291B557AC92E2F5A452CE5', '_CRT_ALLOC_HOOK',
+        '_C7C212E52085C0E483DB7F2B4EDAB218', '_CRT_ALLOC_HOOK',
         '_CRT_DUMP_CLIENT', '_CRT_REPORT_HOOK', '_CRT_REPORT_HOOKW',
         '_Convert_size', '_CoreCrtNonSecureSearchSortCompareFunction',
-        '_CoreCrtSecureSearchSortCompareFunction',
-        '_DB40683AED1FE27CD84662F2517C7BCC', '_Denorm_C',
-        '_EFB3D94CDC38BD29E337526787ABDBEA', '_Eps_C', '_Exit',
-        '_F6359FE077454C49B917BFA4BFA37580',
-        '_F6553CF4C635466D7A900A328CA0BFD3', '_FDenorm_C', '_FEps_C',
-        '_FInf_C', '_FNan_C', '_FRteps_C', '_FSnan_C', '_FXbig_C',
-        '_FZero_C', '_Fnv1a_append_bytes', '_Functor', '_HEAPINFO',
-        '_HFILE', '_HUGE', '_Hugeval_C', '_Idl_dist_add', '_Inf_C',
-        '_InterlockedAnd', '_InterlockedAnd16', '_InterlockedAnd64',
-        '_InterlockedAnd8', '_InterlockedCompareExchange',
-        '_InterlockedCompareExchange128', '_InterlockedCompareExchange16',
-        '_InterlockedCompareExchange64', '_InterlockedCompareExchange8',
-        '_InterlockedDecrement', '_InterlockedDecrement16',
-        '_InterlockedDecrement64', '_InterlockedExchange',
-        '_InterlockedExchange16', '_InterlockedExchange64',
-        '_InterlockedExchange8', '_InterlockedExchangeAdd',
-        '_InterlockedExchangeAdd16', '_InterlockedExchangeAdd64',
-        '_InterlockedExchangeAdd8', '_InterlockedIncrement',
-        '_InterlockedIncrement16', '_InterlockedIncrement64',
-        '_InterlockedOr', '_InterlockedOr16', '_InterlockedOr64',
-        '_InterlockedOr8', '_InterlockedXor', '_InterlockedXor16',
-        '_InterlockedXor64', '_InterlockedXor8', '_Is_pow_2',
-        '_LDenorm_C', '_LEps_C', '_LInf_C', '_LNan_C', '_LRteps_C',
-        '_LSnan_C', '_LXbig_C', '_LZero_C', '_Left',
+        '_CoreCrtSecureSearchSortCompareFunction', '_Denorm_C', '_Eps_C',
+        '_Exit', '_FDenorm_C', '_FEps_C', '_FInf_C', '_FNan_C',
+        '_FRteps_C', '_FSnan_C', '_FXbig_C', '_FZero_C',
+        '_Fnv1a_append_bytes', '_Functor', '_HEAPINFO', '_HFILE', '_HUGE',
+        '_Hugeval_C', '_Idl_dist_add', '_Inf_C', '_InterlockedAnd',
+        '_InterlockedAnd16', '_InterlockedAnd64', '_InterlockedAnd8',
+        '_InterlockedCompareExchange', '_InterlockedCompareExchange128',
+        '_InterlockedCompareExchange16', '_InterlockedCompareExchange64',
+        '_InterlockedCompareExchange8', '_InterlockedDecrement',
+        '_InterlockedDecrement16', '_InterlockedDecrement64',
+        '_InterlockedExchange', '_InterlockedExchange16',
+        '_InterlockedExchange64', '_InterlockedExchange8',
+        '_InterlockedExchangeAdd', '_InterlockedExchangeAdd16',
+        '_InterlockedExchangeAdd64', '_InterlockedExchangeAdd8',
+        '_InterlockedIncrement', '_InterlockedIncrement16',
+        '_InterlockedIncrement64', '_InterlockedOr', '_InterlockedOr16',
+        '_InterlockedOr64', '_InterlockedOr8', '_InterlockedXor',
+        '_InterlockedXor16', '_InterlockedXor64', '_InterlockedXor8',
+        '_Is_pow_2', '_LDenorm_C', '_LEps_C', '_LInf_C', '_LNan_C',
+        '_LRteps_C', '_LSnan_C', '_LXbig_C', '_LZero_C', '_Left',
         '_MallocaComputeSize', '_MarkAllocaS', '_Nan_C', '_Noinit',
         '_Pmd_object', '_Pmd_pointer', '_Pmd_refwrap', '_Pmf_object',
         '_Pmf_pointer', '_Pmf_refwrap', '_ReadWriteBarrier', '_Right',
@@ -26654,8 +26639,8 @@ def ctypeslib_define():
         'bsearch_s', 'bte_t', 'btoa128', 'btoa32', 'btoa64', 'btoa_width',
         'btowc', 'build_anon_type_name', 'build_loaders_list',
         'build_snapshot_tree', 'build_stkvar_name', 'build_stkvar_xrefs',
-        'build_strlist', 'byte_flag', 'byte_patched', 'bytesize',
-        'calc_basevalue', 'calc_bg_color', 'calc_c_cpp_name',
+        'build_strlist', 'buttoncb_t', 'byte_flag', 'byte_patched',
+        'bytesize', 'calc_basevalue', 'calc_bg_color', 'calc_c_cpp_name',
         'calc_crc32', 'calc_dataseg', 'calc_def_align',
         'calc_default_idaplace_flags', 'calc_dflags', 'calc_dist',
         'calc_file_crc32', 'calc_fixup_size', 'calc_func_size',
@@ -26669,7 +26654,8 @@ def ctypeslib_define():
         'can_be_off32', 'can_decode', 'can_define_item',
         'cancel_exec_request', 'cancel_thread_exec_requests', 'casevec_t',
         'catchvec_t', 'cb_id', 'cbrt', 'cbrtf', 'cbrtl', 'ceil', 'ceilf',
-        'ceill', 'cfgopt_t__apply', 'cfgopt_t__apply2',
+        'ceill', 'cfgopt_handler2_t', 'cfgopt_handler3_t',
+        'cfgopt_handler_t', 'cfgopt_t__apply', 'cfgopt_t__apply2',
         'cfgopt_t__apply3', 'change_bptlocs', 'change_codepage',
         'change_segment_status', 'change_storage_type', 'changing_cmt',
         'changing_enum_bf', 'changing_enum_cmt', 'changing_op_ti',
@@ -26710,40 +26696,47 @@ def ctypeslib_define():
         'clr_notproc', 'clr_op_type', 'clr_retfp', 'clr_terse_struc',
         'clr_tilcmt', 'clr_usemodsp', 'clr_usersp', 'clr_userti',
         'clr_zstroff', 'cm_t', 'cmt_changed', 'code_flag',
-        'code_highlight_block', 'collect_stack_trace', 'color_t',
-        'combine_regs_jpt', 'comp_t', 'compact_numbered_types',
-        'compact_til', 'compare_arglocs', 'compare_tinfo',
-        'compile_idc_file', 'compile_idc_snippet', 'compile_idc_text',
-        'compiled_binpat_vec_t', 'compiler_changed', 'compvec_t',
-        'const_t', 'construct_macro', 'construct_macro2', 'contains',
-        'contains_fixups', 'continue_process', 'convert_encoding',
-        'convert_pt_flags_to_hti', 'copy_argloc', 'copy_debug_event',
-        'copy_idcv', 'copy_named_type', 'copy_sreg_ranges',
-        'copy_tinfo_t', 'copysign', 'copysignf', 'copysignl',
-        'correct_address', 'cos', 'cosf', 'cosh', 'coshf', 'coshl',
-        'cosl', 'creat', 'create_16bit_data', 'create_32bit_data',
-        'create_align', 'create_byte', 'create_bytearray_linput',
-        'create_code_viewer', 'create_custdata', 'create_custom_viewer',
-        'create_data', 'create_dirtree', 'create_disasm_graph',
-        'create_double', 'create_dword', 'create_empty_widget',
-        'create_encoding_helper', 'create_filename_cmt', 'create_float',
-        'create_generic_linput', 'create_graph_viewer', 'create_idcv_ref',
-        'create_insn', 'create_lexer', 'create_memory_linput',
-        'create_menu', 'create_multirange_qflow_chart',
-        'create_mutable_graph', 'create_numbered_type_name',
-        'create_outctx', 'create_oword', 'create_packed_real',
-        'create_qflow_chart', 'create_qword', 'create_source_viewer',
-        'create_strlit', 'create_struct', 'create_switch_table',
-        'create_switch_xrefs', 'create_tbyte', 'create_tinfo',
-        'create_toolbar', 'create_user_graph_place', 'create_word',
-        'create_xrefs_from', 'create_yword', 'create_zip_linput',
-        'create_zword', 'cref_t', 'current_exception', 'cust_flag',
-        'custfmt_flag', 'custom_viewer_handler_id_t',
-        'custom_viewer_jump', 'dbg', 'dbg_add_bpt_tev',
-        'dbg_add_call_tev', 'dbg_add_debug_event', 'dbg_add_insn_tev',
-        'dbg_add_many_tevs', 'dbg_add_ret_tev', 'dbg_add_tev',
-        'dbg_add_thread', 'dbg_appcall', 'dbg_bin_search', 'dbg_bpt',
-        'dbg_bpt_changed', 'dbg_can_query', 'dbg_del_thread',
+        'code_highlight_block', 'code_viewer_lines_click_t',
+        'code_viewer_lines_icon_t', 'code_viewer_lines_linenum_t',
+        'collect_stack_trace', 'color_t', 'combine_regs_jpt', 'comp_t',
+        'compact_numbered_types', 'compact_til', 'compare_arglocs',
+        'compare_tinfo', 'compile_idc_file', 'compile_idc_snippet',
+        'compile_idc_text', 'compiled_binpat_vec_t', 'compiler_changed',
+        'compvec_t', 'config_changed_cb_t', 'const_t', 'construct_macro',
+        'construct_macro2', 'contains', 'contains_fixups',
+        'continue_process', 'convert_encoding', 'convert_pt_flags_to_hti',
+        'copy_argloc', 'copy_debug_event', 'copy_idcv', 'copy_named_type',
+        'copy_sreg_ranges', 'copy_tinfo_t', 'copysign', 'copysignf',
+        'copysignl', 'correct_address', 'cos', 'cosf', 'cosh', 'coshf',
+        'coshl', 'cosl', 'creat', 'create_16bit_data',
+        'create_32bit_data', 'create_align', 'create_byte',
+        'create_bytearray_linput', 'create_code_viewer',
+        'create_custdata', 'create_custom_viewer', 'create_data',
+        'create_dirtree', 'create_disasm_graph', 'create_double',
+        'create_dword', 'create_empty_widget', 'create_encoding_helper',
+        'create_filename_cmt', 'create_float', 'create_generic_linput',
+        'create_graph_viewer', 'create_idcv_ref', 'create_insn',
+        'create_lexer', 'create_memory_linput', 'create_menu',
+        'create_multirange_qflow_chart', 'create_mutable_graph',
+        'create_numbered_type_name', 'create_outctx', 'create_oword',
+        'create_packed_real', 'create_qflow_chart', 'create_qword',
+        'create_source_viewer', 'create_strlit', 'create_struct',
+        'create_switch_table', 'create_switch_xrefs', 'create_tbyte',
+        'create_tinfo', 'create_toolbar', 'create_user_graph_place',
+        'create_word', 'create_xrefs_from', 'create_yword',
+        'create_zip_linput', 'create_zword', 'cref_t',
+        'current_exception', 'cust_flag', 'custfmt_flag',
+        'custom_viewer_adjust_place_t', 'custom_viewer_can_navigate_t',
+        'custom_viewer_click_t', 'custom_viewer_close_t',
+        'custom_viewer_curpos_t', 'custom_viewer_dblclick_t',
+        'custom_viewer_get_place_xcoord_t', 'custom_viewer_handler_id_t',
+        'custom_viewer_help_t', 'custom_viewer_jump',
+        'custom_viewer_keydown_t', 'custom_viewer_location_changed_t',
+        'custom_viewer_mouse_moved_t', 'custom_viewer_popup_t', 'dbg',
+        'dbg_add_bpt_tev', 'dbg_add_call_tev', 'dbg_add_debug_event',
+        'dbg_add_insn_tev', 'dbg_add_many_tevs', 'dbg_add_ret_tev',
+        'dbg_add_tev', 'dbg_add_thread', 'dbg_appcall', 'dbg_bin_search',
+        'dbg_bpt', 'dbg_bpt_changed', 'dbg_can_query', 'dbg_del_thread',
         'dbg_event_code_t', 'dbg_exception', 'dbg_finished_loading_bpts',
         'dbg_get_input_path', 'dbg_information', 'dbg_last',
         'dbg_library_load', 'dbg_library_unload', 'dbg_notification_t',
@@ -26780,15 +26773,16 @@ def ctypeslib_define():
         'deleting_enum_member', 'deleting_func', 'deleting_func_tail',
         'deleting_segm', 'deleting_struc', 'deleting_struc_member',
         'deleting_tryblks', 'delinf', 'demangle', 'demangle_name',
-        'demreq_type_t', 'denorm_absent', 'denorm_indeterminate',
-        'denorm_present', 'deref_idcv', 'deref_ptr',
-        'deserialize_dynamic_register_set', 'deserialize_tinfo',
-        'destroy_custom_viewer', 'destroy_lexer', 'destroyed_items',
-        'detach_action_from_menu', 'detach_action_from_popup',
-        'detach_action_from_toolbar', 'detach_custom_data_format',
-        'detach_process', 'detect_compiler_using_demangler',
-        'determine_rtl', 'determined_main', 'dev_t', 'diff_trace_file',
-        'diffpos_t', 'direntry_vec_t', 'diridx_t', 'dirtree_change_rank',
+        'demangler_t', 'demreq_type_t', 'denorm_absent',
+        'denorm_indeterminate', 'denorm_present', 'deref_idcv',
+        'deref_ptr', 'deserialize_dynamic_register_set',
+        'deserialize_tinfo', 'destroy_custom_viewer', 'destroy_lexer',
+        'destroyed_items', 'detach_action_from_menu',
+        'detach_action_from_popup', 'detach_action_from_toolbar',
+        'detach_custom_data_format', 'detach_process',
+        'detect_compiler_using_demangler', 'determine_rtl',
+        'determined_main', 'dev_t', 'diff_trace_file', 'diffpos_t',
+        'direntry_vec_t', 'diridx_t', 'dirtree_change_rank',
         'dirtree_chdir', 'dirtree_cursor_vec_t', 'dirtree_errstr',
         'dirtree_find_entry', 'dirtree_findfirst', 'dirtree_findnext',
         'dirtree_get_abspath_by_cursor', 'dirtree_get_abspath_by_relpath',
@@ -26907,7 +26901,8 @@ def ctypeslib_define():
         'execute_ui_requests', 'exist_bpt', 'exists_fixup', 'exit',
         'exit_process', 'exp', 'exp2', 'exp2f', 'exp2l', 'expand_argv',
         'expand_struc', 'expanding_struc', 'expf', 'expl', 'expm1',
-        'expm1f', 'expm1l', 'extend_sign', 'external_colorizers_t',
+        'expm1f', 'expm1l', 'extend_sign', 'external_colorizer_t',
+        'external_colorizers_t', 'external_ident_colorizer_t',
         'external_ident_colorizers_t', 'extlang_changed',
         'extlang_object_t', 'extlangs_t', 'extra_cmt_changed',
         'extract_argloc', 'extract_module_from_archive', 'extract_name',
@@ -26952,19 +26947,19 @@ def ctypeslib_define():
         'for_all_const_arglocs', 'for_all_enum_members',
         'for_all_extlangs', 'force_name', 'forget_problem',
         'form_actions_t__dlgbtn_t', 'format_c_number', 'format_cdata',
-        'format_charlit', 'format_functype_t', 'fpclassify', 'fpos_t',
-        'fpreset', 'fprintf', 'fprintf_s', 'fputc', 'fputchar', 'fputs',
-        'fputwc', 'fputws', 'fpvalue_error_t', 'fpvalue_kind_t',
-        'frame_deleted', 'frame_off_args', 'frame_off_lvars',
-        'frame_off_retaddr', 'frame_off_savregs', 'frame_part_t', 'fread',
-        'fread2bytes', 'fread4bytes', 'fread8bytes', 'fread_s',
-        'freadbytes', 'free', 'free_argv', 'free_chunk',
-        'free_custom_icon', 'free_debug_event', 'free_dll', 'free_idcv',
-        'free_loaders_list', 'free_regarg', 'free_regvar', 'free_til',
-        'freopen', 'freopen_s', 'frexp', 'frexpf', 'frexpl', 'fscanf',
-        'fscanf_s', 'fseek', 'fsetpos', 'ftell', 'func_added',
-        'func_contains', 'func_deleted', 'func_does_return',
-        'func_has_stkframe_hole',
+        'format_charlit', 'format_functype_t', 'formchgcb_t',
+        'fpclassify', 'fpos_t', 'fpreset', 'fprintf', 'fprintf_s',
+        'fputc', 'fputchar', 'fputs', 'fputwc', 'fputws',
+        'fpvalue_error_t', 'fpvalue_kind_t', 'frame_deleted',
+        'frame_off_args', 'frame_off_lvars', 'frame_off_retaddr',
+        'frame_off_savregs', 'frame_part_t', 'fread', 'fread2bytes',
+        'fread4bytes', 'fread8bytes', 'fread_s', 'freadbytes', 'free',
+        'free_argv', 'free_chunk', 'free_custom_icon', 'free_debug_event',
+        'free_dll', 'free_idcv', 'free_loaders_list', 'free_regarg',
+        'free_regvar', 'free_til', 'freopen', 'freopen_s', 'frexp',
+        'frexpf', 'frexpl', 'fscanf', 'fscanf_s', 'fseek', 'fsetpos',
+        'ftell', 'func_added', 'func_contains', 'func_deleted',
+        'func_does_return', 'func_has_stkframe_hole',
         'func_item_iterator_decode_preceding_insn',
         'func_item_iterator_decode_prev_insn', 'func_item_iterator_next',
         'func_item_iterator_prev', 'func_item_iterator_succ',
@@ -27195,10 +27190,11 @@ def ctypeslib_define():
         'grcode_viewer_groups_visibility',
         'grcode_viewer_groups_visibility_vec', 'grentry',
         'groups_crinfos_t', 'gtd_func_t', 'gtd_udt_t', 'gts_code_t',
-        'guess_func_cc', 'guess_tinfo', 'h2ti', 'handle_debug_event',
-        'handle_fixups_in_macro', 'has_aflag_linnum', 'has_aflag_lname',
-        'has_aflag_ti', 'has_aflag_ti0', 'has_aflag_ti1', 'has_any_name',
-        'has_auto_name', 'has_cf_chg', 'has_cf_use', 'has_cmt',
+        'guess_func_cc', 'guess_tinfo', 'h2ti', 'h2ti_type_cb',
+        'handle_debug_event', 'handle_fixups_in_macro',
+        'has_aflag_linnum', 'has_aflag_lname', 'has_aflag_ti',
+        'has_aflag_ti0', 'has_aflag_ti1', 'has_any_name', 'has_auto_name',
+        'has_cf_chg', 'has_cf_use', 'has_cmt', 'has_delay_slot_t',
         'has_dummy_name', 'has_external_refs', 'has_extra_cmts',
         'has_file_ext', 'has_immd', 'has_insn_feature', 'has_lname',
         'has_name', 'has_regvar', 'has_ti', 'has_ti0', 'has_ti1',
@@ -27216,10 +27212,10 @@ def ctypeslib_define():
         'hexplace_t__print', 'hexplace_t__rebase',
         'hexplace_t__serialize', 'hexplace_t__toea', 'hexplace_t__touval',
         'hide_all_bpts', 'hide_border', 'hide_item', 'hide_name',
-        'hide_wait_box', 'high', 'hook_event_listener',
-        'hook_to_notification_point', 'hook_type_t', 'hypot', 'hypotf',
-        'hypotl', 'ida_checkmem', 'ida_deb',
-        'ida_syntax_highlighter_t__keywords_t',
+        'hide_wait_box', 'high', 'hook_cb_t', 'hook_event_listener',
+        'hook_to_notification_point', 'hook_type_t', 'html_footer_cb_t',
+        'html_header_cb_t', 'html_line_cb_t', 'hypot', 'hypotf', 'hypotl',
+        'ida_checkmem', 'ida_deb', 'ida_syntax_highlighter_t__keywords_t',
         'ida_syntax_highlighter_t__multicmtvec_t', 'idadir',
         'idaplace_t__adjust', 'idaplace_t__beginning',
         'idaplace_t__clone', 'idaplace_t__compare',
@@ -27230,26 +27226,26 @@ def ctypeslib_define():
         'idaplace_t__next', 'idaplace_t__prev', 'idaplace_t__print',
         'idaplace_t__rebase', 'idaplace_t__serialize', 'idaplace_t__toea',
         'idaplace_t__touval', 'idasgn_loaded', 'idastate_t',
-        'idb_event__event_code_t', 'idb_utf8', 'idc_vars_t', 'idcv_float',
-        'idcv_int64', 'idcv_long', 'idcv_num', 'idcv_object',
-        'idcv_string', 'idp_descs_t', 'idp_names_t', 'ieee_e32',
-        'ieee_eeul', 'ieee_elog2', 'ieee_eone', 'ieee_eoneopi',
-        'ieee_epi', 'ieee_esqrt2', 'ieee_etwo', 'ieee_ezero',
-        'ieee_realcvt', 'iek_key_press', 'iek_key_release',
+        'idb_event__event_code_t', 'idb_utf8', 'idc_func_t', 'idc_vars_t',
+        'idcv_float', 'idcv_int64', 'idcv_long', 'idcv_num',
+        'idcv_object', 'idcv_string', 'idp_descs_t', 'idp_names_t',
+        'ieee_e32', 'ieee_eeul', 'ieee_elog2', 'ieee_eone',
+        'ieee_eoneopi', 'ieee_epi', 'ieee_esqrt2', 'ieee_etwo',
+        'ieee_ezero', 'ieee_realcvt', 'iek_key_press', 'iek_key_release',
         'iek_mouse_button_press', 'iek_mouse_button_release',
         'iek_mouse_wheel', 'iek_shortcut', 'iek_unknown', 'if_hex',
         'if_signed', 'if_unsigned', 'ignore_micro', 'ignore_name_def_t',
-        'ilogb', 'ilogbf', 'ilogbl', 'import_module', 'import_type',
-        'includes', 'inf', 'inf_abi_set_by_user',
-        'inf_allow_non_matched_ops', 'inf_allow_sigmulti',
-        'inf_append_sigcmt', 'inf_big_arg_align', 'inf_check_manual_ops',
-        'inf_check_unicode_strlits', 'inf_coagulate_code',
-        'inf_coagulate_data', 'inf_compress_idb', 'inf_create_all_xrefs',
-        'inf_create_func_from_call', 'inf_create_func_from_ptr',
-        'inf_create_func_tails', 'inf_create_jump_tables',
-        'inf_create_off_on_dref', 'inf_create_off_using_fixup',
-        'inf_create_strlit_on_xref', 'inf_data_offset',
-        'inf_dbg_no_store_path', 'inf_decode_fpp',
+        'ilogb', 'ilogbf', 'ilogbl', 'import_enum_cb_t', 'import_module',
+        'import_type', 'importer_t', 'includes', 'inf',
+        'inf_abi_set_by_user', 'inf_allow_non_matched_ops',
+        'inf_allow_sigmulti', 'inf_append_sigcmt', 'inf_big_arg_align',
+        'inf_check_manual_ops', 'inf_check_unicode_strlits',
+        'inf_coagulate_code', 'inf_coagulate_data', 'inf_compress_idb',
+        'inf_create_all_xrefs', 'inf_create_func_from_call',
+        'inf_create_func_from_ptr', 'inf_create_func_tails',
+        'inf_create_jump_tables', 'inf_create_off_on_dref',
+        'inf_create_off_using_fixup', 'inf_create_strlit_on_xref',
+        'inf_data_offset', 'inf_dbg_no_store_path', 'inf_decode_fpp',
         'inf_del_no_xref_insns', 'inf_final_pass', 'inf_full_sp_ana',
         'inf_gen_assume', 'inf_gen_lzero', 'inf_gen_null', 'inf_gen_org',
         'inf_gen_tryblks', 'inf_get_abibits', 'inf_get_af', 'inf_get_af2',
@@ -27451,11 +27447,11 @@ def ctypeslib_define():
         'is_ret_insn', 'is_retfp', 'is_same_data_type', 'is_same_func',
         'is_sdacl_byte', 'is_seg', 'is_seg0', 'is_seg1', 'is_segm_locked',
         'is_spec_ea', 'is_spec_segm', 'is_special_member',
-        'is_step_trace_enabled', 'is_stkvar', 'is_stkvar0', 'is_stkvar1',
-        'is_strlit', 'is_strlit_cp', 'is_stroff', 'is_stroff0',
-        'is_stroff1', 'is_struct', 'is_suspop', 'is_switch_insn',
-        'is_tah_byte', 'is_tail', 'is_tail_surrogate', 'is_tbyte',
-        'is_temp_database', 'is_terse_struc', 'is_tilcmt',
+        'is_step_trace_enabled', 'is_stkarg_load_t', 'is_stkvar',
+        'is_stkvar0', 'is_stkvar1', 'is_strlit', 'is_strlit_cp',
+        'is_stroff', 'is_stroff0', 'is_stroff1', 'is_struct', 'is_suspop',
+        'is_switch_insn', 'is_tah_byte', 'is_tail', 'is_tail_surrogate',
+        'is_tbyte', 'is_temp_database', 'is_terse_struc', 'is_tilcmt',
         'is_trusted_idb', 'is_type_arithmetic', 'is_type_array',
         'is_type_bitfld', 'is_type_bool', 'is_type_char',
         'is_type_complex', 'is_type_const',
@@ -27508,38 +27504,42 @@ def ctypeslib_define():
         'load_debugger', 'load_dirtree', 'load_ids_module',
         'load_nonbinary_file', 'load_plugin', 'load_til',
         'load_til_header', 'load_trace_file', 'loader_failure',
-        'loader_finished', 'local_types_changed', 'locchange_reason_t',
-        'lochist_entry_t_deserialize', 'lochist_entry_t_serialize',
-        'lochist_entry_vec_t', 'lochist_t_back', 'lochist_t_clear',
-        'lochist_t_current_index', 'lochist_t_deregister_live',
-        'lochist_t_fwd', 'lochist_t_get', 'lochist_t_get_current',
-        'lochist_t_init', 'lochist_t_jump', 'lochist_t_register_live',
-        'lochist_t_save', 'lochist_t_seek', 'lochist_t_set',
-        'lochist_t_size', 'lock_dbgmem_config', 'lock_func_range',
-        'lock_segm', 'locking', 'log', 'log10', 'log10f', 'log10l',
-        'log1p', 'log1pf', 'log1pl', 'log2', 'log2ceil', 'log2f',
-        'log2floor', 'log2l', 'logb', 'logbf', 'logbl', 'logf', 'logl',
-        'longlong', 'lookup_key_code', 'lookup_loc_converter2', 'low',
-        'lowcnd_vec_t', 'lower_type', 'lread', 'lread2bytes',
-        'lread4bytes', 'lread8bytes', 'lreadbytes', 'lrint', 'lrintf',
-        'lrintl', 'lround', 'lroundf', 'lroundl', 'lsearch', 'lseek',
-        'ltoa', 'lx_parse_cast_t', 'lx_resolver_t', 'lxtype', 'make_code',
-        'make_data', 'make_file_ext', 'make_int128', 'make_linput',
-        'make_longlong', 'make_name_auto', 'make_name_non_public',
-        'make_name_non_weak', 'make_name_public', 'make_name_user',
-        'make_name_weak', 'make_qtime64', 'make_str_type', 'make_uint128',
-        'make_ulonglong', 'malloc', 'mangled_name_type_t', 'map_code_ea',
-        'map_data_ea', 'map_ea', 'mark_all_eaviews_for_refresh',
-        'mark_epilog_insn', 'mark_prolog_insn', 'mark_range_for_refresh',
-        'mark_switch_insn', 'mark_switch_insns_jpt', 'match_jpt', 'max',
-        'max_history_files', 'may_create_stkvars', 'may_trace_sp',
-        'mblen', 'mbox_error', 'mbox_feedback', 'mbox_filestruct',
-        'mbox_hide', 'mbox_info', 'mbox_internal', 'mbox_kind_t',
-        'mbox_nomem', 'mbox_readerror', 'mbox_replace', 'mbox_wait',
-        'mbox_warning', 'mbox_writeerror', 'mbrlen', 'mbrtowc', 'mbsinit',
-        'mbsrtowcs', 'mbsrtowcs_s', 'mbstate_t', 'mbstowcs', 'mbstowcs_s',
-        'mbtowc', 'mem2base', 'memccpy', 'memchr', 'memcmp', 'memcpy',
-        'memicmp', 'meminfo_vec_t', 'memmove', 'memory_order_acq_rel',
+        'loader_finished', 'local_tinfo_predicate_t',
+        'local_types_changed', 'locchange_reason_t',
+        'lochist_entry_cvt2_t', 'lochist_entry_t_deserialize',
+        'lochist_entry_t_serialize', 'lochist_entry_vec_t',
+        'lochist_t_back', 'lochist_t_clear', 'lochist_t_current_index',
+        'lochist_t_deregister_live', 'lochist_t_fwd', 'lochist_t_get',
+        'lochist_t_get_current', 'lochist_t_init', 'lochist_t_jump',
+        'lochist_t_register_live', 'lochist_t_save', 'lochist_t_seek',
+        'lochist_t_set', 'lochist_t_size', 'lock_dbgmem_config',
+        'lock_func_range', 'lock_segm', 'locking', 'log', 'log10',
+        'log10f', 'log10l', 'log1p', 'log1pf', 'log1pl', 'log2',
+        'log2ceil', 'log2f', 'log2floor', 'log2l', 'logb', 'logbf',
+        'logbl', 'logf', 'logl', 'longlong', 'lookup_key_code',
+        'lookup_loc_converter2', 'low', 'lowcnd_vec_t', 'lower_type',
+        'lread', 'lread2bytes', 'lread4bytes', 'lread8bytes',
+        'lreadbytes', 'lrint', 'lrintf', 'lrintl', 'lround', 'lroundf',
+        'lroundl', 'lsearch', 'lseek', 'ltoa', 'lx_macro_cb',
+        'lx_parse_cast_t', 'lx_pragma_cb', 'lx_preprocessor_cb',
+        'lx_resolver_t', 'lx_undef_cb', 'lx_warning_cb', 'lxtype',
+        'make_code', 'make_data', 'make_file_ext', 'make_int128',
+        'make_linput', 'make_longlong', 'make_name_auto',
+        'make_name_non_public', 'make_name_non_weak', 'make_name_public',
+        'make_name_user', 'make_name_weak', 'make_qtime64',
+        'make_str_type', 'make_uint128', 'make_ulonglong', 'malloc',
+        'mangled_name_type_t', 'map_code_ea', 'map_data_ea', 'map_ea',
+        'mark_all_eaviews_for_refresh', 'mark_epilog_insn',
+        'mark_prolog_insn', 'mark_range_for_refresh', 'mark_switch_insn',
+        'mark_switch_insns_jpt', 'match_jpt', 'max', 'max_history_files',
+        'may_create_stkvars', 'may_destroy_cb_t', 'may_trace_sp', 'mblen',
+        'mbox_error', 'mbox_feedback', 'mbox_filestruct', 'mbox_hide',
+        'mbox_info', 'mbox_internal', 'mbox_kind_t', 'mbox_nomem',
+        'mbox_readerror', 'mbox_replace', 'mbox_wait', 'mbox_warning',
+        'mbox_writeerror', 'mbrlen', 'mbrtowc', 'mbsinit', 'mbsrtowcs',
+        'mbsrtowcs_s', 'mbstate_t', 'mbstowcs', 'mbstowcs_s', 'mbtowc',
+        'mem2base', 'memccpy', 'memchr', 'memcmp', 'memcpy', 'memicmp',
+        'meminfo_vec_t', 'memmove', 'memory_order_acq_rel',
         'memory_order_acquire', 'memory_order_consume',
         'memory_order_relaxed', 'memory_order_release',
         'memory_order_seq_cst', 'memreg_infos_t', 'memrev', 'memset',
@@ -27553,24 +27553,24 @@ def ctypeslib_define():
         'nametype_t', 'nan', 'nanf', 'nanl', 'nat_auto', 'nat_cod',
         'nat_cur', 'nat_dat', 'nat_err', 'nat_ext', 'nat_fun', 'nat_gap',
         'nat_hlo', 'nat_last', 'nat_lib', 'nat_lum', 'nat_und',
-        'navaddr_type_t', 'nbits', 'nearbyint', 'nearbyintf',
-        'nearbyintl', 'netnode_altadjust', 'netnode_altadjust2',
-        'netnode_altshift', 'netnode_altval', 'netnode_altval_idx8',
-        'netnode_blobsize', 'netnode_charshift', 'netnode_charval',
-        'netnode_charval_idx8', 'netnode_check', 'netnode_copy',
-        'netnode_delblob', 'netnode_delvalue', 'netnode_end',
-        'netnode_exist', 'netnode_get_name', 'netnode_getblob',
-        'netnode_hashdel', 'netnode_hashfirst', 'netnode_hashlast',
-        'netnode_hashnext', 'netnode_hashprev', 'netnode_hashset',
-        'netnode_hashstr', 'netnode_hashval', 'netnode_hashval_long',
-        'netnode_inited', 'netnode_is_available', 'netnode_kill',
-        'netnode_lower_bound', 'netnode_lower_bound_idx8', 'netnode_next',
-        'netnode_prev', 'netnode_qgetblob', 'netnode_qhashfirst',
-        'netnode_qhashlast', 'netnode_qhashnext', 'netnode_qhashprev',
-        'netnode_qhashstr', 'netnode_qsupstr', 'netnode_qsupstr_idx8',
-        'netnode_qvalstr', 'netnode_rename', 'netnode_set',
-        'netnode_setblob', 'netnode_start', 'netnode_supdel',
-        'netnode_supdel_all', 'netnode_supdel_idx8',
+        'nav_colorizer_t', 'navaddr_type_t', 'nbits', 'nearbyint',
+        'nearbyintf', 'nearbyintl', 'netnode_altadjust',
+        'netnode_altadjust2', 'netnode_altshift', 'netnode_altval',
+        'netnode_altval_idx8', 'netnode_blobsize', 'netnode_charshift',
+        'netnode_charval', 'netnode_charval_idx8', 'netnode_check',
+        'netnode_copy', 'netnode_delblob', 'netnode_delvalue',
+        'netnode_end', 'netnode_exist', 'netnode_get_name',
+        'netnode_getblob', 'netnode_hashdel', 'netnode_hashfirst',
+        'netnode_hashlast', 'netnode_hashnext', 'netnode_hashprev',
+        'netnode_hashset', 'netnode_hashstr', 'netnode_hashval',
+        'netnode_hashval_long', 'netnode_inited', 'netnode_is_available',
+        'netnode_kill', 'netnode_lower_bound', 'netnode_lower_bound_idx8',
+        'netnode_next', 'netnode_prev', 'netnode_qgetblob',
+        'netnode_qhashfirst', 'netnode_qhashlast', 'netnode_qhashnext',
+        'netnode_qhashprev', 'netnode_qhashstr', 'netnode_qsupstr',
+        'netnode_qsupstr_idx8', 'netnode_qvalstr', 'netnode_rename',
+        'netnode_set', 'netnode_setblob', 'netnode_start',
+        'netnode_supdel', 'netnode_supdel_all', 'netnode_supdel_idx8',
         'netnode_supdel_range', 'netnode_supdel_range_idx8',
         'netnode_supfirst', 'netnode_supfirst_idx8', 'netnode_suplast',
         'netnode_suplast_idx8', 'netnode_supnext', 'netnode_supnext_idx8',
@@ -27620,20 +27620,21 @@ def ctypeslib_define():
         'print_strlit_type', 'print_tinfo', 'print_type', 'printer_t',
         'printf', 'printf_s', 'problist_id_t', 'process_archive',
         'process_ui_action', 'process_zip_linput', 'process_zipfile',
-        'process_zipfile_entry', 'processor_t__event_t', 'procinfo_vec_t',
-        'ptrdiff_t', 'put_byte', 'put_bytes', 'put_dbg_byte', 'put_dword',
-        'put_qword', 'put_utf8_char', 'put_word', 'putc', 'putchar',
-        'putenv', 'puts', 'putw', 'putwc', 'putwchar', 'qaccess',
-        'qalloc', 'qalloc_or_throw', 'qatexit', 'qatoll', 'qbasename',
-        'qcalloc', 'qchdir', 'qchsize', 'qcleanline', 'qclose',
-        'qcontrol_tty', 'qcopyfile', 'qcreate', 'qctime', 'qctime_utc',
-        'qdetach_tty', 'qdirname', 'qdup', 'qeprintf', 'qerrcode',
-        'qerrstr', 'qexit', 'qfclose', 'qfgetc', 'qfgets', 'qfileexist',
-        'qfilelength', 'qfilesize', 'qfindclose', 'qfindfirst',
-        'qfindnext', 'qflow_chart_t__blocks_t', 'qflush', 'qfopen',
-        'qfprintf', 'qfputc', 'qfputs', 'qfread', 'qfree', 'qfscanf',
-        'qfseek', 'qfsize', 'qfstat', 'qfsync', 'qftell', 'qfwrite',
-        'qgetcwd', 'qgetenv', 'qgetline', 'qgets', 'qgmtime', 'qgmtime64',
+        'process_zipfile_entry', 'processor_t__event_t',
+        'processor_t__regval_getter_t', 'procinfo_vec_t', 'ptrdiff_t',
+        'put_byte', 'put_bytes', 'put_dbg_byte', 'put_dword', 'put_qword',
+        'put_utf8_char', 'put_word', 'putc', 'putchar', 'putenv', 'puts',
+        'putw', 'putwc', 'putwchar', 'qaccess', 'qalloc',
+        'qalloc_or_throw', 'qatexit', 'qatoll', 'qbasename', 'qcalloc',
+        'qchdir', 'qchsize', 'qcleanline', 'qclose', 'qcontrol_tty',
+        'qcopyfile', 'qcreate', 'qctime', 'qctime_utc', 'qdetach_tty',
+        'qdirname', 'qdup', 'qeprintf', 'qerrcode', 'qerrstr', 'qexit',
+        'qfclose', 'qfgetc', 'qfgets', 'qfileexist', 'qfilelength',
+        'qfilesize', 'qfindclose', 'qfindfirst', 'qfindnext',
+        'qflow_chart_t__blocks_t', 'qflush', 'qfopen', 'qfprintf',
+        'qfputc', 'qfputs', 'qfread', 'qfree', 'qfscanf', 'qfseek',
+        'qfsize', 'qfstat', 'qfsync', 'qftell', 'qfwrite', 'qgetcwd',
+        'qgetenv', 'qgetline', 'qgets', 'qgmtime', 'qgmtime64',
         'qhandle_t', 'qisabspath', 'qisalnum', 'qisalpha', 'qisascii',
         'qisdigit', 'qisdir', 'qislower', 'qisprint', 'qispunct',
         'qisspace', 'qisupper', 'qisxdigit', 'qlfile', 'qlgetc', 'qlgets',
@@ -27650,7 +27651,7 @@ def ctypeslib_define():
         'qstr2user', 'qstrchr', 'qstrcmp', 'qstrdup', 'qstrerror',
         'qstrftime', 'qstrftime64', 'qstring', 'qstrlen', 'qstrlwr',
         'qstrncat', 'qstrncpy', 'qstrrchr', 'qstrstr', 'qstrtok',
-        'qstrupr', 'qstrvec_t', 'qtell', 'qthread_create',
+        'qstrupr', 'qstrvec_t', 'qtell', 'qthread_cb_t', 'qthread_create',
         'qthread_equal', 'qthread_free', 'qthread_join', 'qthread_kill',
         'qthread_same', 'qthread_self', 'qthread_t', 'qtime32_t',
         'qtime64', 'qtime64_t', 'qtimegm', 'qtimer_t', 'qtmpfile',
@@ -27875,21 +27876,21 @@ def ctypeslib_define():
         'regerror', 'regex_cache_t__regex_cache_map_t', 'regex_match',
         'regex_ptr_t', 'regexec', 'regfree', 'regget_history',
         'reginfovec_t', 'register_action', 'register_addon',
-        'register_and_attach_to_menu', 'register_class_t',
-        'register_custom_data_format', 'register_custom_data_type',
-        'register_custom_fixup', 'register_custom_refinfo',
-        'register_info_vec_t', 'register_loc_converter2',
-        'register_place_class', 'register_post_event_visitor',
-        'register_srcinfo_provider', 'register_timer', 'regobjvec_t',
-        'regoff_t', 'regval_type_t', 'regvals_t', 'reload_file',
-        'reloc_value', 'relocate_relobj', 'remainder', 'remainderf',
-        'remainderl', 'remember_problem', 'remove', 'remove_abi_opts',
-        'remove_command_interpreter', 'remove_custom_argloc',
-        'remove_event_listener', 'remove_extlang', 'remove_func_tail',
-        'remove_pointer', 'remove_tinfo_pointer', 'remquo', 'remquof',
-        'remquol', 'rename', 'rename_bptgrp', 'rename_encoding',
-        'rename_entry', 'rename_regvar', 'renamed', 'renaming_enum',
-        'renaming_struc', 'renaming_struc_member',
+        'register_and_attach_to_menu', 'register_cfgopts',
+        'register_class_t', 'register_custom_data_format',
+        'register_custom_data_type', 'register_custom_fixup',
+        'register_custom_refinfo', 'register_info_vec_t',
+        'register_loc_converter2', 'register_place_class',
+        'register_post_event_visitor', 'register_srcinfo_provider',
+        'register_timer', 'regobjvec_t', 'regoff_t', 'regval_type_t',
+        'regvals_t', 'reload_file', 'reloc_value', 'relocate_relobj',
+        'remainder', 'remainderf', 'remainderl', 'remember_problem',
+        'remove', 'remove_abi_opts', 'remove_command_interpreter',
+        'remove_custom_argloc', 'remove_event_listener', 'remove_extlang',
+        'remove_func_tail', 'remove_pointer', 'remove_tinfo_pointer',
+        'remquo', 'remquof', 'remquol', 'rename', 'rename_bptgrp',
+        'rename_encoding', 'rename_entry', 'rename_regvar', 'renamed',
+        'renaming_enum', 'renaming_struc', 'renaming_struc_member',
         'renderer_info_t__pos_t', 'reorder_dummy_names',
         'repaint_custom_viewer', 'replace_ordinal_typerefs',
         'replace_tabs', 'replace_wait_box', 'request_add_bpt',
@@ -27984,56 +27985,57 @@ def ctypeslib_define():
         'set_moved_jpt', 'set_name', 'set_nav_colorizer',
         'set_new_handler', 'set_node_info', 'set_noret', 'set_noret_insn',
         'set_notcode', 'set_notproc', 'set_numbered_type', 'set_op_tinfo',
-        'set_op_type', 'set_opinfo', 'set_outfile_encoding_idx',
-        'set_path', 'set_process_options', 'set_process_state',
-        'set_processor_type', 'set_purged', 'set_qerrno', 'set_refinfo',
-        'set_refinfo_ex', 'set_reg_val', 'set_regvar_cmt',
-        'set_remote_debugger', 'set_resume_mode', 'set_retfp',
-        'set_root_filename', 'set_segm_addressing', 'set_segm_base',
-        'set_segm_class', 'set_segm_end', 'set_segm_name',
-        'set_segm_start', 'set_segment_cmt', 'set_segment_translations',
-        'set_selector', 'set_source_linnum', 'set_srcdbg_paths',
-        'set_srcdbg_undesired_paths', 'set_sreg_at_next_code',
-        'set_step_trace_options', 'set_str_encoding_idx', 'set_str_type',
-        'set_struc_align', 'set_struc_cmt', 'set_struc_hidden',
-        'set_struc_idx', 'set_struc_listed', 'set_struc_name',
-        'set_switch_info', 'set_switch_parent', 'set_tail_owner',
-        'set_target_assembler', 'set_terminate', 'set_terse_struc',
-        'set_tilcmt', 'set_tinfo', 'set_tinfo_attr', 'set_tinfo_attrs',
-        'set_tinfo_property', 'set_trace_base_address',
-        'set_trace_dynamic_register_set', 'set_trace_file_desc',
-        'set_trace_platform', 'set_trace_size', 'set_type_alias',
-        'set_type_determined_by_hexrays', 'set_type_guessed_by_ida',
-        'set_unexpected', 'set_usemodsp', 'set_user_defined_prefix',
-        'set_usersp', 'set_userti', 'set_vftable_ea',
-        'set_view_renderer_type', 'set_viewer_graph', 'set_visible_func',
-        'set_visible_item', 'set_visible_segm', 'set_xrefpos',
-        'set_zstroff', 'setbuf', 'setinf', 'setinf_buf', 'setinf_flag',
-        'setmode', 'setproc_level_t', 'setup_graph_subsystem',
-        'setup_lowcnd_regfuncs', 'setup_range_marker', 'setup_selector',
-        'setvbuf', 'sgr_changed', 'sgr_deleted', 'should_ignore_micro',
-        'show_addr', 'show_auto', 'show_hex', 'show_hex_file',
-        'show_name', 'show_wait_box', 'show_wait_box_v', 'signbit',
-        'simd_info_vec_t', 'simpleline_place_t__adjust',
-        'simpleline_place_t__beginning', 'simpleline_place_t__clone',
-        'simpleline_place_t__compare', 'simpleline_place_t__compare2',
-        'simpleline_place_t__copyfrom', 'simpleline_place_t__deserialize',
-        'simpleline_place_t__ending', 'simpleline_place_t__enter',
-        'simpleline_place_t__generate', 'simpleline_place_t__id',
-        'simpleline_place_t__leave', 'simpleline_place_t__makeplace',
-        'simpleline_place_t__name', 'simpleline_place_t__next',
-        'simpleline_place_t__prev', 'simpleline_place_t__print',
-        'simpleline_place_t__rebase', 'simpleline_place_t__serialize',
-        'simpleline_place_t__toea', 'simpleline_place_t__touval', 'sin',
-        'sinf', 'sinh', 'sinhf', 'sinhl', 'sinl', 'sint8', 'size_t',
-        'sizevec_t', 'skip_spaces', 'skip_utf8', 'smt_code_t',
-        'snapshots_t', 'snprintf', 'soff_to_fpoff', 'sopen', 'sort_til',
-        'source_file_iterator', 'source_file_ptr', 'source_item_iterator',
-        'source_item_ptr', 'source_items_t', 'split_sreg_range',
-        'sprintf', 'sprintf_s', 'sqrt', 'sqrtf', 'sqrtl', 'srand',
-        'src_item_kind_t', 'srcdbg_request_step_into',
-        'srcdbg_request_step_over', 'srcdbg_request_step_until_ret',
-        'srcdbg_step_into', 'srcdbg_step_over', 'srcdbg_step_until_ret',
+        'set_op_tinfo_t', 'set_op_type', 'set_opinfo', 'set_options_t',
+        'set_outfile_encoding_idx', 'set_path', 'set_process_options',
+        'set_process_state', 'set_processor_type', 'set_purged',
+        'set_qerrno', 'set_refinfo', 'set_refinfo_ex', 'set_reg_val',
+        'set_regvar_cmt', 'set_remote_debugger', 'set_resume_mode',
+        'set_retfp', 'set_root_filename', 'set_segm_addressing',
+        'set_segm_base', 'set_segm_class', 'set_segm_end',
+        'set_segm_name', 'set_segm_start', 'set_segment_cmt',
+        'set_segment_translations', 'set_selector', 'set_source_linnum',
+        'set_srcdbg_paths', 'set_srcdbg_undesired_paths',
+        'set_sreg_at_next_code', 'set_step_trace_options',
+        'set_str_encoding_idx', 'set_str_type', 'set_struc_align',
+        'set_struc_cmt', 'set_struc_hidden', 'set_struc_idx',
+        'set_struc_listed', 'set_struc_name', 'set_switch_info',
+        'set_switch_parent', 'set_tail_owner', 'set_target_assembler',
+        'set_terminate', 'set_terse_struc', 'set_tilcmt', 'set_tinfo',
+        'set_tinfo_attr', 'set_tinfo_attrs', 'set_tinfo_property',
+        'set_trace_base_address', 'set_trace_dynamic_register_set',
+        'set_trace_file_desc', 'set_trace_platform', 'set_trace_size',
+        'set_type_alias', 'set_type_determined_by_hexrays',
+        'set_type_guessed_by_ida', 'set_unexpected', 'set_usemodsp',
+        'set_user_defined_prefix', 'set_usersp', 'set_userti',
+        'set_vftable_ea', 'set_view_renderer_type', 'set_viewer_graph',
+        'set_visible_func', 'set_visible_item', 'set_visible_segm',
+        'set_xrefpos', 'set_zstroff', 'setbuf', 'setinf', 'setinf_buf',
+        'setinf_flag', 'setmode', 'setproc_level_t',
+        'setup_graph_subsystem', 'setup_lowcnd_regfuncs',
+        'setup_range_marker', 'setup_selector', 'setvbuf', 'sgr_changed',
+        'sgr_deleted', 'should_ignore_micro', 'show_addr', 'show_auto',
+        'show_hex', 'show_hex_file', 'show_name', 'show_wait_box',
+        'show_wait_box_v', 'signbit', 'simd_info_vec_t',
+        'simpleline_place_t__adjust', 'simpleline_place_t__beginning',
+        'simpleline_place_t__clone', 'simpleline_place_t__compare',
+        'simpleline_place_t__compare2', 'simpleline_place_t__copyfrom',
+        'simpleline_place_t__deserialize', 'simpleline_place_t__ending',
+        'simpleline_place_t__enter', 'simpleline_place_t__generate',
+        'simpleline_place_t__id', 'simpleline_place_t__leave',
+        'simpleline_place_t__makeplace', 'simpleline_place_t__name',
+        'simpleline_place_t__next', 'simpleline_place_t__prev',
+        'simpleline_place_t__print', 'simpleline_place_t__rebase',
+        'simpleline_place_t__serialize', 'simpleline_place_t__toea',
+        'simpleline_place_t__touval', 'sin', 'sinf', 'sinh', 'sinhf',
+        'sinhl', 'sinl', 'sint8', 'size_t', 'sizevec_t', 'skip_spaces',
+        'skip_utf8', 'smt_code_t', 'snapshots_t', 'snprintf',
+        'soff_to_fpoff', 'sopen', 'sort_til', 'source_file_iterator',
+        'source_file_ptr', 'source_item_iterator', 'source_item_ptr',
+        'source_items_t', 'split_sreg_range', 'sprintf', 'sprintf_s',
+        'sqrt', 'sqrtf', 'sqrtl', 'srand', 'src_item_kind_t',
+        'srcdbg_request_step_into', 'srcdbg_request_step_over',
+        'srcdbg_request_step_until_ret', 'srcdbg_step_into',
+        'srcdbg_step_over', 'srcdbg_step_until_ret', 'ss_restore_cb_t',
         'sscanf', 'sscanf_s', 'ssize_t', 'start_process', 'std___Any_tag',
         'std___Atomic_counter_t',
         'std___Char_traits_char16_t__unsigned_short___int_type',
@@ -29220,14 +29222,15 @@ def ctypeslib_define():
         'swap_idcvs', 'swap_value', 'switch_dbctx', 'switch_to_golang',
         'swprintf', 'swprintf_s', 'swscanf', 'swscanf_s',
         'sync_source_vec_t', 'sync_sources', 'syntax_highlight_style',
-        'system', 'table_checker_t', 'tag_addr', 'tag_advance',
-        'tag_remove', 'tag_skipcode', 'tag_skipcodes', 'tag_strlen',
-        'tail', 'tail_owner_changed', 'take_database_snapshot',
+        'syntax_highlighter_t__block_highlighter_t', 'system',
+        'table_checker_t', 'tag_addr', 'tag_advance', 'tag_remove',
+        'tag_skipcode', 'tag_skipcodes', 'tag_strlen', 'tail',
+        'tail_owner_changed', 'take_database_snapshot',
         'take_memory_snapshot', 'tan', 'tanf', 'tanh', 'tanhf', 'tanhl',
         'tanl', 'tbyte_flag', 'tcc_place_type_t', 'tcc_renderer_type_t',
         'tell', 'tempnam', 'term_database', 'term_ignore_micro',
         'term_plugins', 'term_process', 'terminate', 'terminate_function',
-        'terminate_handler', 'test_bit', 'tev_bpt', 'tev_call',
+        'terminate_handler', 'test_bit', 'testf_t', 'tev_bpt', 'tev_call',
         'tev_event', 'tev_insn', 'tev_max', 'tev_mem', 'tev_none',
         'tev_reg_values_t', 'tev_ret', 'tev_type_t', 'tevinfo_vec_t',
         'tevinforeg_vec_t', 'text_t', 'tgamma', 'tgammaf', 'tgammal',
@@ -29441,8 +29444,8 @@ def ctypeslib_define():
         'union_action_ctx_base_source_t', 'union_argloc_t_0',
         'union_argloc_t___F4A6A313BC9EA9730D72EF3AFDF761E4',
         'union_callui_t', 'union_cfgopt_t_0', 'union_cfgopt_t_1',
-        'union_cfgopt_t___072F956EBF1D0FA65345CBEA02E26438',
         'union_cfgopt_t___275FC9DDBA9D1187AC5032610B4D4F63',
+        'union_cfgopt_t___99DF67CCA67C584E9D46033DDA6FC151',
         'union_func_t_0',
         'union_func_t___C940058B2272AD9112E2141245617273',
         'union_idc_value_t_0',
