@@ -19,7 +19,9 @@ k = ida_kern.IDAKern()
 print(k.idadir(None))
 ```
 
-Loading takes 3~5 seconds currently, be patient ;)
+~Loading takes 3~5 seconds currently, be patient ;)~
+
+Now only takes 0.5 seconds to load!
 
 
 ## How does it work?
