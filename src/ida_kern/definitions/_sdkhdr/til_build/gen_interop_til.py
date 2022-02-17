@@ -177,9 +177,9 @@ def rewrite_ida_header(hdrLoc, outLoc):
     symbols = '\n'.join([c for c in symbols.splitlines() if '?' not in c])
     content = types + '\n\n' + symbols
 
-    TYPEDEF_BLACKLIST = ['_Mbstatet']
+    TYPEDEF_BLACKLIST = ['_Mbstatet', 'va_list']
     for typeName in TYPEDEF_BLACKLIST:
-        content = re.sub(r'\n(typedef .*? ' + typeName + ';)\n', '\n/*\\1*/\n', content)
+        content = re.sub(r'\n(typedef .*? [*]*?' + typeName + ';)\n', '\n/*\\1*/\n', content)
 
     # remove vft
     content = re.sub(r'\nstruct /\*VFT\*/ ((.*?_vtbl) {.*?};)\n', '\nstruct \\2; /* \\1*/\n', content)

@@ -24,6 +24,8 @@
 
 typedef char _Mbstatet;
 
+typedef void **va_list;
+
 //typedef struct _stat32 _stat32;
 //typedef struct _stat32i64 _stat32i64;
 //typedef struct _stat64 _stat64;
