@@ -1,2 +1,2 @@
-from .core import IDAKern
+from .core import IDAKern, IDAInfo
 from .exceptions import *
