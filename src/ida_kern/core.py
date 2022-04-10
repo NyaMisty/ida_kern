@@ -31,25 +31,34 @@ class IDAKern():
         return False
 
     def load_mods(self):
+        """
+        Load all modules with dependency in mind
+        :return: None
+        """
         hook_ctypes()
-        while True:
-            new_loaded = False
-            for mod in get_registered_mods():
-                if mod in self.loaded_mods:
-                    continue
-                if all(c in self.dlls for c in mod.dll_needed()):
-                    newdef = mod.load_definition(self.dlls, self.idainfo)
-                    self.defs.update(newdef)
-                    self.__dict__.update(newdef)
-                    self.loaded_mods.append(mod)
-                    new_loaded = True
+        try:
+            while True:
+                new_loaded = False
+                for mod in get_registered_mods():
+                    if mod in self.loaded_mods:
+                        continue
+                    if all(c in self.dlls for c in mod.dll_needed()):
+                        newdef = mod.load_definition(self.dlls, self.idainfo)
+                        self.defs.update(newdef)
+                        self.__dict__.update(newdef)
+                        self.loaded_mods.append(mod)
+                        new_loaded = True
 
-            if not self._on_defmod_loaded() and not new_loaded:
-                break
-
-        unhook_ctypes()
+                if not self._on_defmod_loaded() and not new_loaded:
+                    break
+        finally:
+            unhook_ctypes()
 
     def init(self):
+        """
+        Initialize IDA information & DLL info, then load modules
+        :return:
+        """
         if self.idainfo is None:
             self.idainfo = IDAInfo()
             self.add_dll('kernel', get_ida_kerndll())
