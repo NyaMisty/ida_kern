@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='ida_kern',
@@ -6,7 +6,7 @@ setup(
     description='Raw IDA Kernel API for IDAPython',
     author='NyaMisty',
     author_email='misty@misty.moe',
-    packages=['ida_kern'],
+    packages=find_packages('src'),
     package_dir={'': 'src'},
     install_requires=[],
 )
